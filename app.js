@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const userRoutes = require('./routes/userRoutes');
+const postRoutes = require('./routes/postRoutes');
 
 
 const app = express();
@@ -13,6 +15,10 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+app.use('/api',userRoutes);
+app.use('/api',postRoutes);
 
 const port = process.env.PORT || 8080;
 
