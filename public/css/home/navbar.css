@@ -1,0 +1,93 @@
+nav {
+    background-color: transparent;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-left: 30px;
+    padding-right: 30px;
+    border-bottom: 0.5px solid #ffffff87;
+
+    width: 100%;
+    height: 50px;
+}
+
+nav .logo-and-form {
+    display: flex;
+    align-items: center;
+}
+
+nav .main-logo {
+    height: 30px;
+    width: 90px;
+}
+
+nav form {
+    margin-left: 300px;
+    margin-right: auto;
+}
+
+nav form .search-bar {
+    width: 800px;
+    height: 25px;
+
+    border-radius: 20px;
+    padding: 10px;
+    border: none;
+    background-color: var(--search-bar-background);
+    color: var(--body-text-color);
+    outline: none;
+}
+
+nav form .search-bar:hover {
+    background-color: var(--search-bar-background-hover);
+}
+
+nav .get-app-and-login {
+    margin-right: 50px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+
+}
+
+nav .get-app-and-login .get-app {
+    height: 40px;
+    width: 100px;
+
+    border-radius: 20px;
+    background-color: var(--search-bar-background);
+    color: var(--body-text-color);
+    border: none;
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 15px;
+}
+
+nav .get-app-and-login .login {
+    height: 40px;
+    width: 100px;
+
+    border-radius: 20px;
+    background-color: var(--orange);
+    color: var(--body-text-color);
+    border: none;
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 15px;
+}
+
+nav .get-app-and-login .more {
+    height: 40px;
+    width: 40px;
+
+    border-radius: 20px;
+    background-color: var(--search-bar-background);
+    color: var(--body-text-color);
+    border: none;
+    cursor: pointer;
+
+    font-size: 15px;
+}

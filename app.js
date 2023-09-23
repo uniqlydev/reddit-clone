@@ -17,16 +17,18 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-app.use('/api',userRoutes);
-app.use('/api',postRoutes);
+// app.use('/api',userRoutes);
+// app.use('/api',postRoutes);
 
 const port = process.env.PORT || 8080;
 
 
 
 app.get('/', (req, res) => {
-    res.render('index');
+    res.render('home/home');
 });
+
+
 
 
 app.listen(port, () => {
