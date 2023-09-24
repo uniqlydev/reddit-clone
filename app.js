@@ -25,7 +25,18 @@ const port = process.env.PORT || 8080;
 
 
 app.get('/', (req, res) => {
-    res.render('home/home');
+    res.render('home/home', {
+        subreddits: [
+            'Payday',
+            'Minecraft',
+            'GTA'
+        ],
+        descs: [
+            'Payday is a game',
+            'Minecraft is a game',
+            'GTA is a game'
+        ]
+    });
 });
 
 

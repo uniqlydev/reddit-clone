@@ -19,5 +19,43 @@ body {
 
 
 
+.container {
+    display: flex; 
+    align-items: flex-start; 
+}
+
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px; 
+}
+
+.scrollable-subreddits {
+    border: 1px solid red;
+    padding: 20px;
+    width: 75%;
+}
+
+.scrollable-subreddits .subreddit-container {
+    border: 1px solid blue;
+}
+
+/* Make ul list sidewards */
+.scrollable-subreddits ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    gap: 40px;
+}
+
+
+
+
 
 
