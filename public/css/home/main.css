@@ -2,10 +2,13 @@
     /* Define adding color palette */
     --background: #0b1416; 
     --body-text-color: #ffffff;
+    --header-text: #7c8e94;
 
     --search-bar-background: #1a282d;
     --search-bar-background-hover: #223237;
     --orange: #d93a01;
+
+
 }
 
 body {

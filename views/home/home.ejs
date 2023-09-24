@@ -6,6 +6,7 @@
     <title>Reddit - Dive Deep!</title>
     <link rel="stylesheet" href="css/home/main.css">
     <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
@@ -14,5 +15,65 @@
 <body>
     <!-- Navbar -->
     <%- include('partials/navbar.ejs')%>
+
+    <!-- Side-bar -->
+    <aside>
+        <ul>
+            <li>
+                <div class="navigation-portion">
+                    <ul>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/home-button.png" alt="" srcset=""></span>Home</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Popular</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </li>
+            <li>
+                <div class="topics-portion">
+                    <ul>
+                        <h3>Topics</h3>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/home-button.png" alt="" srcset=""></span>Gaming</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Sports</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Business</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Crypto</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Television</a>
+                            </div>
+                        </li>
+                        <li>
+                            <div class="button-container">
+                                <a><span><img src="assets/home/popular-button.png" alt="" srcset=""></span>Celebrity</a>
+                            </div>
+                        </li>
+                        <h4>See more</h4>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    </aside>
 </body>
 </html>
