@@ -31,10 +31,19 @@ nav form .search-bar {
 
     border-radius: 20px;
     padding: 10px;
+    padding-left: 50px;
+    padding-right: 20px;
     border: none;
     background-color: var(--search-bar-background);
     color: var(--body-text-color);
     outline: none;
+
+
+    background-image: url('../../assets/navbar/search-icon.png');
+    background-size: 30px 30px; /* Set the size of the icon */
+    background-repeat: no-repeat;
+    background-position: 10px center; /* Adjust the position of the icon */
+
 }
 
 nav form .search-bar:hover {
