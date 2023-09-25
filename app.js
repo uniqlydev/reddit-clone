@@ -23,19 +23,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 const port = process.env.PORT || 8080;
 
 
-
+// Will serve as the homepage
 app.get('/', (req, res) => {
     res.render('home/home', {
         subreddits: [
-            'Payday',
-            'Minecraft',
-            'GTA'
+
+            // These are test data to simulate dynamics
+            {
+                heading: "Taylor Swift and Travis Scott",
+                subheading: "Taylor Swift and Travis Scott are dating!",
+                subreddit : "/fauxmau",
+            },
+            {
+                heading: "F1 2021 Season won't push through",
+                subheading: "F1 2021 Season won't push through due to COVID-19",
+                subreddit : "/formula1",
+            }
         ],
-        descs: [
-            'Payday is a game',
-            'Minecraft is a game',
-            'GTA is a game'
-        ]
     });
 });
 

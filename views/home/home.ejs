@@ -24,40 +24,21 @@
 
             <div class="scrollable-subreddits">
                 <ul>
-                    <li>
+                    <!-- Dynamically generated from the rendered, "subreddits" -->
+                    <% subreddits.forEach((subreddit, index) => { %>
+                      <li id="subreddit-<%= index %>">
                         <div class="subreddit-container">
-                            <di>
-                                <img src="assets/home/tennis-button.png" alt="" srcset="">
-                            </di>
-                            <div class="subreddit-name">
-                                <h3> <%= subreddits[0] %></h3>
-                                <p> <%= descs[0]  %></p>
-                            </div>
+                          <div>
+                            <img src="assets/home/tennis-button.png" alt="" srcset="">
+                          </div>
+                          <div class="subreddit-name">
+                            <h3><%= subreddit.heading %></h3>
+                            <p><%= subreddit.subheading %></p>
+                          </div>
                         </div>
-                    </li>
-                    <li>
-                        <div class="subreddit-container">
-                            <di>
-                                <img src="assets/home/tennis-button.png" alt="" srcset="">
-                            </di>
-                            <div class="subreddit-name">
-                                <h3> <%= subreddits[0] %></h3>
-                                <p> <%= descs[0]  %></p>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="subreddit-container">
-                            <di>
-                                <img src="assets/home/tennis-button.png" alt="" srcset="">
-                            </di>
-                            <div class="subreddit-name">
-                                <h3> <%= subreddits[0] %></h3>
-                                <p> <%= descs[0]  %></p>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+                      </li>
+                    <% }) %>
+                  </ul>
             </div>
         </div>
     </div>
