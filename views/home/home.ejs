@@ -6,6 +6,7 @@
     <title>Reddit - Dive Deep!</title>
     <link rel="stylesheet" href="css/home/main.css">
     <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
@@ -14,5 +15,32 @@
 <body>
     <!-- Navbar -->
     <%- include('partials/navbar.ejs')%>
+    <div class="container">
+        <!-- Side-bar -->
+        <%- include('partials/sidebar.ejs')%>
+
+
+        <div class="main-content">
+
+            <div class="scrollable-subreddits">
+                <ul>
+                    <!-- Dynamically generated from the rendered, "subreddits" -->
+                    <% subreddits.forEach((subreddit, index) => { %>
+                      <li id="subreddit-<%= index %>">
+                        <div class="subreddit-container">
+                          <div>
+                            <img src="assets/home/tennis-button.png" alt="" srcset="">
+                          </div>
+                          <div class="subreddit-name">
+                            <h3><%= subreddit.heading %></h3>
+                            <p><%= subreddit.subheading %></p>
+                          </div>
+                        </div>
+                      </li>
+                    <% }) %>
+                  </ul>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

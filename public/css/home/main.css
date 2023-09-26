@@ -2,10 +2,13 @@
     /* Define adding color palette */
     --background: #0b1416; 
     --body-text-color: #ffffff;
+    --header-text: #7c8e94;
 
     --search-bar-background: #1a282d;
     --search-bar-background-hover: #223237;
     --orange: #d93a01;
+
+
 }
 
 body {
@@ -13,6 +16,44 @@ body {
     color: var(--body-text-color);
     font-family: 'IBM Plex Sans', sans-serif;
 }
+
+
+
+.container {
+    display: flex; 
+    align-items: flex-start; 
+}
+
+
+.main-content {
+    flex-grow: 1;
+    padding: 20px; 
+}
+
+.scrollable-subreddits {
+    border: 1px solid red;
+    padding: 20px;
+    width: 75%;
+}
+
+.scrollable-subreddits .subreddit-container {
+    border: 1px solid blue;
+}
+
+/* Make ul list sidewards */
+.scrollable-subreddits ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    gap: 40px;
+}
+
 
 
 
