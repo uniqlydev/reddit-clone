@@ -20,6 +20,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // app.use('/api',userRoutes);
 // app.use('/api',postRoutes);
 
+require('dotenv').config();
 const port = process.env.PORT || 8080;
 
 
