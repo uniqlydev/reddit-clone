@@ -31,14 +31,58 @@ body {
 }
 
 .scrollable-subreddits {
-    border: 1px solid red;
     padding: 20px;
     width: 75%;
 }
 
 .scrollable-subreddits .subreddit-container {
-    border: 1px solid blue;
+    background-image: url("https://media.formula1.com/image/upload/content/dam/fom-website/manual/Misc/2022manual/GettyImages-1437759309.jpg");
+    background-size: cover;
+    /* add shadows to bg pic */
+    box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
+
+
+    width: 300px;
+    height: 200px;
+
+    padding: 10px;
+
+    border-radius: 20px;
+
+    cursor: pointer;
 }
+
+.scrollable-subreddits .subreddit-container .subreddit-name {
+    color: white;
+    height: 100%;
+    width: 100%;
+
+
+    /* Make all elements at the bottom */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: flex-start;
+    align-content: flex-end;
+} 
+
+.scrollable-subreddits .subreddit-container .subreddit-name h3 {
+    font-size: 30px;
+    font-weight: bolder;
+    color: white;
+} 
+
+.scrollable-subreddits .subreddit-container .subreddit-name .sub {
+    color: white;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.scrollable-subreddits .subreddit-container .subreddit-name span {
+    color: gray;
+    font-weight: normal;
+} 
+
 
 /* Make ul list sidewards */
 .scrollable-subreddits ul {
@@ -53,7 +97,6 @@ body {
     margin: 10px;
     gap: 40px;
 }
-
 
 
 
