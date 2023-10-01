@@ -44,8 +44,20 @@ app.get('/', (req, res) => {
     });
 });
 
-
-
+// Profile page
+app.get('/profile', (req, res) => {
+    res.render('home/profile', {
+        posts: [
+            {
+                id: 100,
+                username: "machew",
+                bio: "i am machew",
+                avatar: "avatar here",
+                karma: 1
+            }
+        ],
+    });
+});
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
