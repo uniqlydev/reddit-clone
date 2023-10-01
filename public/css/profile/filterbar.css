@@ -1,9 +1,14 @@
 #filter-bar {
     width: 40%;
     height: 100%;
-    margin-left: 21.5%;
+    margin-left: 23%;
+    margin-top: 1%;
     display: flex;
     flex-direction: row;
+    width: 40%;
+    height: 50px;
+    border: 1px solid #343536;
+    border-radius: 10px;
 }
 
 .filter-type {
@@ -18,9 +23,9 @@
 .filter-button-type {
     border: none;
     background: none;
-    color: #c0c2c4;
+    color: #818384;
     font-size: 1em;
-    height: 100%;
+    height: 75%;
     width: 100%;
     display: flex;
     justify-content: center;
@@ -33,20 +38,9 @@
     border-radius: 10px;
 }
 
-#new-icon {
+.icons {
     width: 1.75em;
     height: 1.75em;
     filter: invert(100%);
-}
-
-#hot-icon {
-    width: 1.75em;
-    height: 1.75em;
-    filter: invert(100%);
-}
-
-#top-icon {
-    width: 1.75em;
-    height: 1.75em;
-    filter: invert(100%);
+    padding-right: 10%;
 }

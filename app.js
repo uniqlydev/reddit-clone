@@ -47,7 +47,7 @@ app.get('/', (req, res) => {
 // Profile page
 app.get('/profile', (req, res) => {
     res.render('home/profile', {
-        posts: [
+        profile: [
             {
                 id: 100,
                 username: "machew",
