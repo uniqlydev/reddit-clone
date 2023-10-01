@@ -31,13 +31,13 @@ app.get('/', (req, res) => {
 
             // These are test data to simulate dynamics
             {
-                heading: "Taylor Swift and Travis Scott",
+                heading: "Taylor Swift and...",
                 subheading: "Taylor Swift and Travis Scott are dating!",
                 subreddit : "/fauxmau",
             },
             {
-                heading: "F1 2021 Season won't push through",
-                subheading: "F1 2021 Season won't push through due to COVID-19",
+                heading: "F1 2021 Season..",
+                subheading: "F1 2021 Season won't push through due..",
                 subreddit : "/formula1",
             }
         ],
