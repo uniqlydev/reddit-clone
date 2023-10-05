@@ -1,0 +1,85 @@
+/* Make list horizontal */
+.main-frame ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    gap: 40px;
+}
+
+
+.action-bar {
+    /* Have 2 divs side by side in the inside */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: flex-start;
+    align-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    width: 75%;
+}
+
+.right {
+    /* Center vertically  all elements and make all elements side by side*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: flex-end;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+
+    /* Remove gap per div */
+    gap: 0px;
+}
+
+.left {
+    /* Center vertically  all elements and make all elements side by side*/
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    list-style: none;
+    padding: 10px;
+    margin: 10px;
+    gap: 40px;
+}
+
+.main-frame .sort-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    align-items: flex-start;
+    align-content: flex-start;
+}
+
+.action-bar button {
+    background-color: transparent;
+    border: 1px var(--body-text-color) solid;
+    padding: 10px;
+    border-radius: 15px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.action-bar .right button{
+    color: var(--header-text);
+    border: none;
+    background-color: transparent;
+    font-size: 15px;
+    font-weight: 400;
+}
