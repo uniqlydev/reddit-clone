@@ -1,14 +1,11 @@
 :root {
-    /* Define adding color palette */
+    /* Define color palette */
     --background: #0b1416; 
     --body-text-color: #ffffff;
     --header-text: #7c8e94;
-
     --search-bar-background: #1a282d;
     --search-bar-background-hover: #223237;
     --orange: #d93a01;
-
-
 }
 
 body {
@@ -17,13 +14,10 @@ body {
     font-family: 'IBM Plex Sans', sans-serif;
 }
 
-
-
 .container {
     display: flex; 
     align-items: flex-start; 
 }
-
 
 .main-content {
     flex-grow: 1;
@@ -33,22 +27,32 @@ body {
 .scrollable-subreddits {
     padding: 20px;
     width: 75%;
+    overflow-x: auto; /* Make it scroll horizontally */
+    white-space: nowrap; 
+}
+
+.scrollable-subreddits ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: row; /* Display items in a row */
+    flex-wrap: nowrap; /* Prevent items from wrapping */
+    gap: 20px; /* Adjust the spacing between items */
+}
+
+.scrollable-subreddits li {
+    flex: 0 0 auto; /* Prevent items from growing/shrinking */
 }
 
 .scrollable-subreddits .subreddit-container {
     background-image: url("https://media.formula1.com/image/upload/content/dam/fom-website/manual/Misc/2022manual/GettyImages-1437759309.jpg");
     background-size: cover;
-    /* add shadows to bg pic */
     box-shadow: inset 0 0 0 1000px rgba(0, 0, 0, 0.5);
-
-
     width: 300px;
     height: 200px;
-
     padding: 10px;
-
     border-radius: 20px;
-
     cursor: pointer;
 }
 
@@ -56,15 +60,11 @@ body {
     color: white;
     height: 100%;
     width: 100%;
-
-
-    /* Make all elements at the bottom */
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
     align-items: flex-start;
-    align-content: flex-end;
-} 
+}
 
 .scrollable-subreddits .subreddit-container .subreddit-name h3 {
     font-size: 30px;
@@ -81,24 +81,4 @@ body {
 .scrollable-subreddits .subreddit-container .subreddit-name span {
     color: gray;
     font-weight: normal;
-} 
-
-
-/* Make ul list sidewards */
-.scrollable-subreddits ul {
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: flex-start;
-    align-items: flex-start;
-    align-content: flex-start;
-    list-style: none;
-    padding: 10px;
-    margin: 10px;
-    gap: 40px;
 }
-
-
-
-
-
