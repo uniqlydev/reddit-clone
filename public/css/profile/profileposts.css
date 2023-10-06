@@ -1,6 +1,6 @@
 #profile-posts {
-    width: 39.8%;
-    margin-left: 23.2%;
+    width: 39.5%;
+    margin-left: 23%;
     margin-top: 10px;
 }
 
@@ -10,6 +10,7 @@
     border-radius: 10px;
     display: flex;
     flex-direction: row;
+    padding: 5px;
 }
 
 .vote {
@@ -45,12 +46,15 @@
     margin-bottom: 4px;
 }
 
+.post-container {
+    display: flex;
+    flex-direction: column;
+}
+
 .post-details {
     display: flex;
     flex-direction: row;
     width: 100%;
-
-    border: 1px solid blue;
 }
 
 .post-location {
@@ -61,9 +65,30 @@
     margin: 5px;
 }
 
-.post-information {
+.post-header {
+    margin: 5px;
+    font-size: 24px;
+}
+
+.post-body {
+    margin: 5px;
+    font-size: 16px;
+}
+
+.post-actions {
     display: flex;
     flex-direction: row;
+    margin-top: 5px;
+}
 
-    border: 1px solid red;
+.buttons {
+    margin-right: 20px;
+    border-radius: 7.5px;
+    background: none;
+    border: none;
+    color: white;
+}
+
+.buttons:hover {
+    background-color: #262626;
 }
