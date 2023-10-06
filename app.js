@@ -39,6 +39,11 @@ app.get('/', (req, res) => {
                 heading: "F1 2021 Season..",
                 subheading: "F1 2021 Season won't push through due..",
                 subreddit : "/formula1",
+            },
+            {
+                heading: "F1 2021 Season..",
+                subheading: "F1 2021 Season won't push through due..",
+                subreddit : "/formula1",
             }
         ],
     });
