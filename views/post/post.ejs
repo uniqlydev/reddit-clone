@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/home/navbar.css">
     <link rel="stylesheet" href="css/home/Side-bar.css">
     <link rel="stylesheet" href="css/post/suggested-sidebar.css">
-    <link rel="stylesheet" href="css/home/post.css">
+    <link rel="stylesheet" href="css/post/post.css">
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
@@ -22,8 +22,27 @@
         <%- include('../home/partials/sidebar.ejs')%>
 
 
-        <div class="main-content">
-            
+        <div class="main-content" style="background-color: blue;">
+            <div class="main-post">
+                <div class="credit-bar">
+                    <span class="icon">
+                        <img src="https://styles.redditmedia.com/t5_2qo4s/styles/communityIcon_1podsfdai4301.png">
+                    </span>
+                    <div class="post-info">
+                            <div class="upper-post-info">
+                                <span class="">r/nba</span>
+                                <span class="">•</span>
+                                <span class="timestamp">11 days ago</span>
+                            </div>
+                            <div class="lower-post-info">
+                                by
+                                <a href="" class="title-username">CCAPDEV-sample</span>
+                            </div>
+                    </div>
+                    <button class="join-subreddit">Join</button>
+                    <button class="threedots">Three dots</button>
+                </div>
+            </div>
         </div>
 
         <%- include('../post/partials/suggested-sidebar.ejs')%>
