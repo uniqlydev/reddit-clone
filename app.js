@@ -60,7 +60,7 @@ app.get('/profile', (req, res) => {
 });
 
 // Profile Edit page
-app.get('/profile/edit', (req, res) => {
+app.get('/profile-edit', (req, res) => {
     res.render('home/profileEdit', {
         profile: [
             {

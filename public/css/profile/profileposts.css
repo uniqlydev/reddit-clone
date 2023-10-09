@@ -92,3 +92,10 @@
 .buttons:hover {
     background-color: #262626;
 }
+
+.post-click {
+    background: none;
+    border: none;
+    color: white;
+    text-decoration: none;
+}

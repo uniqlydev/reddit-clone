@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="css/home/main.css">
     <link rel="stylesheet" href="css/home/navbar.css">
     <link rel="stylesheet" href="css/home/Side-bar.css">
+    <link rel="stylesheet" href="css/profile/edit/profileEdit.css">
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
@@ -14,7 +15,20 @@
     <body>
         <!-- Navbar -->
         <%- include('partials/navbar.ejs')%>
-        <!-- Profile bar -->
-        <%- include('profile/partials/profilebar.ejs')%>
+        <!-- Edit Page -->
+        <div class="edit-container">
+            <div class="edit-form">
+                <span class="header-title">Edit Profile</span>
+                <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
+                <input type="file" id="img-upload" name="img" accept="image/*">
+                <div id="action-buttons">
+                    <button type="submit" id="cancel-button" class="actions">Cancel</button>
+                    <button type="submit" id="save-button" class="actions">Save</button>
+                </div>
+            </div>
+            <div class="edit-preview">
+                <span class="header-title">Profile Preview</span>
+            </div>
+        </div>
     </body>
 </html>
