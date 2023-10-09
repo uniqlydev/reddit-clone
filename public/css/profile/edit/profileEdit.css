@@ -1,7 +1,7 @@
 .edit-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    width: 75%;
+    width: 65%;
     margin: 0 auto;
     margin-top: 50px;
     justify-content: center;
@@ -25,6 +25,34 @@
     margin: 10px;
     border: 2px solid #474748;
     border-radius: 10px;
+}
+
+#profile-details {
+    display: flex;
+    flex-direction: row;
+}
+
+#profile-picture img {
+    width: 135px;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+#profile-description {
+    display: flex;
+    flex-direction: column;;
+}
+
+#username {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#bio {
+    margin: 10px;
+    font-size: 16px;
+    font-weight: lighter;
 }
 
 #action-buttons {
