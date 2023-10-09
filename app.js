@@ -46,6 +46,35 @@ app.get('/', (req, res) => {
                 subreddit : "/formula1",
             }
         ],
+
+        posts: [
+            {
+                title: "What's your expensive hobby?",
+                subreddit: "r/Philippines",
+                description: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
+                upvotes: "20",
+                comments: "10",
+                downvotes: "5",
+            },
+            {
+                title: "Favorite Travel Destinations",
+                subreddit: "r/Travel",
+                description: "Share your favorite travel destinations and why you love them.",
+                upvotes: "35",
+                comments: "15",
+                downvotes: "7",
+            },
+            {
+                title: "Cooking Enthusiasts Unite!",
+                subreddit: "r/Food",
+                description: "Discuss your favorite recipes, cooking tips, and culinary adventures.",
+                upvotes: "28",
+                comments: "12",
+                downvotes: "3",
+            },
+            // Add more test data objects here
+        ]
+        
     });
 });
 
