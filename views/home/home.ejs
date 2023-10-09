@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="css/home/navbar.css">
     <link rel="stylesheet" href="css/home/Side-bar.css">
     <link rel="stylesheet" href="css/home/main-frame.css">
+    <link rel="stylesheet" href="css/home/posts.css">
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
@@ -58,6 +59,42 @@
                 </div>
               </div>
             </div>
+
+            <div class="posts">
+              <ul>
+                  <% for (let i = 0; i < posts.length; i++) { %>
+                  <li class="post-container">
+                      <div class="post">
+                          <p class="sub-reddit">
+                              <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts[i].subreddit %>
+                          </p>
+          
+                          <h1><%= posts[i].title %></h1>
+                          <p class="description"><%= posts[i].description %></p>
+          
+                          <div class="operations">
+                              <ul>
+                                  <li>
+                                      <div class="up-down-vote">
+                                          <button><img src="assets/home/posts/arrow.png" alt=""></button>
+                                          <p><%= posts[i].upvotes %>k</p>
+                                          <button><img src="assets/home/posts/arrow.png" alt=""></button>
+                                      </div>
+                                  </li>
+          
+                                  <li>
+                                      <div class="comment-button">
+                                          <button><img src="assets/home/posts/comment.png" alt=""></button>
+                                          <p><%= posts[i].comments %>k</p>
+                                      </div>
+                                  </li>
+                              </ul>
+                          </div>
+                      </div>
+                  </li>
+                  <% } %>
+              </ul>
+          </div>
         </div>
     </div>
 </body>

@@ -1,0 +1,154 @@
+.posts {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.posts ul {
+    list-style: none;
+    padding-left: 40px;
+    width: 900px;
+}
+
+.posts .post-container {
+    border-radius: 15px;
+    cursor: pointer;
+}
+
+.posts .post-container:hover {
+    background-color: var(--search-bar-background);
+    transition: background-color 0.5s ease;
+}
+
+.posts li {
+    margin-bottom: 20px;
+}
+.posts li .post {
+    padding: 10px;
+}
+
+.posts .sub-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ccc;
+    margin-right: 10px;
+
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.posts .sub-reddit {
+    font-size: 12px;
+    color: var(--header-text);
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.posts h1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: var(--body-text-color);
+}
+
+.posts .description {
+    font-size: 15px;
+    color: var(--header-text);
+}
+
+/* List horzintally */
+.operations ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.operations li {
+    padding: 10px;
+    margin: 0;
+}
+
+.comment-button {
+    /* Make elements horinztally aligned */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+
+    background-color: var(--search-bar-background);
+    border-radius: 10px;
+}
+
+.comment-button button {
+    background-color: transparent;
+    border: none;
+    color: var(--header-text);
+    font-size: 12px;
+    cursor: pointer;
+
+    width: 20px;
+    height: 20px;
+}
+
+.comment-button button img {
+    width: 20px;
+    height: 20px;
+}
+
+.comment-button p {
+    padding-left: 10px;
+}
+
+
+
+.posts .operations .up-down-vote button {
+    /* Transparent bg make width 20 and height 20 */
+    background-color: transparent;
+    border: none;
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+    padding-right: 15px;
+}
+
+.posts .operations .up-down-vote button img {
+    width: 12px;
+    height: 12px;
+}
+
+.posts .operations p {
+    font-size: 12px;
+    color: var(--header-text);
+
+}
+
+.posts .up-down-vote {
+    /* Make all elements list horizontally all in the same line */
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    align-content: flex-start;
+    list-style: none;
+    padding: 5px;
+    margin: 0;
+
+
+    background-color: var(--search-bar-background);
+    border-radius: 10px;
+
+
+    
+}
+
