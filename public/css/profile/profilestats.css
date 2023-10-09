@@ -1,5 +1,5 @@
 #profilestats {
-    height: 500px;
+    height: 550px;
     width: 25%;
     float: right;
     margin-right: 10%;
@@ -10,6 +10,13 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+}
+
+#bio-page {
+    padding-top: 6px;
+    font-size: 14px;
+    color: gray;
+    font-style: italic;
 }
 
 #style-avatar {

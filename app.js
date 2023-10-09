@@ -59,6 +59,21 @@ app.get('/profile', (req, res) => {
     });
 });
 
+// Profile Edit page
+app.get('/profile/edit', (req, res) => {
+    res.render('home/profileEdit', {
+        profile: [
+            {
+                id: 100,
+                username: "machew",
+                bio: "i am machew",
+                avatar: "avatar here",
+                karma: 1
+            }
+        ],
+    });
+});
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
