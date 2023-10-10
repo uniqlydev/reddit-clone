@@ -15,6 +15,10 @@ nav .logo-and-form {
     align-items: center;
 }
 
+nav .logo-and-form img {
+    cursor: pointer;
+}
+
 nav .main-logo {
     height: 30px;
     width: 90px;

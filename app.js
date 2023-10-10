@@ -78,18 +78,32 @@ app.get('/', (req, res) => {
     });
 });
 
-// Profile page
+
+// You can add more test data here (I'm just waiting for the login)
+const getUserDataByUsername = (username) => {
+    return [
+        {
+            id: 100,
+            username: "Machewww",
+            bio: "i am machew, a self-taught programmer currently in DLSU",
+            memberSince: "4y",
+            bday: "November 25, 2019",
+            memberURL: "u/Machewww",
+            avatar: "avatar here",
+            karma: 1
+        }
+    ];
+}
+
 app.get('/profile', (req, res) => {
+    const username = req.query.username; 
+    const user = getUserDataByUsername(username); 
+
+
+    console.log(user[0].bio)
+
     res.render('home/profile', {
-        profile: [
-            {
-                id: 100,
-                username: "machew",
-                bio: "i am machew",
-                avatar: "avatar here",
-                karma: 1
-            }
-        ],
+        profile: user, 
     });
 });
 
