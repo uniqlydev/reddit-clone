@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Profile Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/home/main.css">
+        <link rel="stylesheet" href="css/home/navbar.css">
+        <link rel="stylesheet" href="css/home/Side-bar.css">
+        <link rel="stylesheet" href="css/profile/profilebar.css">
+        <link rel="stylesheet" href="css/profile/filterbar.css">
+        <link rel="stylesheet" href="css/profile/profilestats.css">
+        <link rel="stylesheet" href="css/profile/profileposts.css">
+        <!-- For the font style -->
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
+        <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+    </head>
+    <body>
+        <!-- Navbar -->
+        <%- include('partials/navbar.ejs')%>
+        <!-- Profile bar -->
+        <%- include('profile/partials/profilebar.ejs')%>
+        <!-- Filter bar -->
+        <%- include('profile/partials/filterbar.ejs')%>
+        <!-- Profile stats -->
+            <!-- Static information on the ejs partial -->
+        <%- include('profile/partials/profilestats.ejs')%>
+        <!-- Profile posts -->
+            <!-- Static information on the ejs partial -->
+        <%- include('profile/partials/profileposts.ejs')%>
+    </body>
+</html>

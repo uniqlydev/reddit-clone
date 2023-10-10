@@ -1,0 +1,111 @@
+.edit-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    width: 65%;
+    margin: 0 auto;
+    margin-top: 50px;
+    justify-content: center;
+
+    /* border: 1px solid red; */
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border: 2px solid #474748;
+    border-radius: 10px;
+}
+
+.edit-preview {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 10px;
+    border: 2px solid #474748;
+    border-radius: 10px;
+}
+
+#profile-details {
+    display: flex;
+    flex-direction: row;
+}
+
+#profile-picture img {
+    width: 135px;
+    border-radius: 10px;
+    margin: 15px;
+}
+
+#profile-description {
+    display: flex;
+    flex-direction: column;;
+}
+
+#username {
+    margin: 10px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+#bio {
+    margin: 10px;
+    font-size: 16px;
+    font-weight: lighter;
+}
+
+#action-buttons {
+    display: flex;
+    flex-direction: row;
+}
+
+.header-title {
+    margin: 15px;
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#edit-bio {
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 85%;
+    height: auto;
+    min-height: 100px;
+    max-height: 200px;
+    resize: vertical;
+    border-radius: 5px;
+    filter: opacity(80%);
+}
+
+#edit-bio:focus {
+    filter: opacity(100%);
+}
+
+#img-upload {
+    margin: 10px;
+    width: 85%;
+    font-size: 16px;
+}
+
+.actions {
+    margin: 10px;
+    width: 175px;
+    height: 50px;
+    font-size: 16px;
+    font-weight: bolder;
+    border: none;
+    border-radius: 20px;
+}
+
+.actions:hover {
+    filter: brightness(80%);
+}
+
+#cancel-button {
+    background-color: rgb(254, 108, 108);
+}
+
+#save-button {
+    background-color: rgb(124, 255, 124);
+}

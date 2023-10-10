@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Edit</title>
+    <link rel="stylesheet" href="css/home/main.css">
+    <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
+    <link rel="stylesheet" href="css/profile/edit/profileEdit.css">
+    <!-- For the font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
+    <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+</head>
+    <body>
+        <!-- Navbar -->
+        <%- include('partials/navbar.ejs')%>
+        <!-- Edit Page -->
+        <div class="edit-container">
+            <div class="edit-form">
+                <span class="header-title">Edit Profile</span>
+                <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
+                <input type="file" id="img-upload" name="img" accept="image/*">
+                <div id="action-buttons">
+                    <button type="submit" id="cancel-button" class="actions" onclick="window.location.href='/profile'">Cancel</button>
+                    <button type="submit" id="save-button" class="actions" onclick="window.location.href='/profile'">Save</button>
+                </div>
+            </div>
+            <div class="edit-preview">
+                <span class="header-title">Profile Preview</span>
+                <div id="profile-details">
+                    <div id="profile-picture">
+                        <img src="https://e0.pxfuel.com/wallpapers/906/85/desktop-wallpaper-wide-mouth-singing-cat-pop-cat-pop-cat-cat-memes-cat-profile-popcat-thumbnail.jpg" alt="Profile Picture" />
+                    </div>
+                    <div id="profile-description">
+                        <span id="username">Machew</span>
+                        <span id="bio">A 3rd year BSIT student of DLSU currently taking up CCAPDEV. Learning more programming languages along the way and always on the lookout for chinitas in my area.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

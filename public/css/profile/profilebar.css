@@ -1,0 +1,25 @@
+#profile-bar {
+    display: flex;
+    flex-direction: row;
+    padding-left: 20%;
+    height: 100%;
+}
+
+.profile-type {
+    padding-left: 1.5%;
+    color: #c0c2c4;
+}
+
+.button-type {
+    border: none;
+    background: none;
+    color: #d2d5d7;
+    font-size: 1em;
+    text-transform: uppercase;
+    height: 100%;
+}
+
+.button-type:hover {
+    color: #f5f5f5;
+    border-bottom: 1px solid #f5f5f5;
+}
