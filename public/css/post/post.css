@@ -5,7 +5,7 @@
 
 .credit-bar {
     display: flex;
-    justify-content:space-between;
+    align-items: center;
 }
 
 .icon > img {
@@ -37,12 +37,8 @@
     width: 2.7rem;
 }
 
-.credit-bar {
-    margin-right: auto;
-}
-
 .credit-bar > button {
-    margin-left: auto;
+    justify-content: end;
 }
 
 .post-info {
@@ -51,4 +47,95 @@
     width: 100%-32px;
     margin-right: auto;
     margin-left: 0.5rem;
+}
+
+.main-content {
+    margin-left: 7rem;
+    margin-right: 7rem;
+}
+
+h1 {
+    font-size:1.125rem;
+    line-height: 1.5rem;
+}
+
+.post-link {
+    border: 1px solid #242c2e;
+    border-radius: 16px;
+    position: relative;
+    margin-bottom: .5rem;
+    padding: 1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.post-link > .link {
+    color: var(--color-neutral-content-weak);
+    font-size: 14px;
+}
+
+.post-link > .link:hover {
+    text-decoration: underline;
+}
+
+.post-link > button {
+    width: 4rem;
+    height: 2.5rem;
+    background-color: transparent;
+    padding: 0 14px 0 14px;
+    color: var(--color-neutral-content);
+    border-radius: 999px;
+    border: 1px solid #858a8b;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 575;
+}
+
+.post-link > button:hover {
+    border-color: #f2f4f5;
+}
+
+.post-link > button:active {
+    background-color: #323a3b;
+}
+
+.user-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: center;
+    font-size: 14px;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    height: 3rem;
+}
+
+
+.user-actions > button, .vote > button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 999px;
+    padding: 0.35rem 1rem 0.35rem 1rem;
+    border: 0.1rem solid #1a282d;
+    background-color: #1a282d;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 575;
+}
+
+
+.user-actions > button:hover {
+    background-color: #223237;
+}
+
+.user-actions > button:active {
+    border-color: #223237;
+    border-style: solid;
+    background-color: #465357;
+}
+
+.user-actions > .vote {
+
 }
