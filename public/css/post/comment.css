@@ -1,0 +1,27 @@
+.comments-add > button {
+    display: flex;
+    align-items: center;
+    gap:.5em;
+    height: 2.5rem;
+    background-color: transparent;
+    padding: 0 14px 0 14px;
+    color: var(--color-neutral-content);
+    border-radius: 999px;
+    border: 1px solid #858a8b;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.comments-add > button:hover {
+    border-color: #f2f4f5;
+}
+
+.comments-add > button:active {
+    background-color: #323a3b;
+}
+
+.comment-info > .username {
+    text-decoration: none;
+    color:white;
+}

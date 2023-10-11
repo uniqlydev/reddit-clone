@@ -37,6 +37,21 @@
     width: 2.7rem;
 }
 
+.threedots {
+    background: none;
+    color: #F2F2F2;
+    border-radius: 50%;
+    border-color:transparent;
+}
+
+.threedots:hover {
+    background-color: #223237;
+}
+
+.threedots:active {
+    background-color: #323a3b;
+}
+
 .credit-bar > button {
     justify-content: end;
 }
@@ -52,6 +67,10 @@
 .main-content {
     margin-left: 7rem;
     margin-right: 7rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    gap: 3rem;
 }
 
 h1 {
@@ -64,7 +83,7 @@ h1 {
     border-radius: 16px;
     position: relative;
     margin-bottom: .5rem;
-    padding: 1rem;
+    padding: 0.5rem 1rem;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -103,39 +122,55 @@ h1 {
 .user-actions {
     display: flex;
     gap: 0.75rem;
-    align-items: center;
+    align-items: stretch;
     font-size: 14px;
     justify-content: start;
     flex-wrap: nowrap;
     overflow: hidden;
-    height: 3rem;
+    height: 2rem;
 }
 
-
-.user-actions > button, .vote > button {
+.user-actions > * {
     display: inline-flex;
     align-items: center;
     gap: 0.5rem;
-    border-radius: 999px;
-    padding: 0.35rem 1rem 0.35rem 1rem;
+    border-radius: 9999px;
+    padding: 0 1rem 0 1rem;
     border: 0.1rem solid #1a282d;
     background-color: #1a282d;
     color: white;
-    font-size: 0.75rem;
-    font-weight: 575;
 }
 
+.vote {
+    display: flex;
+    gap:0;
+    padding: 0;
+    align-items: center;
+}
 
-.user-actions > button:hover {
+.vote > button {
+    height: 2rem;
+    width: 2rem;
+    font-size: 0.75rem;
+    font-weight: 575;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.user-actions > button:hover, .vote > button:hover {
     background-color: #223237;
+}
+
+.user-actions > button:active, .vote > button:active {
+    background-color: #465357;
 }
 
 .user-actions > button:active {
     border-color: #223237;
     border-style: solid;
-    background-color: #465357;
 }
 
-.user-actions > .vote {
-
+.vote > button {
+    border-radius: 50%;
 }
