@@ -174,3 +174,36 @@ h1 {
 .vote > button {
     border-radius: 50%;
 }
+
+.post-sprite {
+    background-image: url("../../assets/posts/post-sprite.png");
+    display: inline-block;
+    height: 20px;
+}
+
+.post-sprite.comment-action {
+    width: 20px;
+}
+
+.post-sprite.share {
+    width:20px;
+    background-position-x: -20px;
+}
+
+.post-sprite.upvote {
+    width: 15px;
+    background-position-x: -40px;
+}
+
+.upvote:hover {
+    background-position-x: -55px;
+}
+
+.downvote {
+    width: 15px;
+    background-position-x: -70px;
+}
+
+.downvote:hover {
+    background-position-x: -85px;
+}

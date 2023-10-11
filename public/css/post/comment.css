@@ -25,3 +25,41 @@
     text-decoration: none;
     color:white;
 }
+
+.comment-actions > button {
+    background-color: transparent;
+    /* border: none; */
+    color: white;
+}
+
+.comment-reply {
+    width: 15px;
+    background-position-x: -116px;
+}
+
+.comment-share {
+    width: 15px;
+    background-position-x:-131px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: .1rem;
+}
+
+.comment-actions > button {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 30px;
+    border-color: transparent;
+    padding: 0.1rem 1rem;
+}
+
+.comment-actions > button:hover {
+    background-color: #223237;
+}
+
+.comment-actions > button:active {
+    background-color: #465357;
+}
