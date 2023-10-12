@@ -13,12 +13,29 @@
     font-weight: 500;
 }
 
+.comment-content, .comment-actions {
+    padding-left: 1.3rem;
+    border-left: 1px solid white;
+}
+
+.comment-content {
+    font-size: 14px;
+    padding-left:2rem;
+}
+
 .comments-add > button:hover {
     border-color: #f2f4f5;
 }
 
 .comments-add > button:active {
     background-color: #323a3b;
+}
+
+.comment-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
 }
 
 .comment-info > .username {
@@ -65,13 +82,20 @@
 }
 
 .comment-children {
-    padding-left: 3em;
+    padding-left: 2rem;
     border-left: solid 1px white;
-    border-bottom-left-radius: 10px;
 }
 
 .user-profile > img{
-    width: 2em;
+    width: 1.5rem;
     height: auto;
     border-radius: 50%;
+}
+
+.comment-info::after {
+    margin-left: 2rem;
+}
+
+.count {
+    font-size:12px;
 }

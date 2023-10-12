@@ -45,9 +45,8 @@
                 <h1 class="post-title">
                     <%= post_details.title %>
                 </h1>
-                <div class="post-link">
-                    <a class="link">twitter.com</a>
-                    <button>Open</button>
+                <div class="post-content">
+                    <%- post_details.content.text %>
                 </div>
                 <div class="user-actions">
                     <div class="vote">
@@ -69,7 +68,7 @@
                     </button>
                 </div>
             </div>
-            <div class="comments-section">
+            <section class="comments-section">
                 <div class="comments-sort"></div>
                 <div class="comments-add">
                     <button>
@@ -79,14 +78,14 @@
                         <span>Add a Comment</span>
                     </button>
                 </div>
-                <section class="comments">
+                <div class="comments">
                     <% comments.forEach( (comment) => { %>
                         <div class="comment-thread">
                             <%- include("../post/partials/comment.ejs", {comment: comment}); %>
                         </div>
                     <% }) %>
-                </section>
-            </div>
+                </div>
+            </section>
         </div>
         <%- include("../post/partials/suggested-sidebar.ejs")%>
     </div>
