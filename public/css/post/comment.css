@@ -63,3 +63,15 @@
 .comment-actions > button:active {
     background-color: #465357;
 }
+
+.comment-children {
+    padding-left: 3em;
+    border-left: solid 1px white;
+    border-bottom-left-radius: 10px;
+}
+
+.user-profile > img{
+    width: 2em;
+    height: auto;
+    border-radius: 50%;
+}

@@ -12,7 +12,7 @@
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
-
+    <link rel="stylesheet" href="css/post/comment.css">
 </head>
 <body>
     <!-- Navbar -->
@@ -20,8 +20,6 @@
     <div class="container">
         <!-- Side-bar -->
         <%- include('../home/partials/sidebar.ejs')%>
-
-
         <div class="main-content"> <!-- style="background-color: blue;"> -->
             <div class="main-post">
                 <div class="credit-bar">
@@ -30,7 +28,7 @@
                     </span>
                     <div class="post-info">
                             <div class="upper-post-info">
-                                <span class=""><%= post_details.subreddit %></span>
+                                <span class="">r/<%= post_details.subreddit %></span>
                                 <span class="">•</span>
                                 <span class="timestamp"><%= post_details.date_posted %></span>
                             </div>
@@ -83,12 +81,14 @@
                 </div>
                 <section class="comments">
                     <% comments.forEach( (comment) => { %>
-                        <%- include("../post/partials/comment.ejs", {comment: comment}); %>
-                    <% }); %>
-                    <%- include("../post/partials/suggested-sidebar.ejs")%>
+                        <div class="comment-thread">
+                            <%- include("../post/partials/comment.ejs", {comment: comment}); %>
+                        </div>
+                    <% }) %>
                 </section>
             </div>
         </div>
+        <%- include("../post/partials/suggested-sidebar.ejs")%>
     </div>
 </body>
 </html>
