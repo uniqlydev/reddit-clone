@@ -1,0 +1,181 @@
+:root {
+    --color-neutral-content-weak: #82959B;
+    --color-neutral-content: #B8C5C9;
+}
+
+.credit-bar {
+    display: flex;
+    align-items: center;
+}
+
+.icon > img {
+    max-height:32px;
+    border-radius: 50%;
+}
+
+.credit-bar {
+    font-size: .75rem;
+    font-weight: 400;
+}
+
+.timestamp {
+    color: var(--color-neutral-content-weak);
+}
+
+.title-username {
+    color: var(--color-neutral-content);
+    text-decoration: none;
+}
+
+.join-subreddit {
+    height: 24px;
+    background-color: #0045AC;
+    border-radius: 999px;
+    border:0px;
+    display: inline-block;
+    color: #F2F2F2;
+    width: 2.7rem;
+}
+
+.threedots {
+    background: none;
+    color: #F2F2F2;
+    border-radius: 50%;
+    border-color:transparent;
+}
+
+.threedots:hover {
+    background-color: #223237;
+}
+
+.threedots:active {
+    background-color: #323a3b;
+}
+
+.credit-bar > button {
+    justify-content: end;
+}
+
+.post-info {
+    gap: 0;
+    flex-direction: column;
+    width: 100%-32px;
+    margin-right: auto;
+    margin-left: 0.5rem;
+}
+
+.main-content {
+    margin-left: 7rem;
+    margin-right: 7rem;
+    display: flex;
+    flex-direction: column;
+    max-width: 40%;
+    gap: 3rem;
+}
+
+h1 {
+    font-size:1.125rem;
+    line-height: 1.5rem;
+}
+
+.user-actions {
+    display: flex;
+    gap: 0.75rem;
+    align-items: stretch;
+    font-size: 14px;
+    justify-content: start;
+    flex-wrap: nowrap;
+    overflow: hidden;
+    height: 2rem;
+}
+
+.user-actions > * {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    border-radius: 9999px;
+    padding: 0 1rem 0 1rem;
+    border: 0.1rem solid #1a282d;
+    background-color: #1a282d;
+    color: white;
+}
+
+.vote {
+    display: flex;
+    gap:0;
+    padding: 0;
+    align-items: center;
+}
+
+.vote > button {
+    height: 2rem;
+    width: 2rem;
+    font-size: 0.75rem;
+    font-weight: 575;
+    background-color: transparent;
+    border: none;
+    color: white;
+}
+
+.user-actions > button:hover, .vote > button:hover {
+    background-color: #223237;
+}
+
+.user-actions > button:active, .vote > button:active {
+    background-color: #465357;
+}
+
+.user-actions > button:active {
+    border-color: #223237;
+    border-style: solid;
+}
+
+.vote > button {
+    border-radius: 50%;
+}
+
+.post-sprite {
+    background-image: url("../../assets/posts/post-sprite.png");
+    display: inline-block;
+    height: 20px;
+}
+
+.post-sprite.comment-action {
+    width: 20px;
+}
+
+.post-sprite.share {
+    width:20px;
+    background-position-x: -20px;
+}
+
+.upvote {
+    width: 15px;
+    background-position-x: -40px;
+}
+
+.upvote:hover {
+    background-position-x: -55px;
+}
+
+.downvote {
+    width: 15px;
+    background-position-x: -70px;
+}
+
+.downvote:hover {
+    background-position-x: -85px;
+}
+
+.post-content {
+    color: #b8c5c9;
+    font-size: 14px;
+    padding-bottom: 1.5rem;
+}
+
+.comments {
+    padding-top: 2rem;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+}

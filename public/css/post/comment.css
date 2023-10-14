@@ -1,0 +1,101 @@
+.comments-add > button {
+    display: flex;
+    align-items: center;
+    gap:.5em;
+    height: 2.5rem;
+    background-color: transparent;
+    padding: 0 14px 0 14px;
+    color: var(--color-neutral-content);
+    border-radius: 999px;
+    border: 1px solid #858a8b;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.comment-content, .comment-actions {
+    padding-left: 1.3rem;
+    border-left: 1px solid white;
+}
+
+.comment-content {
+    font-size: 14px;
+    padding-left:2rem;
+}
+
+.comments-add > button:hover {
+    border-color: #f2f4f5;
+}
+
+.comments-add > button:active {
+    background-color: #323a3b;
+}
+
+.comment-info {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 14px;
+}
+
+.comment-info > .username {
+    text-decoration: none;
+    color:white;
+}
+
+.comment-actions > button {
+    background-color: transparent;
+    /* border: none; */
+    color: white;
+}
+
+.comment-reply {
+    width: 15px;
+    background-position-x: -116px;
+}
+
+.comment-share {
+    width: 15px;
+    background-position-x:-131px;
+}
+
+.comment-actions {
+    display: flex;
+    gap: .1rem;
+}
+
+.comment-actions > button {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+    border-radius: 30px;
+    border-color: transparent;
+    padding: 0.1rem 1rem;
+}
+
+.comment-actions > button:hover {
+    background-color: #223237;
+}
+
+.comment-actions > button:active {
+    background-color: #465357;
+}
+
+.comment-children {
+    padding-left: 2rem;
+    border-left: solid 1px white;
+}
+
+.user-profile > img{
+    width: 1.5rem;
+    height: auto;
+    border-radius: 50%;
+}
+
+.comment-info::after {
+    margin-left: 2rem;
+}
+
+.count {
+    font-size:12px;
+}

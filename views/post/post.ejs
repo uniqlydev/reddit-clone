@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit - Dive Deep!</title>
+    <link rel="stylesheet" href="css/home/main.css">
+    <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
+    <link rel="stylesheet" href="css/post/suggested-sidebar.css">
+    <link rel="stylesheet" href="css/post/post.css">
+    <!-- For the font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
+    <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+    <link rel="stylesheet" href="css/post/comment.css">
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('../home/partials/navbar.ejs')%>
+    <div class="container">
+        <!-- Side-bar -->
+        <%- include('../home/partials/sidebar.ejs')%>
+        <div class="main-content"> <!-- style="background-color: blue;"> -->
+            <div class="main-post">
+                <div class="credit-bar">
+                    <span class="icon">
+                        <img src="https://styles.redditmedia.com/t5_2qo4s/styles/communityIcon_1podsfdai4301.png">
+                    </span>
+                    <div class="post-info">
+                            <div class="upper-post-info">
+                                <span class="">r/<%= post_details.subreddit %></span>
+                                <span class="">•</span>
+                                <span class="timestamp"><%= post_details.date_posted %></span>
+                            </div>
+                            <div class="lower-post-info">
+                                by
+                                <span><a href="/user/<%= post_details.author %>" class="title-username"><%= post_details.author %></a></span>
+                            </div>
+                    </div>
+                    <button class="join-subreddit">Join</button>
+                    <button class="threedots">
+                        <svg rpl="" fill="currentColor" height="16" icon-name="overflow-horizontal-fill" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg"> <!--?lit$177470783$--><!--?lit$177470783$--><path d="M6 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"></path><!--?--> </svg>   
+                    </button>
+                </div>
+                <h1 class="post-title">
+                    <%= post_details.title %>
+                </h1>
+                <div class="post-content">
+                    <%- post_details.content.text %>
+                </div>
+                <div class="user-actions">
+                    <div class="vote">
+                        <button class="upvote">
+                            <span class="post-sprite upvote"></span>
+                        </button>
+                        <span class="count">25k</span>
+                        <button class="downvote">
+                            <span class="post-sprite downvote"></span>
+                        </button>
+                    </div>
+                    <button class="comment-action">
+                        <span class="post-sprite comment-action"></span>
+                        <span class="count">5K</span>
+                    </button>
+                    <button class="share">
+                        <span class="post-sprite share"></span>
+                        <span class="count">Share</span>
+                    </button>
+                </div>
+            </div>
+            <section class="comments-section">
+                <div class="comments-sort"></div>
+                <div class="comments-add">
+                    <button>
+                        <svg rpl="" fill="currentColor" height="20" icon-name="add-outline" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
+                          </svg>
+                        <span>Add a Comment</span>
+                    </button>
+                </div>
+                <div class="comments">
+                    <% comments.forEach( (comment) => { %>
+                        <div class="comment-thread">
+                            <%- include("../post/partials/comment.ejs", {comment: comment}); %>
+                        </div>
+                    <% }) %>
+                </div>
+            </section>
+        </div>
+        <%- include("../post/partials/suggested-sidebar.ejs")%>
+    </div>
+</body>
+</html>
