@@ -1,15 +1,15 @@
 
-document.addEventListener('DOMContentLoaded', function() {
+// document.addEventListener('DOMContentLoaded', function() {
 
-    const login = document.getElementById('loginbtn');
+//     const login = document.getElementById('loginbtn');
 
-    login.addEventListener('click', () => {
-        const username = prompt("Please enter your username");
-        window.location.href = `/profile?username=${username}`;
-    });
+//     login.addEventListener('click', () => {
+//         const username = prompt("Please enter your username");
+//         window.location.href = `/profile?username=${username}`;
+//     });
 
 
 
     
 
-});
+// });
