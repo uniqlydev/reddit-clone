@@ -54,7 +54,53 @@ app.get('/', (req, res) => {
             upvotes: "28",
             comments: "12",
             downvotes: "3",
+        },
+        {
+            title: "Best Sci-Fi Books of All Time",
+            subreddit: "r/Books",
+            description: "Share your favorite science fiction books and discuss the best ones in the genre.",
+            body: "test",
+            upvotes: "42",
+            comments: "18",
+            downvotes: "6",
+        },
+        {
+            title: "Photography Tips for Beginners",
+            subreddit: "r/Photography",
+            description: "New to photography? Get advice from experienced photographers and learn the basics.",
+            body: "test",
+            upvotes: "15",
+            comments: "8",
+            downvotes: "2",
+        },
+        {
+            title: "Gaming News and Reviews",
+            subreddit: "r/Gaming",
+            description: "Stay updated on the latest gaming news and share your game reviews with the community.",
+            body: "test",
+            upvotes: "55",
+            comments: "25",
+            downvotes: "9",
+        },
+        {
+            title: "Fitness and Workout Motivation",
+            subreddit: "r/Fitness",
+            description: "Share your fitness journey, workout routines, and tips for staying motivated.",
+            body: "test",
+            upvotes: "30",
+            comments: "14",
+            downvotes: "4",
+        },
+        {
+            title: "Movie Recommendations",
+            subreddit: "r/Movies",
+            description: "Looking for a good movie to watch? Ask for recommendations or share your favorites.",
+            body: "test",
+            upvotes: "48",
+            comments: "20",
+            downvotes: "10",
         }
+        
         // Add more test data objects here
     ];
 
@@ -202,6 +248,12 @@ app.get('/profile-edit', (req, res) => {
             }
         ],
     });
+});
+
+app.get('/r/:subreddit', (req, res) => {
+
+
+    res.render('post/post',);
 });
 
 app.listen(port, () => {

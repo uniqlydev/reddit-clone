@@ -1,14 +1,17 @@
 nav {
-    background-color: transparent;
+    background-color: var(--background);
     padding-top: 5px;
     padding-bottom: 5px;
     padding-left: 30px;
     padding-right: 30px;
     border-bottom: 0.5px solid #ffffff87;
-
-    width: 100%;
+    position: sticky;
+    top: 0; /* Set this value to 0 to make it sticky at the top of the viewport */
+    width: auto;
     height: 50px;
+    z-index: 100; /* Add a z-index to ensure it's above other content when sticky */
 }
+
 
 nav .logo-and-form {
     display: flex;
