@@ -76,7 +76,48 @@ app.get('/', (req, res) => {
                 heading: "F1 2021 Season..",
                 subheading: "F1 2021 Season won't push through due..",
                 subreddit : "/formula1",
+            },
+            {
+                heading: "New Breakthrough in Medicine",
+                subheading: "Scientists make a groundbreaking discovery in the fight against cancer.",
+                subreddit: "/science",
+            },
+            {
+                heading: "SpaceX Launches Mars Mission",
+                subheading: "Elon Musk's SpaceX successfully launches a mission to Mars.",
+                subreddit: "/space",
+            },
+            {
+                heading: "Tech News",
+                subheading: "Apple unveils its latest iPhone with revolutionary features.",
+                subreddit: "/technology",
+            },
+            {
+                heading: "World Cup 2022 Update",
+                subheading: "Exciting matches and surprises in the ongoing World Cup.",
+                subreddit: "/sports",
+            },
+            {
+                heading: "Environmental Awareness",
+                subheading: "A campaign to protect endangered species gains momentum.",
+                subreddit: "/environment",
+            },
+            {
+                heading: "New Movie Release",
+                subheading: "Critics rave about the latest blockbuster hitting theaters.",
+                subreddit: "/movies",
+            },
+            {
+                heading: "Cooking Tips",
+                subheading: "Learn the secret to making the perfect pizza at home.",
+                subreddit: "/food",
+            },
+            {
+                heading: "Book Recommendations",
+                subheading: "Best-sellers and must-reads for book lovers.",
+                subreddit: "/books",
             }
+            
         ], 
         posts: posts,
         postLength: posts.length

@@ -26,9 +26,10 @@ body {
 
 .scrollable-subreddits {
     padding: 20px;
-    width: 75%;
+    width: 1000px;
     overflow-x: auto; /* Make it scroll horizontally */
     white-space: nowrap; 
+
 }
 
 .scrollable-subreddits ul {
@@ -70,12 +71,26 @@ body {
     font-size: 30px;
     font-weight: bolder;
     color: white;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    width: 300px;
 } 
+
+.scrollable-subreddits .subreddit-container .subreddit-name p {
+    width: 300px;
+
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 .scrollable-subreddits .subreddit-container .subreddit-name .sub {
     color: white;
     font-weight: bold;
     font-size: 12px;
+    
 }
 
 .scrollable-subreddits .subreddit-container .subreddit-name span {
