@@ -1,104 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit - Dive Deep!</title>
-    <link rel="stylesheet" href="css/home/main.css">
-    <link rel="stylesheet" href="css/home/navbar.css">
-    <link rel="stylesheet" href="css/home/Side-bar.css">
-    <link rel="stylesheet" href="css/home/main-frame.css">
-    <link rel="stylesheet" href="css/home/posts.css">
-    <!-- For the font style -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
-    <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
-
-    <!-- scripts -->
-    <script src="scripts/home.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
 </head>
 <body>
-    <!-- Navbar -->
-    <%- include('partials/navbar.ejs')%>
-    <div class="container">
-        <!-- Side-bar -->
-        <%- include('partials/sidebar.ejs')%>
-
-
-        <div class="main-content">
-
-            <div class="scrollable-subreddits">
-              <ul>
-                <!-- Dynamically generated from the rendered "subreddits" -->
-                <% subreddits.forEach((subreddit, index) => { %>
-                  <li id="subreddit-<%= index %>">
-                    <div class="subreddit-container">
-                      <div class="subreddit-name">
-                        <h3><%= subreddit.heading %></h3>
-                        <p><%= subreddit.subheading %></p>
-                        <p class="sub"><%= subreddit.subreddit %> <span>and more</span></p>
-                      </div>
-                    </div>
-                  </li>
-                <% }) %>
-              </ul>              
-            </div>
-
-            <div class="main-frame">
-              <div class="action-bar">
-                <div class="left">
-                  <button class="create-post">
-                    Create a Post
-                  </button>
-                </div>
-
-                <div class="right">
-                  <button>
-                    Hot <span class="arrow"></span>
-                  </button>
-                  <button>
-                    Philippines <span class="arrow"></span>
-                  </button>
-                </div>
-              </div>
-            </div>
-
-            <div class="posts">
-              <ul>
-                <% for (let i = 0; i < posts.length; i++) { %>
-                  <li id="post-<%= i %>" class="post-container">
-                    <div class="post">
-                      <p class="sub-reddit">
-                        <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts[i].subreddit %>
-                      </p>
-              
-                      <h1><%= posts[i].title %></h1>
-                      <p class="description"><%= posts[i].description %></p>
-              
-                      <div class="operations">
-                        <ul>
-                          <li>
-                            <div class="up-down-vote">
-                              <button><img src="assets/home/posts/arrow.png" alt=""></button>
-                              <p><%= posts[i].upvotes %>k</p>
-                              <button><img src="assets/home/posts/arrow.png" alt=""></button>
-                            </div>
-                          </li>
-              
-                          <li>
-                            <div class="comment-button">
-                              <button><img src="assets/home/posts/comment.png" alt=""></button>
-                              <p><%= posts[i].comments %>k</p>
-                            </div>
-                          </li>
-                        </ul>
-                      </div>
-                    </div>
-                  </li>
-                <% } %>
-              </ul>
-          </div>
-        </div>
-    </div>
+  <h1>Hello world</h1>
 </body>
 </html>
