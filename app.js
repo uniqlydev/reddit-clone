@@ -250,6 +250,20 @@ app.get('/profile-edit', (req, res) => {
     });
 });
 
+// Login Page
+app.get('/login', (req, res) => {
+    res.render('home/login', {
+
+    });
+});
+
+// Register Page
+app.get('/register', (req, res) => {
+    res.render('home/register', {
+        
+    });
+});
+
 app.get('/r/:subreddit', (req, res) => {
 
 

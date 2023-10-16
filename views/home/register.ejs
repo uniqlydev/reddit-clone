@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>User Login Page</title>
+        <link rel="stylesheet" href="css/login/login.css">
+        <script src="scripts/login.js"></script>
+    </head>
+    <body>
+        <div id="login-container">
+            <div id="form-box">
+                <div id="header-login">
+                    <img src="https://www.redditinc.com/assets/images/site/reddit-logo.png" alt="reddit-logo" id="main-logo" onclick="window.location.href = '/'">
+                    <h1 id="title">Register</h1>
+                </div>
+                <form>
+                    <div id="input-container">
+                        <div class="input-field" id="email-field">
+                            <i class="fa-solid fa-envelope"></i>
+                            <input type="text" id="email" placeholder="Email">
+                        </div>
+                        <div class="input-field" id="username-field">
+                            <i class="fa-solid fa-user"></i>
+                            <input type="text" id="username" placeholder="Username">
+                        </div>
+                        <div class="input-field" id="password-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="password" placeholder="Password">
+                        </div>
+                        <div class="input-field" id="confirm-password-field">
+                            <i class="fa-solid fa-lock"></i>
+                            <input type="password" id="confirm-password" placeholder="Confirm Password">
+                        </div>
+                    <div class="link-fields">
+                        <span id="register-field">Already have an account? <a href='/login'>Login Here!</a></span>
+                    </div>
+                    <div id="btn-field">
+                        <button type="button" id="cancelBtn" onclick="window.location.href = '/'">Cancel</button>
+                        <button type="button" id="registerBtn" onclick="register()">Register</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>
