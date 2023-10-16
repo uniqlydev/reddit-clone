@@ -27,33 +27,19 @@ function checkMissingRegister(email, username, password, confirmPassword) {
 function login() {
     var username = document.getElementById("username").value;
     var password = document.getElementById("password").value;
+    // Idk what to do with remember yet (Phase 2 implementation)
+    var remember = document.getElementById("remember").checked;
 
-    // Get the form element
-    var form = document.querySelector('form');
+    if (checkMissingLogin(username, password)) {
+        return;
+    } else {
+        // Redirects to profile page (change as needed)
+        // window.location.href = `/profile?username=${username}`;
+        window.location.href = '/';
+    }
 
-    // Set the form's action attribute to the root URL
-    form.method = 'POST';
-    form.action = '/';
-
-    // Create hidden input fields for username and password
-    var usernameInput = document.createElement('input');
-    usernameInput.type = 'hidden';
-    usernameInput.name = 'username';
-    usernameInput.value = username;
-
-    var passwordInput = document.createElement('input');
-    passwordInput.type = 'hidden';
-    passwordInput.name = 'password';
-    passwordInput.value = password;
-
-    // Append the hidden input fields to the form
-    form.appendChild(usernameInput);
-    form.appendChild(passwordInput);
-
-    // Submit the form
-    form.submit();
+    return;
 }
-
 
 function register() {
     var email = document.getElementById("email").value;
