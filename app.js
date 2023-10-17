@@ -25,8 +25,8 @@ const port = process.env.PORT || 8080;
 
 
 // Will serve as the homepage
-app.post('/', (req, res) => {
-    const username = req.body.username;
+app.get('/', (req, res) => {
+
     const posts = [
         {
             title: "What's your expensive hobby?",
@@ -106,6 +106,7 @@ app.post('/', (req, res) => {
 
     res.render('home/home', {
         subreddits: [
+
             // These are test data to simulate dynamics
             {
                 heading: "Taylor Swift and...",
@@ -165,8 +166,7 @@ app.post('/', (req, res) => {
             
         ], 
         posts: posts,
-        postLength: posts.length,
-        username: username
+        postLength: posts.length
 
     });
 });
