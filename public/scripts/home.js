@@ -1,4 +1,10 @@
 
+
+function redirectToSubreddit(url) {
+    window.location.href = url;
+  }
+
+
 document.addEventListener('DOMContentLoaded', function() {
 
     const login = document.getElementById('loginbtn');
@@ -6,4 +12,6 @@ document.addEventListener('DOMContentLoaded', function() {
     login.addEventListener('click', () => {
         window.location.href = `/profile?username=${"Machewww"}`;
     });
+
+    
 });
