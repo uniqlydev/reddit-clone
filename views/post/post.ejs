@@ -13,6 +13,15 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
     <link rel="stylesheet" href="css/post/comment.css">
+    <script>
+        const collapse = (comment) => {
+            var content = comment.nextElementSibling;
+            if (content.style.display === "block")
+                content.style.display = "none";
+            else
+                content.style.display = "block";
+        }
+    </script>
 </head>
 <body>
     <!-- Navbar -->

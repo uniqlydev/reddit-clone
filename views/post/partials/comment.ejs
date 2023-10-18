@@ -1,34 +1,36 @@
 <div class="comment">
-    <div class="comment-info">
+    <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
         <a class="username" href="/user/<%= comment.content.commenter %>"><%= comment.content.commenter %></a>
         <span class="timestamp">• <%= comment.content.created_date %></span>
     </div>
-    <div class="comment-content">
-        <%= comment.content.text %>
-    </div>
-    <div class="comment-actions">
-        <div class="vote">
-            <button class="upvote">
-                <span class="post-sprite upvote"></span>
+    <div class="comment-collapsible">
+        <div class="comment-content">
+            <%= comment.content.text %>
+        </div>
+        <div class="comment-actions">
+            <div class="vote">
+                <button class="upvote">
+                    <span class="post-sprite upvote"></span>
+                </button>
+                <span class="count"><%= comment.content.votes %></span>
+                <button class="downvote">
+                    <span class="post-sprite downvote"></span>
+                </button>
+            </div>
+            <button class="comment-action">
+                <span class="post-sprite comment-reply"></span>
+                <span class="count">Reply</span>
             </button>
-            <span class="count"><%= comment.content.votes %></span>
-            <button class="downvote">
-                <span class="post-sprite downvote"></span>
+            <button class="share">
+                <span class="post-sprite comment-share"></span>
+                <span class="count">Share</span>
             </button>
         </div>
-        <button class="comment-action">
-            <span class="post-sprite comment-reply"></span>
-            <span class="count">Reply</span>
-        </button>
-        <button class="share">
-            <span class="post-sprite comment-share"></span>
-            <span class="count">Share</span>
-        </button>
+        <% comment.children.forEach( (child) => { %>
+            <div class="comment-children">
+                <%- include("comment.ejs", {comment: child}); %>
+            </div>
+        <% }) %>
     </div>
-    <% comment.children.forEach( (child) => { %>
-        <div class="comment-children">
-            <%- include("comment.ejs", {comment: child}); %>
-        </div>
-    <% }) %>
 </div>
