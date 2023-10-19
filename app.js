@@ -18,7 +18,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // app.use('/api',userRoutes);
-// app.use('/api',postRoutes);
+app.use('/posts',postRoutes);
 
 require('dotenv').config();
 const port = process.env.PORT || 8080;
@@ -227,9 +227,6 @@ app.get('/profile', (req, res) => {
     const username = req.query.username; 
     const user = getUserDataByUsername(username); 
 
-
-    console.log(user[0].bio)
-
     res.render('home/profile', {
         profile: user, 
     });
@@ -239,13 +236,8 @@ app.get('/profile', (req, res) => {
 app.get('/profile-edit', (req, res) => {
     res.render('home/profileEdit', {
         profile: [
-            {
-                id: 100,
-                username: "machew",
-                bio: "i am machew",
-                avatar: "avatar here",
-                karma: 1
-            }
+            username = "TechEnthusiast21",
+            bio = "Passionate about all things tech!",
         ],
     });
 });

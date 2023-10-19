@@ -1,0 +1,11 @@
+.suggested-sidebar > aside {
+    all: unset;
+    width: 250px;
+    padding: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    padding-right: 200px;
+}

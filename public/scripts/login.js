@@ -34,8 +34,7 @@ function login() {
         return;
     } else {
         // Redirects to profile page (change as needed)
-        // window.location.href = `/profile?username=${username}`;
-        window.location.href = '/';
+        window.location.href = `/profile?username=${username}`;
     }
 
     return;
