@@ -1,7 +1,7 @@
 <div class="comment">
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
-        <a class="username" href="/user/<%= comment.content.commenter %>"><%= comment.content.commenter %></a>
+        <a class="username" href="/profile?username=<%= comment.content.commenter %>"><%= comment.content.commenter %></a>
         <span class="timestamp">• <%= comment.content.created_date %></span>
     </div>
     <div class="comment-collapsible">

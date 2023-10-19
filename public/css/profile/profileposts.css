@@ -61,6 +61,12 @@
     margin: 5px;
 }
 
+.post-location-sub {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 .post-date {
     margin: 5px;
 }
@@ -87,6 +93,9 @@
     background: none;
     border: none;
     color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .buttons:hover {

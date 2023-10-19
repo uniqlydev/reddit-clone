@@ -256,6 +256,13 @@ app.get('/register', (req, res) => {
     });
 });
 
+// Create Post Page
+app.get('/create-post', (req, res) => {
+    res.render('post/createPost', {
+        
+    });
+});
+
 app.get('/r/:subreddit', (req, res) => {
 
 

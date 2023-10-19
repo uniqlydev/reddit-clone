@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
                 text: "Link: https://twitter.com/wojespn/status/1707096933708509295?lang=en<br><br>After an offseason-long fiasco with the Portland Trailblazers, Damian Lillard has been traded to the Milwaukee Bucks in a blockbuster 3-Team trade with the Phoenix Suns. How do you feel about this trade?"
             },
             date_posted: "2023-10-11",
-            author: "CCAPDEV-sample",
+            author: "DataSciencePro",
             votes: 2500
         },
         comments: [
@@ -23,7 +23,7 @@ router.get('/', (req, res) => {
                     id: 1,
                     // reply_id: null, // reply id for phase 2
                     content: {
-                        commenter: "Number1GiannisFan",
+                        commenter: "TechEnthusiast21",
                         created_date: "2023-10-11",
                         votes:25,
                         text: "As a fan of both, I'm excited to see this pairing!"
@@ -32,7 +32,7 @@ router.get('/', (req, res) => {
                         {
                             id: 2,
                             content: {
-                                commenter: "Number2GiannisFan",
+                                commenter: "WebDevWizard",
                                 created_date: "2023-10-11",
                                 votes:12,
                                 text: "I don't even need to watch, just give them the trophy already!"
@@ -41,7 +41,7 @@ router.get('/', (req, res) => {
                                 {
                                     id: 2,
                                     content: {
-                                        commenter: "Number3DameFan",
+                                        commenter: "DataSciencePro",
                                         created_date: "2023-10-11",
                                         votes:6,
                                         text: "I agree! We will be witnessing greatness in the levels of Shaq and Kobe!"
@@ -55,7 +55,7 @@ router.get('/', (req, res) => {
             {
                 id: 2,
                 content: {
-                    commenter: "MiamiIsMyHome",
+                    commenter: "CodeLearner42",
                     created_date: "2023-10-12",
                     votes:5,
                     text: "I don't care, I know that Jimmy will still make them exit the first round next year!"
@@ -64,7 +64,7 @@ router.get('/', (req, res) => {
                     {
                         id: 2,
                         content: {
-                            commenter: "Number3DameFan",
+                            commenter: "WebDevWizard",
                             created_date: "2023-10-11",
                             votes:7,
                             text: "Ok"

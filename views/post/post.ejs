@@ -13,15 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
     <link rel="stylesheet" href="css/post/comment.css">
-    <script>
-        const collapse = (comment) => {
-            var content = comment.nextElementSibling;
-            if (content.style.display === "block")
-                content.style.display = "none";
-            else
-                content.style.display = "block";
-        }
-    </script>
+    <script src="scripts/post.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -43,7 +35,7 @@
                             </div>
                             <div class="lower-post-info">
                                 by
-                                <span><a href="/user/<%= post_details.author %>" class="title-username"><%= post_details.author %></a></span>
+                                <span><a href="/profile?username=<%= post_details.author %>" class="title-username"><%= post_details.author %></a></span>
                             </div>
                     </div>
                     <button class="join-subreddit">Join</button>
@@ -80,11 +72,12 @@
             <section class="comments-section">
                 <div class="comments-sort"></div>
                 <div class="comments-add">
-                    <button>
+                    <textarea id="comment-box" placeholder="What are your thoughts?"></textarea>
+                    <button id="add-comment">
                         <svg rpl="" fill="currentColor" height="20" icon-name="add-outline" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg">
                             <path d="M19 9.375h-8.375V1h-1.25v8.375H1v1.25h8.375V19h1.25v-8.375H19v-1.25Z"></path>
                           </svg>
-                        <span>Add a Comment</span>
+                        <span>Comment</span>
                     </button>
                 </div>
                 <div class="comments">
