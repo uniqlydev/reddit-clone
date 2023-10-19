@@ -234,11 +234,13 @@ app.get('/profile', (req, res) => {
 
 // Profile Edit page
 app.get('/profile-edit', (req, res) => {
+    // Bren, I couldn't get this to work. Please check if free.
+
+    const username = req.query.username;
+    const user = getUserDataByUsername(username);
+
     res.render('home/profileEdit', {
-        profile: [
-            username = "TechEnthusiast21",
-            bio = "Passionate about all things tech!",
-        ],
+        profile: user,
     });
 });
 
