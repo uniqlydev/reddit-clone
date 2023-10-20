@@ -1,0 +1,137 @@
+#main-container {
+    margin-top: 1.5%;
+    width: 75%;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-content: center;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 15px;
+}
+
+#post-container {
+    background-color: #192528;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    float: left;
+    width: 65%;
+    display: flex;
+    flex-direction: column;
+}
+
+#post-create {
+    font-size: 28px;
+    font-weight: bolder;
+}
+
+#community-select {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 50%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #575757;
+    padding: 5px;
+    background: none;
+    color: white;
+}
+
+#title-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 98%;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #575757;
+    padding: 5px;
+    background: none;
+    color: white;
+    outline: none;
+}
+
+#body-input {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 98%;
+    height: 200px;
+    font-size: 14px;
+    border-radius: 5px;
+    border: 1px solid #575757;
+    padding: 5px;
+    resize: vertical;
+    max-height: 400px;
+    min-height: 200px;
+    background: none;
+    color: white;
+    outline: none;
+}
+
+#post-actions {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+    align-content: center;
+}
+
+#post-cancel {
+    margin-right: 10px;
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: rgb(255, 147, 147);
+    border: none;
+}
+
+#post-submit {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: rgb(134, 255, 134);
+    border: none;
+}
+
+#rules-container {
+    background-color: #192528;
+    border-radius: 10px;
+    padding: 20px;
+    margin: 10px;
+    height: 50%;
+}
+
+#rules-title {
+    font-size: 24px;
+    font-weight: bolder;
+    display: flex;
+    align-items: center;
+}
+
+#rules-icon {
+    margin-right: 7.5px;
+}
+
+#reddit-rules {
+    border-radius: 5px;
+    padding-left: 25px;
+    background: none;
+    color: white;
+}
+
+#reddit-rules li {
+    margin-top: 5px;
+}
