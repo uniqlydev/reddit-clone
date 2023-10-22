@@ -7,9 +7,8 @@
         <%= profile[0].memberURL %> + • <%= profile[0].memberSince %>.
         <div id="bio-page">
             <%= profile[0].bio %>
-            <!-- I am Machew, a self-taught programmer currently in DLSU. -->
         </div>
-        <button id="style-avatar" onclick="window.location.href='/profile-edit'">Style Avatar</button>
+        <button id="style-avatar" onclick="window.location.href='/profile-edit'">Edit Profile</button>
         <div id="karma-cake">
             <div id="karma">
                 Karma
@@ -24,7 +23,7 @@
             <button id="new-post">New Post</button>
         </div>
         <div id="options">
-            <button id="profile-options">More Options</button>
+            <button id="profile-options" onclick="window.location.href='/'">Logout</button>
         </div>
     </div>
 </header>

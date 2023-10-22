@@ -258,6 +258,12 @@ app.get('/register', (req, res) => {
     });
 });
 
+app.get('/edit-post', (req, res) => {
+    res.render('post/editPost', {
+        
+    });
+});
+
 // Create Post Page
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
