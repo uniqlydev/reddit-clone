@@ -3,6 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
+const database = require('./database/database.js');
 
 
 const app = express();
@@ -15,6 +16,10 @@ app.use(express.json());
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
+
+database.setupAndRetrieveRecords();
+
+
 
 
 // app.use('/api',userRoutes);
