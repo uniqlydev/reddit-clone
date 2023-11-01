@@ -1,45 +1,36 @@
-const mongoose = require('mongoose');
+const bcrypt = require('bcrypt');
+const MongoClient = require('mongodb').MongoClient;
 
-function checkMissingLogin(username, password) {
-    if (username == "" || password == "") {
-        alert("Please fill in all fields");
-        return true;
-    }
-}
+const DB_CONN = "mongodb+srv://matthewwassmer:ccapdev@reddit-clone.kqn3zsq.mongodb.net/";
 
-function checkMissingRegister(email, username, password, confirmPassword) {
-    var emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address");
-        return true;
-    }
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('error-msg');
 
-    if (email == "" || username == "" || password == "" || confirmPassword == "") {
-        alert("Please fill in all fields");
-        return true;
-    }
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    if (password != confirmPassword) {
-        alert("Passwords do not match");
-        return true;
-    }
+        try {
+            const response = await fetch('/login', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ username, password }),
+            });
 
-}
-
-function login() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    // Idk what to do with remember yet (Phase 2 implementation)
-    var remember = document.getElementById("remember").checked;
-
-    if (checkMissingLogin(username, password)) {
-        return;
-    } else {
-        
-    }
-
-    return;
-}
+            if (response.ok) {
+                errorMsg.textContent = "Login Successful!";
+            } else {
+                errorMsg.textContent = "Login Failed! Please check your credentials.";
+            }
+        } catch (error) {
+            console.error("Error:", error);
+        }
+    });
+});
 
 function register() {
     var email = document.getElementById("email").value;

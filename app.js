@@ -5,7 +5,9 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const database = require('./database/database.js');
 const user = require('./models/user');
+const MongoClient = require('mongodb').MongoClient;
 const router = express.Router();
+const bcrypt = require('bcrypt');
 
 const app = express();
 
@@ -180,16 +182,6 @@ app.get('/', (req, res) => {
 const getUserDataByUsername = (username) => {
     const user = [
         {
-          id: 101,
-          username: "TechEnthusiast21",
-          bio: "Passionate about all things tech!",
-          memberSince: "2y",
-          bday: "January 10, 2020",
-          memberURL: "u/TechEnthusiast21",
-          avatar: "avatar1.jpg",
-          karma: 10
-        },
-        {
           id: 102,
           username: "WebDevWizard",
           bio: "Creating amazing web experiences.",
@@ -250,9 +242,37 @@ app.get('/profile-edit', (req, res) => {
 });
 
 // Login Page
-router.route('/login').get(function (req, res) {
+app.get('/login', async (req, res) => {
     res.render('home/login', {
     });
+
+    const { username, password } = req.body;
+
+    const client = new MongoClient(process.env.DB_CONN, { useUnifiedTopology: true });
+
+    try {
+        await client.connect();
+        const db = client.db();
+        const usersCollection = db.collection('users');
+        const user = await usersCollection.findOne({ username });
+
+        if (!user) {
+            return res.status(401).send("User not found");
+        }
+
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (isPasswordValid) {
+            res.status(200).send("Login successful!");
+        } else {
+            res.status(401).send("Login failed!");
+        }
+    } catch (error) {
+        console.error("Error checking login:", error);
+        res.status(500).send("Internal server error");
+    } finally {
+        client.close();
+    }
 });
 
 // Register Page
@@ -265,10 +285,6 @@ app.get('/register', (req, res) => {
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
     });
-});
-
-app.get('/r/:subreddit', (req, res) => {
-    res.render('post/post',);
 });
 
 app.use(router);
