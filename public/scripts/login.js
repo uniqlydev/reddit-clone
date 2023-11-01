@@ -1,3 +1,5 @@
+const mongoose = require('mongoose');
+
 function checkMissingLogin(username, password) {
     if (username == "" || password == "") {
         alert("Please fill in all fields");
@@ -33,8 +35,7 @@ function login() {
     if (checkMissingLogin(username, password)) {
         return;
     } else {
-        // Redirects to profile page (change as needed)
-        window.location.href = `/profile?username=${username}`;
+        
     }
 
     return;

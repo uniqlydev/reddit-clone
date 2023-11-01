@@ -4,7 +4,8 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const database = require('./database/database.js');
-
+const user = require('./models/user');
+const router = express.Router();
 
 const app = express();
 
@@ -17,10 +18,7 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-database.setupAndRetrieveRecords();
-
-
-
+// database.setupAndRetrieveRecords();
 
 // app.use('/api',userRoutes);
 app.use('/posts',postRoutes);
@@ -177,6 +175,7 @@ app.get('/', (req, res) => {
 });
 
 
+
 // You can add more test data here (I'm just waiting for the login)
 const getUserDataByUsername = (username) => {
     const user = [
@@ -228,6 +227,7 @@ const getUserDataByUsername = (username) => {
 }
 
 
+
 app.get('/profile', (req, res) => {
     const username = req.query.username; 
     const user = getUserDataByUsername(username); 
@@ -250,32 +250,72 @@ app.get('/profile-edit', (req, res) => {
 });
 
 // Login Page
-app.get('/login', (req, res) => {
+router.route('/login').get(function (req, res) {
     res.render('home/login', {
-
     });
 });
 
 // Register Page
 app.get('/register', (req, res) => {
     res.render('home/register', {
-        
     });
 });
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
-        
     });
 });
 
 app.get('/r/:subreddit', (req, res) => {
-
-
     res.render('post/post',);
 });
 
+app.use(router);
+
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
+});
+
+// Connect to MongoDB
+database.connectToMongo((err) => {
+    if (err) {
+        console.log("error occured:");
+        console.error(err);
+        process.exit();
+    }
+    console.log("Connected to MongoDB!");
+    const db = getDb();
+});
+
+// User Routes
+router.route('/users/:id').get(function (req, res) {
+    user.findById(req.params.id).then((user) => {
+        res.json(user);
+        res.end();
+    });
+});
+
+router.route('/users').get(function (req, res) {
+    user.find(function (err, users) {
+        if (err) {
+            console.log(err);
+        } else {
+            res.json(users);
+        }
+    });
+});
+
+router.route('/add-user').post(function (req, res) {
+    const user = new user({
+        username: req.body.username,
+        bio: req.body.bio,
+        memberSince: req.body.memberSince,
+        bday: req.body.bday,
+        memberURL: req.body.memberURL,
+        avatar: req.body.avatar,
+        karma: req.body.karma,
+    });
+    user.save();
+    res.json({ message: 'User created!' });
 });
