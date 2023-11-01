@@ -26,24 +26,6 @@
 
 
         <div class="main-content">
-
-            <div class="scrollable-subreddits">
-              <ul>
-                <!-- Dynamically generated from the rendered "subreddits" -->
-                <% subreddits.forEach((subreddit, index) => { %>
-                  <li id="subreddit-<%= index %>">
-                    <div class="subreddit-container">
-                      <div class="subreddit-name">
-                        <h3><%= subreddit.heading %></h3>
-                        <p><%= subreddit.subheading %></p>
-                        <p class="sub"><%= subreddit.subreddit %> <span>and more</span></p>
-                      </div>
-                    </div>
-                  </li>
-                <% }) %>
-              </ul>              
-            </div>
-
             <div class="main-frame">
               <div class="action-bar">
                 <div class="left">

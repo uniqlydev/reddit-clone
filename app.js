@@ -6,13 +6,12 @@ const postRoutes = require('./routes/postRoutes');
 const database = require('./database/database.js');
 const user = require('./models/user');
 const MongoClient = require('mongodb').MongoClient;
-const router = express.Router();
 const bcrypt = require('bcrypt');
 
 const app = express();
 
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Setting ejs as the view engine
@@ -41,135 +40,10 @@ app.get('/', (req, res) => {
             upvotes: "20",
             comments: "10",
             downvotes: "5",
-        },
-        {
-            title: "Favorite Travel Destinations",
-            subreddit: "r/Travel",
-            description: "Share your favorite travel destinations and why you love them.",
-            body: "test",
-            upvotes: "35",
-            comments: "15",
-            downvotes: "7",
-        },
-        {
-            title: "Cooking Enthusiasts Unite!",
-            subreddit: "r/Food",
-            description: "Discuss your favorite recipes, cooking tips, and culinary adventures.",
-            body: "test",
-            upvotes: "28",
-            comments: "12",
-            downvotes: "3",
-        },
-        {
-            title: "Best Sci-Fi Books of All Time",
-            subreddit: "r/Books",
-            description: "Share your favorite science fiction books and discuss the best ones in the genre.",
-            body: "test",
-            upvotes: "42",
-            comments: "18",
-            downvotes: "6",
-        },
-        {
-            title: "Photography Tips for Beginners",
-            subreddit: "r/Photography",
-            description: "New to photography? Get advice from experienced photographers and learn the basics.",
-            body: "test",
-            upvotes: "15",
-            comments: "8",
-            downvotes: "2",
-        },
-        {
-            title: "Gaming News and Reviews",
-            subreddit: "r/Gaming",
-            description: "Stay updated on the latest gaming news and share your game reviews with the community.",
-            body: "test",
-            upvotes: "55",
-            comments: "25",
-            downvotes: "9",
-        },
-        {
-            title: "Fitness and Workout Motivation",
-            subreddit: "r/Fitness",
-            description: "Share your fitness journey, workout routines, and tips for staying motivated.",
-            body: "test",
-            upvotes: "30",
-            comments: "14",
-            downvotes: "4",
-        },
-        {
-            title: "Movie Recommendations",
-            subreddit: "r/Movies",
-            description: "Looking for a good movie to watch? Ask for recommendations or share your favorites.",
-            body: "test",
-            upvotes: "48",
-            comments: "20",
-            downvotes: "10",
         }
-        
-        // Add more test data objects here
     ];
 
     res.render('home/home', {
-        subreddits: [
-
-            // These are test data to simulate dynamics
-            {
-                heading: "Taylor Swift and...",
-                subheading: "Taylor Swift and Travis Scott are dating!",
-                subreddit : "/fauxmau",
-            },
-            {
-                heading: "F1 2021 Season..",
-                subheading: "F1 2021 Season won't push through due..",
-                subreddit : "/formula1",
-            },
-            {
-                heading: "F1 2021 Season..",
-                subheading: "F1 2021 Season won't push through due..",
-                subreddit : "/formula1",
-            },
-            {
-                heading: "New Breakthrough in Medicine",
-                subheading: "Scientists make a groundbreaking discovery in the fight against cancer.",
-                subreddit: "/science",
-            },
-            {
-                heading: "SpaceX Launches Mars Mission",
-                subheading: "Elon Musk's SpaceX successfully launches a mission to Mars.",
-                subreddit: "/space",
-            },
-            {
-                heading: "Tech News",
-                subheading: "Apple unveils its latest iPhone with revolutionary features.",
-                subreddit: "/technology",
-            },
-            {
-                heading: "World Cup 2022 Update",
-                subheading: "Exciting matches and surprises in the ongoing World Cup.",
-                subreddit: "/sports",
-            },
-            {
-                heading: "Environmental Awareness",
-                subheading: "A campaign to protect endangered species gains momentum.",
-                subreddit: "/environment",
-            },
-            {
-                heading: "New Movie Release",
-                subheading: "Critics rave about the latest blockbuster hitting theaters.",
-                subreddit: "/movies",
-            },
-            {
-                heading: "Cooking Tips",
-                subheading: "Learn the secret to making the perfect pizza at home.",
-                subreddit: "/food",
-            },
-            {
-                heading: "Book Recommendations",
-                subheading: "Best-sellers and must-reads for book lovers.",
-                subreddit: "/books",
-            }
-            
-        ], 
         posts: posts,
         postLength: posts.length
 
@@ -177,53 +51,7 @@ app.get('/', (req, res) => {
 });
 
 
-
-// You can add more test data here (I'm just waiting for the login)
-const getUserDataByUsername = (username) => {
-    const user = [
-        {
-          id: 102,
-          username: "WebDevWizard",
-          bio: "Creating amazing web experiences.",
-          memberSince: "3y",
-          bday: "March 15, 2019",
-          memberURL: "u/WebDevWizard",
-          avatar: "avatar2.jpg",
-          karma: 5
-        },
-        {
-          id: 103,
-          username: "DataSciencePro",
-          bio: "Exploring data science and AI wonders.",
-          memberSince: "1y",
-          bday: "June 30, 2021",
-          memberURL: "u/DataSciencePro",
-          avatar: "avatar3.jpg",
-          karma: 20
-        },
-        {
-          id: 104,
-          username: "CodeLearner42",
-          bio: "On a journey to master coding.",
-          memberSince: "4y",
-          bday: "December 5, 2018",
-          memberURL: "u/CodeLearner42",
-          avatar: "avatar4.jpg",
-          karma: 8
-        }
-      ]
-      
-        return user.filter((user) => {
-            return user.username == username;
-        });
-}
-
-
-
 app.get('/profile', (req, res) => {
-    const username = req.query.username; 
-    const user = getUserDataByUsername(username); 
-
     res.render('home/profile', {
         profile: user, 
     });
@@ -231,11 +59,6 @@ app.get('/profile', (req, res) => {
 
 // Profile Edit page
 app.get('/profile-edit', (req, res) => {
-    // Bren, I couldn't get this to work. Please check if free.
-
-    const username = req.query.username;
-    const user = getUserDataByUsername(username);
-
     res.render('home/profileEdit', {
         profile: user,
     });
@@ -245,33 +68,26 @@ app.get('/profile-edit', (req, res) => {
 app.get('/login', async (req, res) => {
     res.render('home/login', {
     });
+});
 
+app.post('/login', async (req, res) => {
     const { username, password } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const userLogin = await users.findOne({ username });
 
-    const client = new MongoClient(process.env.DB_CONN, { useUnifiedTopology: true });
+    if (!userLogin) {
+        res.status(401).json({ message: "Invalid credentials!" });
+        return;
+    }
 
-    try {
-        await client.connect();
-        const db = client.db();
-        const usersCollection = db.collection('users');
-        const user = await usersCollection.findOne({ username });
+    const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
-        if (!user) {
-            return res.status(401).send("User not found");
-        }
-
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-
-        if (isPasswordValid) {
-            res.status(200).send("Login successful!");
-        } else {
-            res.status(401).send("Login failed!");
-        }
-    } catch (error) {
-        console.error("Error checking login:", error);
-        res.status(500).send("Internal server error");
-    } finally {
-        client.close();
+    if (passwordMatch) {
+        res.json({ message: "Login successful" });
+    } else {
+        res.status(401).json({ message: "Invalid credentials!" });
     }
 });
 
@@ -281,57 +97,41 @@ app.get('/register', (req, res) => {
     });
 });
 
+app.post('/register', async (req, res) => {
+    const { username, password } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const existingUser = await users.findOne({ username });
+
+    if (existingUser) {
+        res.status(400).json({ message: "Username is already taken!" });
+        return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const userData = {
+        username,
+        password: hashedPassword,
+        bio: '',
+        memberURL: 'u/' + username,
+        avatar: '',
+    }
+
+    await users.insertOne(userData);
+
+    res.json({ message: "Registration successful" });
+});
+
 // Create Post Page
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
     });
 });
 
-app.use(router);
+database.connectToMongoDB();
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
-});
-
-// Connect to MongoDB
-database.connectToMongo((err) => {
-    if (err) {
-        console.log("error occured:");
-        console.error(err);
-        process.exit();
-    }
-    console.log("Connected to MongoDB!");
-    const db = getDb();
-});
-
-// User Routes
-router.route('/users/:id').get(function (req, res) {
-    user.findById(req.params.id).then((user) => {
-        res.json(user);
-        res.end();
-    });
-});
-
-router.route('/users').get(function (req, res) {
-    user.find(function (err, users) {
-        if (err) {
-            console.log(err);
-        } else {
-            res.json(users);
-        }
-    });
-});
-
-router.route('/add-user').post(function (req, res) {
-    const user = new user({
-        username: req.body.username,
-        bio: req.body.bio,
-        memberSince: req.body.memberSince,
-        bday: req.body.bday,
-        memberURL: req.body.memberURL,
-        avatar: req.body.avatar,
-        karma: req.body.karma,
-    });
-    user.save();
-    res.json({ message: 'User created!' });
 });
