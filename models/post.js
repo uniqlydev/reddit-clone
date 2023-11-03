@@ -9,10 +9,7 @@ const postSchema = new Schema({
     comments: Number,
     downvotes: Number,
     user: String,
-    date: {
-        type: String,
-        default: Date.now()
-    }
+    date: String,
 });
 
 const post = mongoose.model('post', postSchema);

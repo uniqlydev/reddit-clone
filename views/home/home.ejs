@@ -47,37 +47,36 @@
 
             <div class="posts">
               <ul>
-                <% for (let i = 0; i < posts.length; i++) { %>
-                  <li id="post-<%= i %>" class="post-container" onclick="redirectToSubreddit('/posts')">
+                <% postsList.forEach(posts => { %>
+                  <li class="post-container" onclick="redirectToSubreddit('/posts')">
                     <div class="post">
                       <p class="sub-reddit">
-                        <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts[i].subreddit %>
+                        <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts.user %>
                       </p>
               
-                      <h1><%= posts[i].title %></h1>
-                      <p class="description"><%= posts[i].description %></p>
+                      <h1><%= posts.title %></h1>
+                      <p class="description"><%= posts.body %></p>
               
                       <div class="operations">
                         <ul>
                           <li>
                             <div class="up-down-vote">
-                              <button><img src="assets/home/posts/arrow.png" alt=""></button>
-                              <p><%= posts[i].upvotes %>k</p>
-                              <button><img src="assets/home/posts/arrow.png" alt=""></button>
+                              <img src="assets/home/posts/arrow.png" alt="" width="15px">
+                              <p><%= posts.upvotes %></p>
                             </div>
                           </li>
               
                           <li>
                             <div class="comment-button">
-                              <button><img src="assets/home/posts/comment.png" alt=""></button>
-                              <p><%= posts[i].comments %>k</p>
+                              <img src="assets/home/posts/comment.png" alt="" width="15px">
+                              <p><%= posts.comments %></p>
                             </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                   </li>
-                <% } %>
+                <% }) %>
               </ul>
           </div>
         </div>

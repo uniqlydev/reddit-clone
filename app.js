@@ -8,6 +8,7 @@ const user = require('./models/user');
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
+const postModel = require('./models/post');
 
 const app = express();
 
@@ -20,36 +21,41 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-// database.setupAndRetrieveRecords();
-
 // app.use('/api',userRoutes);
 app.use('/posts',postRoutes);
 
 require('dotenv').config();
 const port = process.env.PORT || 8080;
 
-
 // Will serve as the homepage
-app.get('/', (req, res) => {
 
-    const posts = [
-        {
-            title: "What's your expensive hobby?",
-            body: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
-            upvotes: "20",
-            comments: "10",
-            downvotes: "5",
-            user: "u/username",
-            date: "2021-02-01"
-        }
-    ];
-
+app.get('/', async (req, res) => {
+    const posts = await postModel.find().sort({ id: -1 }).limit(10).exec();
     res.render('home/home', {
-        posts: posts,
+        postsList: posts,
         postLength: posts.length
-
     });
 });
+
+// app.get('/', (req, res) => {
+//     const post = [
+//         {
+//             title: "What's your expensive hobby?",
+//             body: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
+//             upvotes: "200",
+//             comments: "10",
+//             downvotes: "5",
+//             user: "u/username",
+//             date: "2021-02-01"
+//         }
+//     ];
+
+//     res.render('home/home', {
+//         postsList: post,
+//         postLength: post.length
+
+//     });
+// });
 
 
 app.get('/profile', (req, res) => {
@@ -90,8 +96,6 @@ app.post('/login', async (req, res) => {
     } else {
         res.status(401).json({ message: "Invalid credentials!" });
     }
-
-    client.close();
 });
 
 // Register Page
@@ -130,8 +134,6 @@ app.post('/register', async (req, res) => {
     await users.insertOne(userData);
 
     res.json({ message: "Registration successful" });
-
-    client.close();
 });
 
 // Create Post Page
@@ -171,10 +173,9 @@ app.post('/create-post', async (req, res) => {
     await posts.insertOne(postData);
 
     res.json({ message: "Post created" });
-
-    client.close();
 });
 
+// Connect to Cloud MongoDB
 database.connectToMongoDB();
 
 app.listen(port, () => {
