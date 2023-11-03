@@ -48,12 +48,12 @@ app.get('/', async (req, res) => {
 });
 
 // Go to specific users page
-app.get('/profile/:username', async (req, res) => {
+app.get('/profile', async (req, res) => {
+    const username = req.body;
     const client = new MongoClient(process.env.DB_CONN);
     const db = client.db(process.env.DB_NAME);
     const users = db.collection('users');
     const posts = db.collection('posts');
-    const username = req.params.username;
     const user = await users.findOne({ username });
     const userPosts = await posts.find({ user: "u/" + username }).sort({ id: -1 }).toArray();
 
