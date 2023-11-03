@@ -154,14 +154,11 @@ app.post('/create-post', async (req, res) => {
     const today = new Date();
     const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
 
-    const highestID = 0;
-    const nextID = 0;
-
-    // Get the next highest ID in the database and use it when inserting to the database
-    
+    const highestId = await posts.find().sort({ id: -1 }).limit(1).toArray();
+    const id = highestId.length === 0 ? 1 : highestId[0].id + 1;
 
     const postData = {
-        id: nextID,
+        id,
         title,
         body,
         upvotes: 0,
