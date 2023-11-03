@@ -39,7 +39,7 @@ app.get('/', async (req, res) => {
     const client = new MongoClient(process.env.DB_CONN);
     const db = client.db(process.env.DB_NAME);
     const posts = db.collection('posts');
-    // Show first 10 posts
+    // Show first 20 posts
     const postList = await posts.find().sort({ id: -1 }).limit(20).toArray();
 
     res.render('home/home', {
@@ -49,7 +49,8 @@ app.get('/', async (req, res) => {
 
 // Go to specific users page
 app.get('/profile', async (req, res) => {
-    const username = req.body;
+    const urlParams = new URLSearchParams(req.query);
+    const username = urlParams.get('username');
     const client = new MongoClient(process.env.DB_CONN);
     const db = client.db(process.env.DB_NAME);
     const users = db.collection('users');
@@ -64,14 +65,9 @@ app.get('/profile', async (req, res) => {
 
     res.render('home/profile', {
         user: user,
-        posts: userPosts,
+        postsList: userPosts,
     });
 });
-
-// app.get('/profile', (req, res) => {
-//     res.render('home/profile', {
-//     });
-// });
 
 // Profile Edit page
 app.get('/profile-edit', (req, res) => {
