@@ -2,13 +2,17 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const postSchema = new Schema({
+    id: Number,
     title: String,
-    subreddit: String,
-    description: String,
     body: String,
     upvotes: Number,
     comments: Number,
     downvotes: Number,
+    user: String,
+    date: {
+        type: String,
+        default: Date.now()
+    }
 });
 
 const post = mongoose.model('post', postSchema);

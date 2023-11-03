@@ -7,10 +7,11 @@ const database = require('./database/database.js');
 const user = require('./models/user');
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
+const cors = require('cors');
 
 const app = express();
 
-
+app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
@@ -34,12 +35,12 @@ app.get('/', (req, res) => {
     const posts = [
         {
             title: "What's your expensive hobby?",
-            subreddit: "r/Philippines",
-            description: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
-            body: "test",
+            body: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
             upvotes: "20",
             comments: "10",
             downvotes: "5",
+            user: "u/username",
+            date: "2021-02-01"
         }
     ];
 
@@ -89,6 +90,8 @@ app.post('/login', async (req, res) => {
     } else {
         res.status(401).json({ message: "Invalid credentials!" });
     }
+
+    client.close();
 });
 
 // Register Page
@@ -98,11 +101,16 @@ app.get('/register', (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-    const { username, password } = req.body;
+    const { username, password, confirmPassword } = req.body;
     const client = new MongoClient(process.env.DB_CONN);
     const db = client.db(process.env.DB_NAME);
     const users = db.collection('users');
     const existingUser = await users.findOne({ username });
+
+    if (password !== confirmPassword) {
+        res.status(400).json({ message: "Passwords do not match!" });
+        return;
+    }
 
     if (existingUser) {
         res.status(400).json({ message: "Username is already taken!" });
@@ -122,12 +130,52 @@ app.post('/register', async (req, res) => {
     await users.insertOne(userData);
 
     res.json({ message: "Registration successful" });
+
+    client.close();
 });
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
     });
+});
+
+app.post('/create-post', async (req, res) => {
+    const { title, body } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
+
+    if (title === '' || body === '') {
+        res.status(400).json({ message: "Please fill out all fields!" });
+        return;
+    }
+
+    const today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    const highestID = 0;
+    const nextID = 0;
+
+    // Get the next highest ID in the database and use it when inserting to the database
+    
+
+    const postData = {
+        id: nextID,
+        title,
+        body,
+        upvotes: 0,
+        comments: 0,
+        downvotes: 0,
+        user: "u/username",
+        date: date,
+    }
+
+    await posts.insertOne(postData);
+
+    res.json({ message: "Post created" });
+
+    client.close();
 });
 
 database.connectToMongoDB();
