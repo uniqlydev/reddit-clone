@@ -30,6 +30,13 @@ const port = process.env.PORT || 8080;
 // Will serve as the homepage
 
 app.get('/', async (req, res) => {
+
+    /* 
+        Please check this code for displaying data taken from database.
+        It is not working. I think it is because of the async function.
+        Working code is commented below this code.
+    */
+
     const posts = await postModel.find().sort({ id: -1 }).limit(10).exec();
     res.render('home/home', {
         postsList: posts,
