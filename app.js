@@ -23,7 +23,9 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/posts', postRoutes);
+
+// app.use('/api',userRoutes);
+app.use('/api',postRoutes);
 
 // Configure express-session
 app.use(session({
@@ -34,6 +36,8 @@ app.use(session({
 
 const port = process.env.PORT || 8080;
 
+
+
 // Will serve as the homepage
 app.get('/', async (req, res) => {
     const client = new MongoClient(process.env.DB_CONN);
@@ -42,9 +46,20 @@ app.get('/', async (req, res) => {
     // Show first 20 posts
     const postList = await posts.find().sort({ id: -1 }).limit(20).toArray();
 
-    res.render('home/home', {
-        postsList: postList,
-    });
+
+    try {
+        const response = await fetch('http://localhost:'+ port + '/api/posts');
+        const postsList = await response.json();
+
+        res.render('home/home', {
+            postsList: postsList,
+            postLength: postsList.length
+        });
+    }catch(e) {
+        res.status(500).json({ message: e.message });
+    }
+
+    
 });
 
 // Go to specific users page
