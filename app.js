@@ -3,12 +3,19 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
-
+const database = require('./database/database.js');
+const user = require('./models/user');
+const MongoClient = require('mongodb').MongoClient;
+const bcrypt = require('bcrypt');
+const cors = require('cors');
+const session = require('express-session');
 
 const app = express();
 
+require('dotenv').config();
 
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(cors());
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 // Setting ejs as the view engine
@@ -18,264 +25,261 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 
 // app.use('/api',userRoutes);
-app.use('/posts',postRoutes);
+app.use('/api',postRoutes);
 
-require('dotenv').config();
+// Configure express-session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 60000 },
+    saveUninitialized: false,
+}));
+
 const port = process.env.PORT || 8080;
 
 
+
 // Will serve as the homepage
-app.get('/', (req, res) => {
+app.get('/', async (req, res) => {
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
+    // Show first 20 posts
+    const postList = await posts.find().sort({ id: -1 }).limit(20).toArray();
 
-    const posts = [
-        {
-            title: "What's your expensive hobby?",
-            subreddit: "r/Philippines",
-            description: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
-            body: "test",
-            upvotes: "20",
-            comments: "10",
-            downvotes: "5",
-        },
-        {
-            title: "Favorite Travel Destinations",
-            subreddit: "r/Travel",
-            description: "Share your favorite travel destinations and why you love them.",
-            body: "test",
-            upvotes: "35",
-            comments: "15",
-            downvotes: "7",
-        },
-        {
-            title: "Cooking Enthusiasts Unite!",
-            subreddit: "r/Food",
-            description: "Discuss your favorite recipes, cooking tips, and culinary adventures.",
-            body: "test",
-            upvotes: "28",
-            comments: "12",
-            downvotes: "3",
-        },
-        {
-            title: "Best Sci-Fi Books of All Time",
-            subreddit: "r/Books",
-            description: "Share your favorite science fiction books and discuss the best ones in the genre.",
-            body: "test",
-            upvotes: "42",
-            comments: "18",
-            downvotes: "6",
-        },
-        {
-            title: "Photography Tips for Beginners",
-            subreddit: "r/Photography",
-            description: "New to photography? Get advice from experienced photographers and learn the basics.",
-            body: "test",
-            upvotes: "15",
-            comments: "8",
-            downvotes: "2",
-        },
-        {
-            title: "Gaming News and Reviews",
-            subreddit: "r/Gaming",
-            description: "Stay updated on the latest gaming news and share your game reviews with the community.",
-            body: "test",
-            upvotes: "55",
-            comments: "25",
-            downvotes: "9",
-        },
-        {
-            title: "Fitness and Workout Motivation",
-            subreddit: "r/Fitness",
-            description: "Share your fitness journey, workout routines, and tips for staying motivated.",
-            body: "test",
-            upvotes: "30",
-            comments: "14",
-            downvotes: "4",
-        },
-        {
-            title: "Movie Recommendations",
-            subreddit: "r/Movies",
-            description: "Looking for a good movie to watch? Ask for recommendations or share your favorites.",
-            body: "test",
-            upvotes: "48",
-            comments: "20",
-            downvotes: "10",
-        }
-        
-        // Add more test data objects here
-    ];
 
-    res.render('home/home', {
-        subreddits: [
+    try {
+        const response = await fetch('http://localhost:'+ port + '/api/posts');
+        const postsList = await response.json();
 
-            // These are test data to simulate dynamics
-            {
-                heading: "Taylor Swift and...",
-                subheading: "Taylor Swift and Travis Scott are dating!",
-                subreddit : "/fauxmau",
-            },
-            {
-                heading: "F1 2021 Season..",
-                subheading: "F1 2021 Season won't push through due..",
-                subreddit : "/formula1",
-            },
-            {
-                heading: "F1 2021 Season..",
-                subheading: "F1 2021 Season won't push through due..",
-                subreddit : "/formula1",
-            },
-            {
-                heading: "New Breakthrough in Medicine",
-                subheading: "Scientists make a groundbreaking discovery in the fight against cancer.",
-                subreddit: "/science",
-            },
-            {
-                heading: "SpaceX Launches Mars Mission",
-                subheading: "Elon Musk's SpaceX successfully launches a mission to Mars.",
-                subreddit: "/space",
-            },
-            {
-                heading: "Tech News",
-                subheading: "Apple unveils its latest iPhone with revolutionary features.",
-                subreddit: "/technology",
-            },
-            {
-                heading: "World Cup 2022 Update",
-                subheading: "Exciting matches and surprises in the ongoing World Cup.",
-                subreddit: "/sports",
-            },
-            {
-                heading: "Environmental Awareness",
-                subheading: "A campaign to protect endangered species gains momentum.",
-                subreddit: "/environment",
-            },
-            {
-                heading: "New Movie Release",
-                subheading: "Critics rave about the latest blockbuster hitting theaters.",
-                subreddit: "/movies",
-            },
-            {
-                heading: "Cooking Tips",
-                subheading: "Learn the secret to making the perfect pizza at home.",
-                subreddit: "/food",
-            },
-            {
-                heading: "Book Recommendations",
-                subheading: "Best-sellers and must-reads for book lovers.",
-                subreddit: "/books",
-            }
-            
-        ], 
-        posts: posts,
-        postLength: posts.length
+        res.render('home/home', {
+            postsList: postsList,
+            postLength: postsList.length
+        });
+    }catch(e) {
+        res.status(500).json({ message: e.message });
+    }
 
-    });
+    
 });
 
+// Go to specific users page
+app.get('/profile', async (req, res) => {
+    const urlParams = new URLSearchParams(req.query);
+    const username = urlParams.get('username');
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const posts = db.collection('posts');
+    const user = await users.findOne({ username });
+    const userPosts = await posts.find({ user: "u/" + username }).sort({ id: -1 }).toArray();
 
-// You can add more test data here (I'm just waiting for the login)
-const getUserDataByUsername = (username) => {
-    const user = [
-        {
-          id: 101,
-          username: "TechEnthusiast21",
-          bio: "Passionate about all things tech!",
-          memberSince: "2y",
-          bday: "January 10, 2020",
-          memberURL: "u/TechEnthusiast21",
-          avatar: "avatar1.jpg",
-          karma: 10
-        },
-        {
-          id: 102,
-          username: "WebDevWizard",
-          bio: "Creating amazing web experiences.",
-          memberSince: "3y",
-          bday: "March 15, 2019",
-          memberURL: "u/WebDevWizard",
-          avatar: "avatar2.jpg",
-          karma: 5
-        },
-        {
-          id: 103,
-          username: "DataSciencePro",
-          bio: "Exploring data science and AI wonders.",
-          memberSince: "1y",
-          bday: "June 30, 2021",
-          memberURL: "u/DataSciencePro",
-          avatar: "avatar3.jpg",
-          karma: 20
-        },
-        {
-          id: 104,
-          username: "CodeLearner42",
-          bio: "On a journey to master coding.",
-          memberSince: "4y",
-          bday: "December 5, 2018",
-          memberURL: "u/CodeLearner42",
-          avatar: "avatar4.jpg",
-          karma: 8
-        }
-      ]
-      
-        return user.filter((user) => {
-            return user.username == username;
-        });
-}
-
-
-app.get('/profile', (req, res) => {
-    const username = req.query.username; 
-    const user = getUserDataByUsername(username); 
+    if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    }
 
     res.render('home/profile', {
-        profile: user, 
+        user: user,
+        postsList: userPosts,
     });
 });
 
 // Profile Edit page
 app.get('/profile-edit', (req, res) => {
-    // Bren, I couldn't get this to work. Please check if free.
-
-    const username = req.query.username;
-    const user = getUserDataByUsername(username);
-
     res.render('home/profileEdit', {
-        profile: user,
     });
 });
 
 // Login Page
-app.get('/login', (req, res) => {
+app.get('/login', async (req, res) => {
     res.render('home/login', {
-
     });
+});
+
+app.post('/login', async (req, res) => {
+    const { username, password } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const userLogin = await users.findOne({ username });
+
+    if (!userLogin) {
+        res.status(401).json({ message: "Invalid credentials!" });
+        return;
+    }
+
+    const passwordMatch = await bcrypt.compare(password, userLogin.password);
+
+    if (passwordMatch) {
+        if (req.session.authenticated) {
+            res.status(201).json(req.session.user.username);
+        } else {
+            req.session.authenticated = true;
+            req.session.user = {
+                username, password
+            };
+            res.status(201).json(req.session.user.username);
+        }
+    } else {
+        res.status(401).json({ message: "Invalid credentials!" });
+    }
 });
 
 // Register Page
 app.get('/register', (req, res) => {
     res.render('home/register', {
-        
     });
 });
 
-app.get('/edit-post', (req, res) => {
-    res.render('post/editPost', {
-        
-    });
+app.post('/register', async (req, res) => {
+    const { username, password, confirmPassword } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const existingUser = await users.findOne({ username });
+
+    if (password !== confirmPassword) {
+        res.status(400).json({ message: "Passwords do not match!" });
+        return;
+    }
+
+    if (existingUser) {
+        res.status(400).json({ message: "Username is already taken!" });
+        return;
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    const userData = {
+        username,
+        password: hashedPassword,
+        bio: '',
+        memberURL: 'u/' + username,
+        avatar: '',
+    }
+
+    await users.insertOne(userData);
+
+    res.json({ message: "Registration successful" });
 });
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
     res.render('post/createPost', {
-        
     });
 });
 
-app.get('/r/:subreddit', (req, res) => {
+app.post('/create-post', async (req, res) => {
+    const { title, body } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
 
+    if (title === '' || body === '') {
+        res.status(400).json({ message: "Please fill out all fields!" });
+        return;
+    }
 
-    res.render('post/post',);
+    const today = new Date();
+    const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+    const highestId = await posts.find().sort({ id: -1 }).limit(1).toArray();
+    const id = highestId.length === 0 ? 1 : highestId[0].id + 1;
+
+    const postData = {
+        id,
+        title,
+        body,
+        upvotes: 0,
+        comments: 0,
+        downvotes: 0,
+        user: "u/username",
+        date: date,
+    }
+
+    await posts.insertOne(postData);
+
+    res.json({ message: "Post created" });
 });
+
+app.get('/posts', (req, res) => {
+    res.render('post/post', {
+        post_details: {
+            subreddit: "nba",
+            post_id: 1,
+            title: "[Wojnarowski] BREAKING: The Portland Trail Blazers are trading guard Damian Lillard to the Milwaukee Bucks, sources tell ESPN. ",
+            content: {
+                type: "text",
+                text: "Link: https://twitter.com/wojespn/status/1707096933708509295?lang=en<br><br>After an offseason-long fiasco with the Portland Trailblazers, Damian Lillard has been traded to the Milwaukee Bucks in a blockbuster 3-Team trade with the Phoenix Suns. How do you feel about this trade?"
+            },
+            date_posted: "2023-10-11",
+            author: "DataSciencePro",
+            votes: 2500
+        },
+        comments: [
+            // These are test data to simulate dynamics
+                {
+                    id: 1,
+                    // reply_id: null, // reply id for phase 2
+                    content: {
+                        commenter: "TechEnthusiast21",
+                        created_date: "2023-10-11",
+                        votes:25,
+                        text: "As a fan of both, I'm excited to see this pairing!"
+                    },
+                    children: [
+                        {
+                            id: 2,
+                            content: {
+                                commenter: "WebDevWizard",
+                                created_date: "2023-10-11",
+                                votes:12,
+                                text: "I don't even need to watch, just give them the trophy already!"
+                            },
+                            children: [
+                                {
+                                    id: 2,
+                                    content: {
+                                        commenter: "DataSciencePro",
+                                        created_date: "2023-10-11",
+                                        votes:6,
+                                        text: "I agree! We will be witnessing greatness in the levels of Shaq and Kobe!"
+                                    },
+                                    children: []
+                                }
+                            ]
+                        },
+                    ]
+                },
+            {
+                id: 2,
+                content: {
+                    commenter: "CodeLearner42",
+                    created_date: "2023-10-12",
+                    votes:5,
+                    text: "I don't care, I know that Jimmy will still make them exit the first round next year!"
+                },
+                children: [
+                    {
+                        id: 2,
+                        content: {
+                            commenter: "WebDevWizard",
+                            created_date: "2023-10-11",
+                            votes:7,
+                            text: "Ok"
+                        },
+                        children: []
+                    }
+                ]
+            }
+        ],
+    });
+});
+
+
+
+// Connect to Cloud MongoDB
+database.connectToMongoDB();
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);

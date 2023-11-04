@@ -13,7 +13,7 @@
                     <img src="https://www.redditinc.com/assets/images/site/reddit-logo.png" alt="reddit-logo" id="main-logo" onclick="window.location.href = '/'">
                     <h1 id="title">Login</h1>
                 </div>
-                <form>
+                <form id="loginForm">
                     <div id="input-container">
                         <div class="input-field" id="username-field">
                             <i class="fa-solid fa-user"></i>
@@ -30,9 +30,10 @@
                         <span id="lost-field">Forgot password? <a href='#'>Click Here!</a></span>
                         <span id="register-field">Don't have an account? <a href='/register'>Register Here!</a></span>
                     </div>
+                    <p id="error-msg"></p>
                     <div id="btn-field">
                         <button type="button" id="cancelBtn" onclick="window.location.href = '/'">Cancel</button>
-                        <button type="button" id="loginBtn" onclick="login()">Login</button>
+                        <button type="submit" id="loginBtn">Login</button>
                     </div>
                 </form>
             </div>

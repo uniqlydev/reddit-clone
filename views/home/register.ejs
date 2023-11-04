@@ -4,7 +4,7 @@
         <meta charset="UTF-8">
         <title>User Login Page</title>
         <link rel="stylesheet" href="css/login/login.css">
-        <script src="scripts/login.js"></script>
+        <script src="scripts/register.js"></script>
     </head>
     <body>
         <div id="login-container">
@@ -13,7 +13,7 @@
                     <img src="https://www.redditinc.com/assets/images/site/reddit-logo.png" alt="reddit-logo" id="main-logo" onclick="window.location.href = '/'">
                     <h1 id="title">Register</h1>
                 </div>
-                <form>
+                <form id="registerForm">
                     <div id="input-container">
                         <div class="input-field" id="email-field">
                             <i class="fa-solid fa-envelope"></i>
@@ -34,9 +34,10 @@
                     <div class="link-fields">
                         <span id="register-field">Already have an account? <a href='/login'>Login Here!</a></span>
                     </div>
+                    <p id="status-msg"></p>
                     <div id="btn-field">
                         <button type="button" id="cancelBtn" onclick="window.location.href = '/'">Cancel</button>
-                        <button type="button" id="registerBtn" onclick="register()">Register</button>
+                        <button type="submit" id="registerBtn">Register</button>
                     </div>
                 </form>
             </div>

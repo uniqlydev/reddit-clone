@@ -1,55 +1,26 @@
-function checkMissingLogin(username, password) {
-    if (username == "" || password == "") {
-        alert("Please fill in all fields");
-        return true;
-    }
-}
+document.addEventListener('DOMContentLoaded', () => {
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('error-msg');
 
-function checkMissingRegister(email, username, password, confirmPassword) {
-    var emailRegex = /\S+@\S+\.\S+/;
-    if (!emailRegex.test(email)) {
-        alert("Please enter a valid email address");
-        return true;
-    }
+    loginForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
 
-    if (email == "" || username == "" || password == "" || confirmPassword == "") {
-        alert("Please fill in all fields");
-        return true;
-    }
+        const username = document.getElementById('username').value;
+        const password = document.getElementById('password').value;
 
-    if (password != confirmPassword) {
-        alert("Passwords do not match");
-        return true;
-    }
+        const response = await fetch('/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ username, password }),
+        });
 
-}
+        const data = await response.json();
 
-function login() {
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    // Idk what to do with remember yet (Phase 2 implementation)
-    var remember = document.getElementById("remember").checked;
-
-    if (checkMissingLogin(username, password)) {
-        return;
-    } else {
-        // Redirects to profile page (change as needed)
-        window.location.href = `/profile?username=${username}`;
-    }
-
-    return;
-}
-
-function register() {
-    var email = document.getElementById("email").value;
-    var username = document.getElementById("username").value;
-    var password = document.getElementById("password").value;
-    var confirmPassword = document.getElementById("confirm-password").value;
-
-    if (checkMissingRegister(email, username, password, confirmPassword)) {
-        return;
-    } else {
-        // Add user to database (Phase 2 implementation)
-        window.location.href = '/';
-    }
-}
+        if (response.ok) {
+            errorMsg.textContent = "Login successful";
+            window.location.href = `/profile?username=${username}`;
+        } else {
+            errorMsg.textContent = data.message;
+        }
+    });
+});
