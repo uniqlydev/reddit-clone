@@ -4,9 +4,7 @@ const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const database = require('./database/database.js');
-const user = require('./models/user');
 const MongoClient = require('mongodb').MongoClient;
-const bcrypt = require('bcrypt');
 const cors = require('cors');
 const session = require('express-session');
 
@@ -24,7 +22,7 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-// app.use('/api',userRoutes);
+app.use('/api/user',userRoutes);
 app.use('/api',postRoutes);
 
 // Configure express-session
@@ -42,11 +40,6 @@ const port = process.env.PORT || 8080;
 app.get('/', async (req, res) => {
     const client = new MongoClient(process.env.DB_CONN);
     const db = client.db(process.env.DB_NAME);
-    const posts = db.collection('posts');
-    // Show first 20 posts
-    const postList = await posts.find().sort({ id: -1 }).limit(20).toArray();
-
-
     try {
         const response = await fetch('http://localhost:'+ port + '/api/posts');
         const postsList = await response.json();
@@ -131,37 +124,38 @@ app.get('/register', (req, res) => {
     });
 });
 
-app.post('/register', async (req, res) => {
-    const { username, password, confirmPassword } = req.body;
-    const client = new MongoClient(process.env.DB_CONN);
-    const db = client.db(process.env.DB_NAME);
-    const users = db.collection('users');
-    const existingUser = await users.findOne({ username });
+// app.post('/register', async (req, res) => {
+//     const { username, password, confirmPassword } = req.body;
+//     const client = new MongoClient(process.env.DB_CONN);
+//     const db = client.db(process.env.DB_NAME);
+//     const users = db.collection('users');
+//     const existingUser = await users.findOne({ username });
 
-    if (password !== confirmPassword) {
-        res.status(400).json({ message: "Passwords do not match!" });
-        return;
-    }
+//     if (password !== confirmPassword) {
+//         res.status(400).json({ message: "Passwords do not match!" });
+//         return;
+//     }
 
-    if (existingUser) {
-        res.status(400).json({ message: "Username is already taken!" });
-        return;
-    }
+//     if (existingUser) {
+//         res.status(400).json({ message: "Username is already taken!" });
+//         return;
+//     }
 
-    const hashedPassword = await bcrypt.hash(password, 10);
+//     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const userData = {
-        username,
-        password: hashedPassword,
-        bio: '',
-        memberURL: 'u/' + username,
-        avatar: '',
-    }
+//     const userData = {
+//         username,
+//         password: hashedPassword,
+//         bio: '',
+//         memberURL: 'u/' + username,
+//         avatar: '',
+//     }
 
-    await users.insertOne(userData);
+//     await users.insertOne(userData);
 
-    res.json({ message: "Registration successful" });
-});
+//     res.json({ message: "Registration successful" });
+// });
+
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
