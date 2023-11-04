@@ -12,10 +12,10 @@ exports.registerUser = async (req, res) => {
         const users = db.collection('users');
         const existingUser = await users.findOne({ username });
 
-        // if (password !== confirmPassword) {
-        //     res.status(400).json({ message: "Passwords do not match!" });
-        //     return;
-        // }
+        if (password !== confirmPassword) {
+            res.status(400).json({ message: "Passwords do not match!" });
+            return;
+        }
 
         if (existingUser) {
             res.status(400).json({ message: "Username is already taken!" });
@@ -36,6 +36,44 @@ exports.registerUser = async (req, res) => {
 
         res.json({ message: "Registration successful" });
     }catch(e) {
+        res.status(500).json({ message: e.message });
+    }
+};
+
+exports.loginUser = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        const client = new MongoClient(process.env.DB_CONN);
+        const db = client.db(process.env.DB_NAME);
+        const users = db.collection('users');
+        const userLogin = await users.findOne({ username });
+
+        if (!userLogin) {
+            res.status(401).json({ message: "Invalid credentials!" });
+            return;
+        }
+
+        const passwordMatch = await bcrypt.compare(password, userLogin.password);
+
+        if (passwordMatch) {
+            // Initialize the session if not already done
+            if (!req.session) {
+                req.session = {};
+            }
+
+            if (req.session.authenticated) {
+                res.status(201).json(req.session.user.username);
+            } else {
+                req.session.authenticated = true;
+                req.session.user = {
+                    username, password
+                };
+                res.status(201).json(req.session.user.username);
+            }
+        } else {
+            res.status(401).json({ message: "Invalid credentials!" });
+        }
+    } catch (e) {
         res.status(500).json({ message: e.message });
     }
 };

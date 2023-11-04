@@ -89,34 +89,34 @@ app.get('/login', async (req, res) => {
     });
 });
 
-app.post('/login', async (req, res) => {
-    const { username, password } = req.body;
-    const client = new MongoClient(process.env.DB_CONN);
-    const db = client.db(process.env.DB_NAME);
-    const users = db.collection('users');
-    const userLogin = await users.findOne({ username });
+// app.post('/login', async (req, res) => {
+//     const { username, password } = req.body;
+//     const client = new MongoClient(process.env.DB_CONN);
+//     const db = client.db(process.env.DB_NAME);
+//     const users = db.collection('users');
+//     const userLogin = await users.findOne({ username });
 
-    if (!userLogin) {
-        res.status(401).json({ message: "Invalid credentials!" });
-        return;
-    }
+//     if (!userLogin) {
+//         res.status(401).json({ message: "Invalid credentials!" });
+//         return;
+//     }
 
-    const passwordMatch = await bcrypt.compare(password, userLogin.password);
+//     const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
-    if (passwordMatch) {
-        if (req.session.authenticated) {
-            res.status(201).json(req.session.user.username);
-        } else {
-            req.session.authenticated = true;
-            req.session.user = {
-                username, password
-            };
-            res.status(201).json(req.session.user.username);
-        }
-    } else {
-        res.status(401).json({ message: "Invalid credentials!" });
-    }
-});
+//     if (passwordMatch) {
+//         if (req.session.authenticated) {
+//             res.status(201).json(req.session.user.username);
+//         } else {
+//             req.session.authenticated = true;
+//             req.session.user = {
+//                 username, password
+//             };
+//             res.status(201).json(req.session.user.username);
+//         }
+//     } else {
+//         res.status(401).json({ message: "Invalid credentials!" });
+//     }
+// });
 
 // Register Page
 app.get('/register', (req, res) => {
