@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
             errorMsg.textContent = "Login successful";
-            window.location.href = '/';
+            window.location.href = `/profile?username=${username}`;
         } else {
             errorMsg.textContent = data.message;
         }

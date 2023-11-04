@@ -8,9 +8,11 @@ const user = require('./models/user');
 const MongoClient = require('mongodb').MongoClient;
 const bcrypt = require('bcrypt');
 const cors = require('cors');
-const postModel = require('./models/post');
+const session = require('express-session');
 
 const app = express();
+
+require('dotenv').config();
 
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
@@ -21,17 +23,29 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+
 // app.use('/api',userRoutes);
 app.use('/api',postRoutes);
 
-require('dotenv').config();
+// Configure express-session
+app.use(session({
+    secret: process.env.SESSION_SECRET,
+    cookie: { maxAge: 60000 },
+    saveUninitialized: false,
+}));
+
 const port = process.env.PORT || 8080;
 
 
 
 // Will serve as the homepage
-
 app.get('/', async (req, res) => {
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
+    // Show first 20 posts
+    const postList = await posts.find().sort({ id: -1 }).limit(20).toArray();
+
 
     try {
         const response = await fetch('http://localhost:'+ port + '/api/posts');
@@ -48,18 +62,31 @@ app.get('/', async (req, res) => {
     
 });
 
+// Go to specific users page
+app.get('/profile', async (req, res) => {
+    const urlParams = new URLSearchParams(req.query);
+    const username = urlParams.get('username');
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const posts = db.collection('posts');
+    const user = await users.findOne({ username });
+    const userPosts = await posts.find({ user: "u/" + username }).sort({ id: -1 }).toArray();
 
+    if (!user) {
+        res.status(404).json({ message: "User not found" });
+        return;
+    }
 
-app.get('/profile', (req, res) => {
     res.render('home/profile', {
-        profile: user, 
+        user: user,
+        postsList: userPosts,
     });
 });
 
 // Profile Edit page
 app.get('/profile-edit', (req, res) => {
     res.render('home/profileEdit', {
-        profile: user,
     });
 });
 
@@ -84,7 +111,15 @@ app.post('/login', async (req, res) => {
     const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
     if (passwordMatch) {
-        res.json({ message: "Login successful" });
+        if (req.session.authenticated) {
+            res.status(201).json(req.session.user.username);
+        } else {
+            req.session.authenticated = true;
+            req.session.user = {
+                username, password
+            };
+            res.status(201).json(req.session.user.username);
+        }
     } else {
         res.status(401).json({ message: "Invalid credentials!" });
     }

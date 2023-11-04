@@ -2,11 +2,11 @@
     <div id="profilestats">
         <img src="https://www.redditstatic.com/avatars/avatar_default_02_4856A3.png" alt="Profile picture" height="150px" width="150px" style="border-radius: 10px;"/>
         <br />
-        <%= profile[0].username %>
+        <%= user.username %>
         <br />
-        <%= profile[0].memberURL %>.
+        <%= user.memberURL %>
         <div id="bio-page">
-            <%= profile[0].bio %>
+            <%= user.bio %>
         </div>
         <button id="style-avatar" onclick="window.location.href='/profile-edit'">Style Avatar</button>
         <div id="post-button">

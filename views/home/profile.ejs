@@ -26,7 +26,60 @@
             <!-- Static information on the ejs partial -->
         <%- include('profile/partials/profilestats.ejs')%>
         <!-- Profile posts -->
-            <!-- Static information on the ejs partial -->
-        <%- include('profile/partials/profileposts.ejs')%>
+        <div id="posts-container">
+            <ul>
+                <% postsList.forEach(post => { %>
+                    <div id="profile-posts">
+                        <div class="post">
+                            <div class="vote">
+                                <div class="upvote">
+                                    <button class="upvote-button"><img src="https://cdn-icons-png.flaticon.com/512/25/25637.png" alt="up-arrow" width="15px" height="15px" /></button>
+                                </div>
+                                <div class="score">
+                                    <span class="score">
+                                        <% post.upvotes %>
+                                    </span>
+                                </div>
+                                <div class="downvote">
+                                    <button class="downvote-button"><img src="https://cdn-icons-png.flaticon.com/512/61/61932.png" alt="down-arrow" width="15px" height="15px" /></button>
+                                </div>
+                            </div>
+                
+                            <!-- Make this into a list  -->
+                            <div class="post-container">
+                                <div class="post-details">
+                                    <div class="post-date">
+                                        <span class="post-date-sub">
+                                            Posted by <%= user.username %>
+                                        </span>
+                                    </div>
+                                </div>
+                                <div class="post-information">
+                                    <a href="/" class="post-click">
+                                        <div class="post-header">
+                                            <% post.title %>
+                                        </div>
+                                        <div class="post-body">
+                                            <% post.body %>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="post-actions">
+                                    <div id="comment" class="actions">
+                                        <button id="comment-button" class="buttons"><img src="https://cdn-icons-png.flaticon.com/512/1380/1380338.png" alt="comment-icon" width="25px" height="25px" style="filter: invert(100%);"/>Comment</button>
+                                    </div>
+                                    <div id="share" class="actions">
+                                        <button id="share-button" class="buttons"><img src="https://cdn-icons-png.flaticon.com/512/1380/1380339.png" alt="share-icon" width="25px" height="25px" style="filter: invert(100%);"/>Share</button>
+                                    </div>
+                                    <div id="save" class="actions">
+                                        <button id="save-button" class="buttons"><img src="https://cdn-icons-png.flaticon.com/512/1380/1380355.png" alt="save-icon" width="25px" height="25px" style="filter: invert(100%);" />Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </ul>
+        </div>
     </body>
 </html>
