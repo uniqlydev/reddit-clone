@@ -22,47 +22,32 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
 // app.use('/api',userRoutes);
-app.use('/posts',postRoutes);
+app.use('/api',postRoutes);
 
 require('dotenv').config();
 const port = process.env.PORT || 8080;
+
+
 
 // Will serve as the homepage
 
 app.get('/', async (req, res) => {
 
-    /* 
-        Please check this code for displaying data taken from database.
-        It is not working. I think it is because of the async function.
-        Working code is commented below this code.
-    */
+    try {
+        const response = await fetch('http://localhost:'+ port + '/api/posts');
+        const postsList = await response.json();
 
-    const posts = await postModel.find().sort({ id: -1 }).limit(10).exec();
-    res.render('home/home', {
-        postsList: posts,
-        postLength: posts.length
-    });
+        res.render('home/home', {
+            postsList: postsList,
+            postLength: postsList.length
+        });
+    }catch(e) {
+        res.status(500).json({ message: e.message });
+    }
+
+    
 });
 
-// app.get('/', (req, res) => {
-//     const post = [
-//         {
-//             title: "What's your expensive hobby?",
-//             body: "I'm doing scuba diving and it cost me like 2k per dive. I want to see ano ang pinaka expensive na hobby nating adults!",
-//             upvotes: "200",
-//             comments: "10",
-//             downvotes: "5",
-//             user: "u/username",
-//             date: "2021-02-01"
-//         }
-//     ];
-
-//     res.render('home/home', {
-//         postsList: post,
-//         postLength: post.length
-
-//     });
-// });
 
 
 app.get('/profile', (req, res) => {
