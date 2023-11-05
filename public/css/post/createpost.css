@@ -108,6 +108,19 @@
     cursor: pointer;
 }
 
+#post-edit {
+    width: 100px;
+    height: 40px;
+    font-size: 18px;
+    font-weight: bold;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background-color: rgb(134, 255, 134);
+    border: none;
+    cursor: pointer;
+}
+
 #rules-container {
     background-color: #192528;
     border-radius: 10px;
