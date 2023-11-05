@@ -147,8 +147,6 @@ app.get('/posts', async (req, res) => {
         res.status(404).json({ message: "Post not found" });
     }
 
-    console.log(post);
-
     res.render('post/post', {
         post: post,
     });
