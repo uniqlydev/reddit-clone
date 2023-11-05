@@ -147,8 +147,11 @@ app.get('/posts', async (req, res) => {
         res.status(404).json({ message: "Post not found" });
     }
 
+    const username = post.user.substring(2);
+
     res.render('post/post', {
         post: post,
+        username: username,
     });
 
     // res.render('post/post', {
