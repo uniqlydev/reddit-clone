@@ -1,33 +1,12 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const postForm = document.getElementById('postForm');
-    const editPostForm = document.getElementById('editPostForm');
-    const statusMsg = document.getElementById('status-msg');
+    const editBtn = document.getElementById('editBtn');
 
-    postForm.addEventListener('submit', async (e) => {
+    editBtn.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        const title = document.getElementById('title-input').value;
-        const body = document.getElementById('body-input').value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
 
-        const response = await fetch('/create-post', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, body }),
-        });
-
-        const data = await response.json();
-
-        if (response.ok) {
-            statusMsg.textContent = "Post created";
-            window.location.href = '/';
-        } else {
-            statusMsg.textContent = data.message;
-        }
-    });
-
-    editPostForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        
+        window.location.href = '/edit-post?id=' + postId;
     });
 });

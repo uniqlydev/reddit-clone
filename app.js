@@ -130,9 +130,42 @@ app.post('/create-post', async (req, res) => {
     res.json({ message: "Post created" });
 });
 
-app.get('/edit-post', (req, res) => {
+app.get('/edit-post', async (req, res) => {
+    const urlParams = new URLSearchParams(req.query);
+    const id = urlParams.get('id');
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
+    const post = await posts.findOne({ id: parseInt(id) });
+
+    if (!post) {
+        res.status(404).json({ message: "Post not found" });
+    }
+
     res.render('post/editPost', {
+        post: post,
     });
+});
+
+app.post('/edit-post', async (req, res) => {
+    const { postId, title, body } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const posts = db.collection('posts');
+
+    if (title === '' || body === '') {
+        res.status(400).json({ message: "Please fill out all fields!" });
+        return;
+    }
+
+    console.log(postId, title, body);
+
+    await posts.updateOne(
+        {id: parseInt(postId)},
+        { $set: { title: title, body: body } }
+    );
+
+    res.json({ message: "Post edited" });
 });
 
 app.get('/posts', async (req, res) => {

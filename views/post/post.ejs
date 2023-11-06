@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
     <link rel="stylesheet" href="css/post/comment.css">
+    <script src="scripts/post.js"></script>
 </head>
 <body>
     <!-- Navbar -->
@@ -20,7 +21,7 @@
     <div class="container">
         <!-- Side-bar -->
         <%- include('../home/partials/sidebar.ejs')%>
-        <div class="main-content"> <!-- style="background-color: blue;"> -->
+        <div class="main-content">
             <div class="main-post">
                 <div class="credit-bar">
                     <span class="icon">
@@ -39,8 +40,8 @@
                         <svg rpl="" fill="currentColor" height="16" icon-name="overflow-horizontal-fill" viewBox="0 0 20 20" width="16" xmlns="http://www.w3.org/2000/svg"> <!--?lit$177470783$--><!--?lit$177470783$--><path d="M6 10a2 2 0 1 1-4 0 2 2 0 0 1 4 0Zm4-2a2 2 0 1 0 0 4 2 2 0 0 0 0-4Zm6 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4Z"></path><!--?--> </svg>   
                     </button>
                 </div>
-                <h1 class="post-title"><%= post.title %></h1>
-                <div class="post-content"><%= post.body %></div>
+                <h1 class="post-title" id="post-title"><%= post.title %></h1>
+                <div class="post-content" id="post-body"><%= post.body %></div>
                 <div class="user-actions">
                     <div class="vote">
                         <button class="upvote">
@@ -55,9 +56,9 @@
                         <span class="post-sprite comment-action"></span>
                         <span class="count"><%= post.comments %></span>
                     </button>
-                    <button class="share">
+                    <button type="button" class="share" id="editBtn">
                         <span class="post-sprite share"></span>
-                        <span class="count">Share</span>
+                        <span class="count">Edit</span>
                     </button>
                 </div>
             </div>
