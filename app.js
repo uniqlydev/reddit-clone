@@ -28,16 +28,14 @@ app.use('/api',postRoutes);
 // Configure express-session
 app.use(session({
     secret: process.env.SESSION_SECRET,
-    cookie: { maxAge: 60000 },
-    saveUninitialized: false,
+    resave: false,
+    saveUninitialized: true,
 }));
 
 const port = process.env.PORT || 8080;
 
 // Will serve as the homepage
 app.get('/', async (req, res) => {
-    const client = new MongoClient(process.env.DB_CONN);
-    const db = client.db(process.env.DB_NAME);
     try {
         const response = await fetch('http://localhost:'+ port + '/api/posts');
         const postsList = await response.json();
@@ -93,6 +91,13 @@ app.get('/register', (req, res) => {
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
+    console.log(req.session.username);
+    
+    // if (!req.session.authenticated) {
+    //     res.redirect('/login');
+    //     return;
+    // }
+
     res.render('post/createPost', {
     });
 });

@@ -56,19 +56,17 @@ exports.loginUser = async (req, res) => {
         const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
         if (passwordMatch) {
-            // Initialize the session if not already done
             if (!req.session) {
                 req.session = {};
             }
 
             if (req.session.authenticated) {
-                res.status(201).json(req.session.user.username);
+                req.session.username = username;
+                res.status(201).json(req.session);
             } else {
                 req.session.authenticated = true;
-                req.session.user = {
-                    username, password
-                };
-                res.status(201).json(req.session.user.username);
+                req.session.username = username;
+                res.status(201).json(req.session);
             }
         } else {
             res.status(401).json({ message: "Invalid credentials!" });
