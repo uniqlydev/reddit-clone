@@ -72,13 +72,35 @@ app.get('/profile', async (req, res) => {
 });
 
 // Profile Edit page
-app.get('/profile-edit', (req, res) => {
+app.get('/profile-edit', async (req, res) => {
+    const urlParams = new URLSearchParams(req.query);
+    const username = urlParams.get('username');
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+    const user = await users.findOne({ username });
+
     res.render('home/profileEdit', {
+        user: user,
     });
 });
 
+app.post('/profile-edit', async (req, res) => {
+    const { username, bio } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+
+    await users.updateOne(
+        {username: username},
+        { $set: { bio: bio } }
+    );
+
+    res.json({ message: "Profile edited" });
+});
+
 // Login Page
-app.get('/login', async (req, res) => {
+app.get('/login', (req, res) => {
     res.render('home/login', {
     });
 });
@@ -91,13 +113,6 @@ app.get('/register', (req, res) => {
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
-    console.log(req.session.username);
-    
-    // if (!req.session.authenticated) {
-    //     res.redirect('/login');
-    //     return;
-    // }
-
     res.render('post/createPost', {
     });
 });
