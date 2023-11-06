@@ -45,11 +45,11 @@
               </div>
             </div>
 
-            <div class="posts">
-              <ul>
+            <div class="posts-container">
+              <ul class="posts" id="posts">
                 <% postsList.forEach(posts => { %>
-                  <li class="post-container" onclick="redirectToSubreddit('/posts')">
-                    <div class="post">
+                  <li class="post-container" id="<%= posts.id %>">
+                    <div class="post" id="<%= posts.id %>">
                       <p class="sub-reddit">
                         <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts.user %>
                       </p>

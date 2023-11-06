@@ -9,6 +9,7 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
         <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
         <link rel="stylesheet" href="css/post/createpost.css">
+        <script src="scripts/post.js"></script>
     </head>
     <body>
         <!-- Navbar -->
@@ -17,30 +18,21 @@
         <div id="main-container">
             <div id="post-container">
                 <div id="post-header">
-                    <span id="post-create">Edit a post</span>
+                    <span id="post-create">Edit post</span>
                 </div>
-                <div id="post-community">
-                    <select name="community" id="community-select">
-                        <option value="" disabled selected hidden>Choose a community</option>
-                        <option value="r/Philippines">r/Philippines</option>
-                        <option value="r/AskReddit">r/AskReddit</option>
-                        <option value="r/AskScience">r/AskScience</option>
-                        <option value="r/AskHistorians">r/AskHistorians</option>
-                        <option value="r/AskMen">r/AskMen</option>
-                    </select>
-                </div>
-                <div id="post-title">
-                    <input type="text" name="title" id="title-input" placeholder="Title" maxlength="300" value="Era's tour is the best">
-                </div>
-                <div id="post-body">
-                    <textarea name="body" id="body-input" cols="30" rows="10" placeholder="Text">
-                        Era's Tour is the best!
-                    </textarea>
-                </div>
-                <div id="post-actions">
-                    <button id="post-cancel" onclick="window.location.href='/'">Cancel</button>
-                    <button id="post-submit" onclick="window.location.href='/'">Edit</button>
-                </div>
+                <form id="editPostForm">
+                    <div id="post-title">
+                        <textarea name="title" id="title-input" placeholder="Title" maxlength="300"></textarea>
+                    </div>
+                    <div id="post-body">
+                        <textarea name="body" id="body-input" cols="30" rows="10" placeholder="Body"></textarea>
+                    </div>
+                    <p id="status-msg"></p>
+                    <div id="post-actions">
+                        <button type="button" id="post-cancel" onclick="window.location.href='/'">Cancel</button>
+                        <button type="submit" id="post-edit">Post</button>
+                    </div>
+                </form>
             </div>
             <div id="rules-container">
                 <div id="rules-header">

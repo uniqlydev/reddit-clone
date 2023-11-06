@@ -1,5 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const postForm = document.getElementById('postForm');
+    const editPostForm = document.getElementById('editPostForm');
     const statusMsg = document.getElementById('status-msg');
 
     postForm.addEventListener('submit', async (e) => {
@@ -22,5 +23,11 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             statusMsg.textContent = data.message;
         }
+    });
+
+    editPostForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        
     });
 });
