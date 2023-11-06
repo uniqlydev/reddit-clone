@@ -34,34 +34,34 @@
             <% postsList.forEach(post => { %>
                 <div class="profile-posts">
                     <div class="post" id="<%= post.id %>">
-                        <div class="vote">
-                            <div class="upvote">
+                        <div class="vote" id="<%= post.id %>">
+                            <div class="upvote" id="<%= post.id %>">
                                 <button class="upvote-button"><img src="https://cdn-icons-png.flaticon.com/512/25/25637.png" alt="up-arrow" width="15px" height="15px" /></button>
                             </div>
-                            <div class="score">
+                            <div class="score" id="<%= post.id %>">
                                 <span class="score">
                                     <%= post.upvotes %>
                                 </span>
                             </div>
-                            <div class="downvote">
+                            <div class="downvote" id="<%= post.id %>">
                                 <button class="downvote-button"><img src="https://cdn-icons-png.flaticon.com/512/61/61932.png" alt="down-arrow" width="15px" height="15px" /></button>
                             </div>
                         </div>
                 
                         <!-- Make this into a list  -->
-                        <div class="post-container">
-                            <div class="post-details">
-                                <div class="post-date">
+                        <div class="post-container" id="<%= post.id %>">
+                            <div class="post-details" id="<%= post.id %>">
+                                <div class="post-date" id="<%= post.id %>">
                                     <span class="post-date-sub">
                                         Posted by <%= user.username %>
                                     </span>
                                 </div>
                             </div>
-                            <div class="post-information">
-                                <div class="post-header">
+                            <div class="post-information" id="<%= post.id %>">
+                                <div class="post-header" id="<%= post.id %>">
                                     <%= post.title %>
                                 </div>
-                                <div class="post-body">
+                                <div class="post-body" id="<%= post.id %>">
                                     <%= post.body %>
                                 </div>
                             </div>

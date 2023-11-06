@@ -30,6 +30,9 @@
                     <div class="post-info">
                             <div class="upper-post-info">
                                 <span class="timestamp"><%= post.date %></span>
+                                <% if(post.edited == true) { %>
+                                    <span class="edited">Edited</span>
+                                <% } %>
                             </div>
                             <div class="lower-post-info">
                                 by

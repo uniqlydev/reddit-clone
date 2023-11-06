@@ -123,6 +123,7 @@ app.post('/create-post', async (req, res) => {
         downvotes: 0,
         user: "u/username",
         date: date,
+        edited: false,
     }
 
     await posts.insertOne(postData);
@@ -158,11 +159,9 @@ app.post('/edit-post', async (req, res) => {
         return;
     }
 
-    console.log(postId, title, body);
-
     await posts.updateOne(
         {id: parseInt(postId)},
-        { $set: { title: title, body: body } }
+        { $set: { title: title, body: body, edited: true } }
     );
 
     res.json({ message: "Post edited" });
