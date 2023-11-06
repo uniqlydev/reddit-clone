@@ -32,7 +32,7 @@ app.use(session({
     saveUninitialized: true,
 }));
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT;
 
 // Will serve as the homepage
 app.get('/', async (req, res) => {
