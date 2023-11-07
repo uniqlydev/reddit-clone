@@ -76,3 +76,31 @@ exports.loginUser = async (req, res) => {
     }
 };
 
+exports.editProfile = async (req, res) => {
+    const { username, bio } = req.body;
+    const client = new MongoClient(process.env.DB_CONN);
+    const db = client.db(process.env.DB_NAME);
+    const users = db.collection('users');
+
+    await users.updateOne(
+        {username: username},
+        { $set: { bio: bio } }
+    );
+
+    res.json({ message: "Profile edited" });
+};
+
+// app.post('/profile-edit', async (req, res) => {
+//     const { username, bio } = req.body;
+//     const client = new MongoClient(process.env.DB_CONN);
+//     const db = client.db(process.env.DB_NAME);
+//     const users = db.collection('users');
+
+//     await users.updateOne(
+//         {username: username},
+//         { $set: { bio: bio } }
+//     );
+
+//     res.json({ message: "Profile edited" });
+// });
+
