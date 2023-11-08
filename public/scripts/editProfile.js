@@ -7,10 +7,10 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.href = `/profile?username=${username}`;
     });
 
-    const editProfileForm = document.getElementById('edit-profile-form');
+    const saveBtn = document.getElementById('save-button');
     const statusText = document.getElementById('status-text');
 
-    editProfileForm.addEventListener('submit', async (e) => {
+    saveBtn.addEventListener('click', async (e) => {
         e.preventDefault();
 
         const bio = document.getElementById('edit-bio').value;
@@ -19,7 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
 
-        const response = await fetch('/profile-edit', {
+        const response = await fetch('api/user/profile-edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ username, bio }),
@@ -34,4 +34,32 @@ document.addEventListener('DOMContentLoaded', () => {
             statusText.textContent = data.message;
         }
     });
+
+    // const editProfileForm = document.getElementById('edit-profile-form');
+    // const statusText = document.getElementById('status-text');
+
+    // editProfileForm.addEventListener('submit', async (e) => {
+    //     e.preventDefault();
+
+    //     const bio = document.getElementById('edit-bio').value;
+    //     // Will add image upload later
+
+    //     const urlParams = new URLSearchParams(window.location.search);
+    //     const username = urlParams.get('username');
+
+    //     const response = await fetch('/profile-edit', {
+    //         method: 'POST',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify({ username, bio }),
+    //     });
+
+    //     const data = await response.json();
+
+    //     if (response.ok) {
+    //         statusText.textContent = "Profile edited";
+    //         window.location.href = `/profile?username=` + username;
+    //     } else {
+    //         statusText.textContent = data.message;
+    //     }
+    // });
 });
