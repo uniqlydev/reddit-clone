@@ -11,5 +11,4 @@ router.get('/post', postController.getPost);
 
 
 
-
 module.exports = router;

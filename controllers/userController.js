@@ -1,9 +1,13 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const {client, DB_NAME} = require('../database/database');
+const user = require('../models/user');
 
 // POST 
 exports.registerUser = async (req, res) => {
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
     try {
         const { username, password, confirmPassword } = req.body;
 
@@ -13,7 +17,7 @@ exports.registerUser = async (req, res) => {
         }
 
         // Check if the username already exists using Mongoose
-        const existingUser = await User.findOne({ username });
+        const existingUser = await users.findOne({ username });
 
         if (existingUser) {
             res.status(400).json({ message: "Username is already taken!" });
@@ -33,7 +37,7 @@ exports.registerUser = async (req, res) => {
         });
 
         // Save the new user to the database
-        await newUser.save();
+        await users.insertOne(newUser);
 
         res.json({ message: "Registration successful" });
     } catch (e) {

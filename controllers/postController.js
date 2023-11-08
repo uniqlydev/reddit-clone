@@ -53,9 +53,12 @@ exports.getPost = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
+
 // POST request for creating a post.
 exports.createPost = async (req, res) => {
     const { title, body } = req.body;
+    const db = client.db(DB_NAME);
+    const posts = db.collection('posts');
 
     try {
         if (title === '' || body === '') {
@@ -65,21 +68,24 @@ exports.createPost = async (req, res) => {
 
         const today = new Date();
         const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const highestId = await posts.find().sort({ id: -1 }).limit(1).toArray();
+        const id = highestId.length === 0 ? 1 : highestId[0].id + 1;
 
         // Create a new Post document using the Mongoose model
         const newPost = new Post({
+            id,
             title,
             body,
             upvotes: 0,
             comments: 0,
             downvotes: 0,
-            user: "u/username", // You may need to adjust this value
-            date,
+            user: "u/username", // No idea how yet
+            date: date,
             edited: false,
         });
 
         // Save the new post to the database
-        await newPost.save();
+        await posts.insertOne(newPost);
 
         res.json({ message: "Post created" });
     } catch (e) {
