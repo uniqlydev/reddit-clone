@@ -3,7 +3,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
-const database = require('./database/database.js');
+const {client, connectToMongoDB, DB_NAME} = require('./database/database.js');
 const MongoClient = require('mongodb').MongoClient;
 const cors = require('cors');
 const session = require('express-session');
@@ -21,6 +21,8 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, 'views'));
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Connect first before routing
+connectToMongoDB();
 
 app.use('/api/user',userRoutes);
 app.use('/api/posts',postRoutes);
@@ -174,7 +176,6 @@ app.get('/posts', async (req, res) => {
     });
 });
 
-database.connectToMongoDB();
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);

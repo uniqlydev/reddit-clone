@@ -11,7 +11,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const urlParams = new URLSearchParams(window.location.search);
         const postId = urlParams.get('id');
 
-        const response = await fetch('/edit-post', {
+        const response = await fetch('/api/posts/edit-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postId, title, body }),
