@@ -1,6 +1,5 @@
 const express = require('express');
 const path = require('path');
-const bodyParser = require('body-parser');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const axios = require('axios'); 
@@ -168,8 +167,6 @@ app.get('/posts', async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 });
-
-
 
 
 app.listen(port, () => {
