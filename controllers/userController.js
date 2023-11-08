@@ -1,50 +1,53 @@
-const user = require('../models/user');
-const dotenv = require('dotenv');
-const { MongoClient } = require('mongodb');
+const User = require('../models/user');
 const bcrypt = require('bcrypt');
+const {client, DB_NAME} = require('../database/database');
 
 // POST 
 exports.registerUser = async (req, res) => {
     try {
         const { username, password, confirmPassword } = req.body;
-        const client = new MongoClient(process.env.DB_CONN);
-        const db = client.db(process.env.DB_NAME);
-        const users = db.collection('users');
-        const existingUser = await users.findOne({ username });
 
         if (password !== confirmPassword) {
             res.status(400).json({ message: "Passwords do not match!" });
             return;
         }
 
+        // Check if the username already exists using Mongoose
+        const existingUser = await User.findOne({ username });
+
         if (existingUser) {
             res.status(400).json({ message: "Username is already taken!" });
             return;
         }
 
+        // Hash the password before storing it in the database
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const userData = {
+        // Create a new user document using the Mongoose model
+        const newUser = new User({
             username,
             password: hashedPassword,
             bio: '',
             memberURL: 'u/' + username,
             avatar: '',
-        }
+        });
 
-        await users.insertOne(userData);
+        // Save the new user to the database
+        await newUser.save();
 
         res.json({ message: "Registration successful" });
-    }catch(e) {
+    } catch (e) {
         res.status(500).json({ message: e.message });
     }
 };
 
+
 exports.loginUser = async (req, res) => {
     try {
         const { username, password } = req.body;
-        const client = new MongoClient(process.env.DB_CONN);
-        const db = client.db(process.env.DB_NAME);
+
+        // Reuse the MongoDB client and database connection
+        const db = client.db(DB_NAME);
         const users = db.collection('users');
         const userLogin = await users.findOne({ username });
 
@@ -77,30 +80,21 @@ exports.loginUser = async (req, res) => {
 };
 
 exports.editProfile = async (req, res) => {
-    const { username, bio } = req.body;
-    const client = new MongoClient(process.env.DB_CONN);
-    const db = client.db(process.env.DB_NAME);
-    const users = db.collection('users');
+    try {
+        const { username, bio } = req.body;
 
-    await users.updateOne(
-        {username: username},
-        { $set: { bio: bio } }
-    );
+        // Reuse the MongoDB client and database connection
+        const db = client.db(DB_NAME);
+        const users = db.collection('users');
 
-    res.json({ message: "Profile edited" });
+        await users.updateOne(
+            { username: username },
+            { $set: { bio: bio } }
+        );
+
+        res.json({ message: "Profile edited" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
 };
-
-// app.post('/profile-edit', async (req, res) => {
-//     const { username, bio } = req.body;
-//     const client = new MongoClient(process.env.DB_CONN);
-//     const db = client.db(process.env.DB_NAME);
-//     const users = db.collection('users');
-
-//     await users.updateOne(
-//         {username: username},
-//         { $set: { bio: bio } }
-//     );
-
-//     res.json({ message: "Profile edited" });
-// });
 
