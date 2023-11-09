@@ -44,6 +44,8 @@ nav form .search-bar {
     background-color: var(--search-bar-background);
     color: var(--body-text-color);
     outline: none;
+    resize: none;
+    overflow: hidden;
 
 
     background-image: url('../../assets/navbar/search-icon.png');

@@ -25,4 +25,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = urlParams.get('username');
         window.location.href = `/profile-edit?username=${username}`;
     });
+
+    const searchBar = document.getElementById('search');
+
+    searchBar.addEventListener('keypress', async (e) => {
+        if (e.key === 'Enter') {
+            const searchQuery = searchBar.value;
+            window.location.href = `/search?query=${searchQuery}`;
+        }
+    });
 });
