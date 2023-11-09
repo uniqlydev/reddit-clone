@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reddit - Dive Deep!</title>
+    <link rel="stylesheet" href="css/home/main.css">
+    <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
+    <link rel="stylesheet" href="css/home/main-frame.css">
+    <link rel="stylesheet" href="css/home/posts.css">
+    <!-- For the font style -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
+    <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+    <!-- Scripts -->
+    <script src="scripts/search.js"></script>
+</head>
+<body>
+    <!-- Navbar -->
+    <%- include('partials/navbar.ejs')%>
+    <div class="container">
+        <!-- Side-bar -->
+        <%- include('partials/sidebar.ejs')%>
+
+        <div class="main-content">
+            <div class="posts-container">
+                <ul class="posts" id="posts">
+                    <% postsList.forEach(posts => { %>
+                        <li class="post-container" id="<%= posts.id %>">
+                            <div class="post" id="<%= posts.id %>">
+                                <p class="sub-reddit">
+                                    <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts.user %>
+                                </p>
+
+                                <h1><%= posts.title %></h1>
+                                <p class="description"><%= posts.body %></p>
+
+                                <div class="operations">
+                                    <ul>
+                                        <li>
+                                            <div class="up-down-vote">
+                                                <img src="assets/home/posts/arrow.png" alt="" width="15px">
+                                                <p><%= posts.upvotes %></p>
+                                            </div>
+                                        </li>
+
+                                        <li>
+                                            <div class="comment-button">
+                                                <img src="assets/home/posts/comment.png" alt="" width="15px">
+                                                <p><%= posts.comments %></p>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        </div>
+</body>
+</html>
