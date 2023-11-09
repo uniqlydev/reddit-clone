@@ -7,6 +7,7 @@ const session = require('express-session');
 // Define routes 
 router.post('/register', userController.registerUser);
 router.post('/login', userController.loginUser);
+router.post('/profile-edit',userController.editProfile);
 
 
 module.exports = router;

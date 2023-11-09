@@ -1,33 +1,35 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const postForm = document.getElementById('postForm');
-    const editPostForm = document.getElementById('editPostForm');
-    const statusMsg = document.getElementById('status-msg');
+    const editBtn = document.getElementById('editBtn');
+    const deletebtn = document.getElementById('deleteBtn');
 
-    postForm.addEventListener('submit', async (e) => {
+    editBtn.addEventListener('click', async (e) => {
         e.preventDefault();
 
-        const title = document.getElementById('title-input').value;
-        const body = document.getElementById('body-input').value;
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
 
-        const response = await fetch('/create-post', {
+        window.location.href = '/edit-post?id=' + postId;
+    });
+
+    deletebtn.addEventListener('click', async (e) => {
+        // Retrieve ID from URL query string
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        // POST req to delete post
+        const response = await fetch('/api/posts/delete-post', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ title, body }),
+            body: JSON.stringify({ postId }),
         });
 
-        const data = await response.json();
-
+        // Redirect to home page if successful
         if (response.ok) {
-            statusMsg.textContent = "Post created";
             window.location.href = '/';
-        } else {
-            statusMsg.textContent = data.message;
+        }else {
+            const data = await response.json();
+            alert(data.message);
         }
     });
 
-    editPostForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-
-        
-    });
 });

@@ -10,6 +10,7 @@ const postSchema = new Schema({
     downvotes: Number,
     user: String,
     date: String,
+    edited: Boolean,
 });
 
 const post = mongoose.model('post', postSchema);

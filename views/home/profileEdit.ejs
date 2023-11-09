@@ -11,21 +11,26 @@
     <!-- For the font style -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
+    <!-- Scripts -->
+    <script src="scripts/editProfile.js"></script>
 </head>
     <body>
         <!-- Navbar -->
         <%- include('partials/navbar.ejs')%>
         <!-- Edit Page -->
         <div class="edit-container">
-            <div class="edit-form">
-                <span class="header-title">Edit Profile</span>
-                <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
-                <input type="file" id="img-upload" name="img" accept="image/*">
-                <div id="action-buttons">
-                    <button type="submit" id="cancel-button" class="actions" onclick="window.location.href='/'">Cancel</button>
-                    <button type="submit" id="save-button" class="actions" onclick="window.location.href='/'">Save</button>
+            <form id="edit-profile-form">
+                <div class="edit-form">
+                    <span class="header-title">Edit Profile</span>
+                    <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
+                    <input type="file" id="img-upload" name="img" accept="image/*">
+                    <p id="status-text"></p>
+                    <div id="action-buttons">
+                        <button id="cancel-button" class="actions">Cancel</button>
+                        <button id="save-button" class="actions">Save</button>
+                    </div>
                 </div>
-            </div>
+            </form>
             <div class="edit-preview">
                 <span class="header-title">Profile Preview</span>
                 <div id="profile-details">
@@ -33,9 +38,8 @@
                         <img src="https://e0.pxfuel.com/wallpapers/906/85/desktop-wallpaper-wide-mouth-singing-cat-pop-cat-pop-cat-cat-memes-cat-profile-popcat-thumbnail.jpg" alt="Profile Picture" />
                     </div>
                     <div id="profile-description">
-                        <!-- Bren, add this to be dynamic taken from app.js profile user -->
-                        <span id="username">Machew</span>
-                        <span id="bio">A 3rd year BSIT student of DLSU currently taking up CCAPDEV. Learning more programming languages along the way and always on the lookout for chinitas in my area.</span>
+                        <span id="username"><%= user.username %></span>
+                        <span id="bio"><%= user.bio %></span>
                     </div>
                 </div>
             </div>

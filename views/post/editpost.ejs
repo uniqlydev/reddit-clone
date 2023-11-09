@@ -9,7 +9,8 @@
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,700&display=swap">
         <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
         <link rel="stylesheet" href="css/post/createpost.css">
-        <script src="scripts/post.js"></script>
+
+        <script src="scripts/editPost.js"></script>
     </head>
     <body>
         <!-- Navbar -->
@@ -22,10 +23,10 @@
                 </div>
                 <form id="editPostForm">
                     <div id="post-title">
-                        <textarea name="title" id="title-input" placeholder="Title" maxlength="300"></textarea>
+                        <textarea name="title" id="title-input" placeholder="Title" maxlength="300"><%= post.title %></textarea>
                     </div>
                     <div id="post-body">
-                        <textarea name="body" id="body-input" cols="30" rows="10" placeholder="Body"></textarea>
+                        <textarea name="body" id="body-input" cols="30" rows="10" placeholder="Body"><%= post.body %></textarea>
                     </div>
                     <p id="status-msg"></p>
                     <div id="post-actions">

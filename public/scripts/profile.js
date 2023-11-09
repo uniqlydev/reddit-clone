@@ -11,4 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     });
+
+    const newPost = document.getElementById('new-post');
+
+    newPost.addEventListener('click', async (e) => {
+        window.location.href = '/create-post';
+    });
+
+    const styleAvatar = document.getElementById('style-avatar');
+
+    styleAvatar.addEventListener('click', async (e) => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const username = urlParams.get('username');
+        window.location.href = `/profile-edit?username=${username}`;
+    });
 });
