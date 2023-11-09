@@ -178,7 +178,8 @@ app.get('/search', async (req, res) => {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
 
-        const postsList = await posts.find({ $text: { $search: query } }).sort({ id: -1 }).toArray();
+        // Get all posts containing the query string in either the title or body
+        const postsList = await posts.find({ $or: [{ title: { $regex: query, $options: 'i' } }, { body: { $regex: query, $options: 'i' } }] }).sort({ id: -1 }).toArray();
 
         res.render('home/search', {
             postsList,
