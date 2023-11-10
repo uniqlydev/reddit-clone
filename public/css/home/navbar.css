@@ -107,3 +107,44 @@ nav .get-app-and-login .more {
 
     font-size: 15px;
 }
+
+
+/* If logged in */
+
+.logged-user {
+    /* Make left and right div side by side */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2px;
+
+    height: 40px;
+    width: 200px;
+
+    background-color: var(--background);
+    color: var(--body-text-color);
+    border: none;
+    cursor: pointer;
+
+}
+
+.logged-user .profilepic {
+    /* Make size icon */
+    height: 30px;
+    width: 30px;
+}
+
+.logged-user .right-nav {
+    /* Make elements on top of each other */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 150px;
+}
+
+.logged-user .right-nav p {
+    margin: 0; /* Set margin to zero */
+    padding: 1px;
+    font-size: 12px;
+}
+
