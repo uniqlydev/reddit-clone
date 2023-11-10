@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('logged-user').innerText;
             window.location.href = `/profile?username=${username}`;
         });
-    }else {
+    } else {
         login.addEventListener('click', () => {
             window.location.href = `/login`;
         });
