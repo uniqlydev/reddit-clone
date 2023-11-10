@@ -62,8 +62,6 @@ exports.loginUser = async (req, res) => {
 
         const passwordMatch = await bcrypt.compare(password, userLogin.password);
 
-
-
         if (passwordMatch) {
             if (!req.session) {
                 req.session = {};

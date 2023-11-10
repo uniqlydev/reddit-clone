@@ -50,6 +50,7 @@ app.get('/', async (req, res) => {
         const postsList = response.data;
         const authenticated = req.session.authenticated;
         const username = req.session.username;
+        const loggedUser = req.session.username;
 
         console.log(req.session);
 
@@ -58,6 +59,7 @@ app.get('/', async (req, res) => {
             postLength: postsList.length,
             authenticated,
             username,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -84,11 +86,13 @@ app.get('/profile', async (req, res) => {
 
         const userPosts = await posts.find({ user: "u/" + username }).sort({ id: -1 }).toArray();
         const authenticated = req.session.authenticated;
+        const loggedUser = req.session.username;
+
 
         res.render('home/profile', {
             username,
             authenticated,
-            karma:1,
+            loggedUser,
             user,
             postsList: userPosts,
         });
@@ -108,11 +112,13 @@ app.get('/profile-edit', async (req, res) => {
         const users = db.collection('users');
 
         const user = await users.findOne({ username });
+        const loggedUser = req.session.username;
         const authenticated = req.session.authenticated;
 
         res.render('home/profileEdit', {
             user,
             authenticated,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -147,12 +153,13 @@ app.get('/register', (req, res) => {
 app.get('/create-post', (req, res) => {
     const authenticated = req.session.authenticated;
     const username = req.session.username;
+    const loggedUser = req.session.username;
 
     if (authenticated === true) {
         res.render('post/createPost', {
             authenticated,
             username,
-            karma:1,
+            loggedUser,
         });
     }else {
         res.redirect('/login');
@@ -176,11 +183,12 @@ app.get('/edit-post', async (req, res) => {
         }
         const authenticated = req.session.authenticated;
         const username = req.session.username;
+        const loggedUser = req.session.username;
 
         res.render('post/editPost', {
             authenticated,
             username,
-            karma:1,
+            loggedUser,
             post,
         });
     } catch (e) {
@@ -206,11 +214,13 @@ app.get('/posts', async (req, res) => {
 
         const username = post.user.substring(2);
         const authenticated = req.session.authenticated;
+        const loggedUser = req.session.username;
 
         res.render('post/post', {
             post,
             username,
             authenticated,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
