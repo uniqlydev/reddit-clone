@@ -115,6 +115,11 @@ app.get('/profile-edit', async (req, res) => {
         const loggedUser = req.session.username;
         const authenticated = req.session.authenticated;
 
+        if (loggedUser !== username) {
+            res.redirect('/profile?username=' + username);
+            return;
+        }
+
         res.render('home/profileEdit', {
             user,
             authenticated,
@@ -181,9 +186,17 @@ app.get('/edit-post', async (req, res) => {
             res.status(404).json({ message: "Post not found" });
             return;
         }
+
+        const userPoster = post.user.substring(2);
+
         const authenticated = req.session.authenticated;
         const username = req.session.username;
         const loggedUser = req.session.username;
+
+        if (loggedUser !== userPoster) {
+            res.redirect('/posts?id=' + id);
+            return;
+        }
 
         res.render('post/editPost', {
             authenticated,

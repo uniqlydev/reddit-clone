@@ -19,18 +19,16 @@
         <%- include('partials/navbar.ejs')%>
         <!-- Edit Page -->
         <div class="edit-container">
-            <form id="edit-profile-form">
-                <div class="edit-form">
-                    <span class="header-title">Edit Profile</span>
-                    <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
-                    <input type="file" id="img-upload" name="img" accept="image/*">
-                    <p id="status-text"></p>
-                    <div id="action-buttons">
-                        <button id="cancel-button" class="actions">Cancel</button>
-                        <button id="save-button" class="actions">Save</button>
-                    </div>
+            <div class="edit-form">
+                <span class="header-title">Edit Profile</span>
+                <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
+                <input type="file" id="img-upload" name="img" accept="image/*">
+                <p id="status-text"></p>
+                <div id="action-buttons">
+                    <button id="cancel-button" class="actions">Cancel</button>
+                    <button id="save-button" class="actions">Save</button>
                 </div>
-            </form>
+            </div>
             <div class="edit-preview">
                 <span class="header-title">Profile Preview</span>
                 <div id="profile-details">

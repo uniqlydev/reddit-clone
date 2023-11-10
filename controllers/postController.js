@@ -107,6 +107,15 @@ exports.deletePost = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
+        const post = await posts.findOne({ id: parseInt(postId) });
+
+        const userPoster = post.user.substring(2);
+        const loggedUser = req.session.username;
+
+        if (loggedUser !== userPoster) {
+            res.status(401).json({ message: "You can't delete someone else's post!" });
+            return;
+        }
 
         await posts.deleteOne({ id: parseInt(postId) });
 
