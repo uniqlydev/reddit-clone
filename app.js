@@ -240,6 +240,27 @@ app.get('/posts', async (req, res) => {
     }
 });
 
+app.get('/search', async (req, res) => {
+    try {
+        const urlParams = new URLSearchParams(req.query);
+        const query = urlParams.get('query');
+
+        // Reuse the MongoDB client and database connection
+        const db = client.db(DB_NAME);
+        const posts = db.collection('posts');
+
+        // Get all posts containing the query string in either the title or body
+        const postsList = await posts.find({ $or: [{ title: { $regex: query, $options: 'i' } }, { body: { $regex: query, $options: 'i' } }] }).sort({ id: -1 }).toArray();
+
+        res.render('home/search', {
+            postsList,
+            query,
+        });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+});
+
 
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
