@@ -50,7 +50,7 @@
                         <button class="upvote">
                             <span class="post-sprite upvote"></span>
                         </button>
-                        <span class="count"><%= post.upvotes %></span>
+                        <span class="count"><%= post.upvotes - post.downvotes %></span>
                         <button class="downvote">
                             <span class="post-sprite downvote"></span>
                         </button>

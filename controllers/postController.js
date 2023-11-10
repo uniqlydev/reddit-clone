@@ -6,7 +6,7 @@ exports.getPosts = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
-        const postList = await posts.find().toArray();
+        const postList = await posts.find().sort({ id: -1 }).toArray();
         res.json(postList);
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -60,6 +60,11 @@ exports.createPost = async (req, res) => {
     const db = client.db(DB_NAME);
     const posts = db.collection('posts');
 
+    if (!req.session.authenticated) {
+        res.status(401).json({ message: "You must be logged in to create a post!" });
+        return;
+    }
+
     try {
         if (title === '' || body === '') {
             res.status(400).json({ message: "Please fill out all fields!" });
@@ -79,7 +84,7 @@ exports.createPost = async (req, res) => {
             upvotes: 0,
             comments: 0,
             downvotes: 0,
-            user: "u/username", // No idea how yet
+            user: "u/" + req.session.username, // No idea how yet
             date: date,
             edited: false,
         });
@@ -100,6 +105,15 @@ exports.deletePost = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
+        const post = await posts.findOne({ id: parseInt(postId) });
+
+        const userPoster = post.user.substring(2);
+        const loggedUser = req.session.username;
+
+        if (loggedUser !== userPoster) {
+            res.status(401).json({ message: "You can't delete someone else's post!" });
+            return;
+        }
 
         await posts.deleteOne({ id: parseInt(postId) });
 
