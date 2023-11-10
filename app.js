@@ -58,7 +58,6 @@ app.get('/', async (req, res) => {
             postLength: postsList.length,
             authenticated,
             username,
-            karma:1,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -109,9 +108,11 @@ app.get('/profile-edit', async (req, res) => {
         const users = db.collection('users');
 
         const user = await users.findOne({ username });
+        const authenticated = req.session.authenticated;
 
         res.render('home/profileEdit', {
             user,
+            authenticated,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -204,10 +205,12 @@ app.get('/posts', async (req, res) => {
         }
 
         const username = post.user.substring(2);
+        const authenticated = req.session.authenticated;
 
         res.render('post/post', {
             post,
             username,
+            authenticated,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

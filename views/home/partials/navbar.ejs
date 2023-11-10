@@ -13,7 +13,9 @@
                 <img src="" alt="" class="profilepic">
                 <div class="right-nav">
                     <p class="username" id="logged-user"><%= username %></p>
-                    <p class="karma">Karma: <%= karma %></p>
+                </div>
+                <div class="logout">
+                    <button class="logoutbtn" onclick="window.location.href='/logout'">Log out</button>
                 </div>
             </button>
         <% }else { %>
