@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = '/';
         }else {
             const data = await response.json();
-            alert(data.message);
+            window.location.href = '/posts?id=' + postId;
         }
     });
 
