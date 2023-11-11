@@ -75,8 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-            intCount++;
-            votecount.innerText = intCount;
+            window.location.href = '/posts?id=' + postId;
         } else {
             window.location.href = '/posts?id=' + postId;
         }
@@ -98,8 +97,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         if (response.ok) {
-            intCount--;
-            votecount.innerText = intCount;
+            window.location.href = '/posts?id=' + postId;
         } else {
             window.location.href = '/posts?id=' + postId;
         }

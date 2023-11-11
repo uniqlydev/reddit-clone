@@ -135,23 +135,42 @@ exports.upvote = async (req, res) => {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
         const username = req.session.username;
-        const post = await posts.findOne({ id: parseInt(postId) });
         const users = db.collection('users');
         const user = await users.findOne({ username });
 
-        if (user.likedPosts.includes(postId)) {
-            res.status(401).json({ message: "You've already upvoted this post!" });
+        if (user.dislikedPosts.includes(postId)) {
+            await users.updateOne(
+                { username },
+                { $pull: { dislikedPosts: postId } }
+            );
+
+            await posts.updateOne(
+                { id: parseInt(postId) },
+                { $set: { upvotes: voteCount + 1 } }
+            );
+
+            await users.updateOne(
+                { username },
+                { $push: { likedPosts: postId } }
+            );
+
+            res.json({ message: "Post upvoted" });
             return;
         }
 
-        await posts.updateOne(
-            { id: parseInt(postId) },
-            { $set: { upvotes: parseInt(voteCount + 1) } }
-        );
+        if (user.likedPosts.includes(postId)) {
+            res.json({ message: "You've already upvoted this post!" });
+            return;
+        }
 
         await users.updateOne(
             { username },
             { $push: { likedPosts: postId } }
+        );
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $set: { upvotes: voteCount + 1 } }
         );
 
         res.json({ message: "Post upvoted" });
@@ -173,7 +192,6 @@ exports.downvote = async (req, res) => {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
         const username = req.session.username;
-        const post = await posts.findOne({ id: parseInt(postId) });
         const users = db.collection('users');
         const user = await users.findOne({ username });
 
@@ -185,14 +203,34 @@ exports.downvote = async (req, res) => {
 
             await posts.updateOne(
                 { id: parseInt(postId) },
-                { $set: { upvotes: parseInt(voteCount - 1) } }
+                { $set: { upvotes: voteCount - 1 } }
+            );
+
+            await users.updateOne(
+                { username },
+                { $push: { dislikedPosts: postId } }
             );
 
             res.json({ message: "Post downvoted" });
-        } else {
-            res.status(401).json({ message: "You haven't upvoted this post yet!" });
+            return;
         }
 
+        if (user.dislikedPosts.includes(postId)) {
+            res.json({ message: "You've already downvoted this post!" });
+            return;
+        }
+
+        await users.updateOne(
+            { username },
+            { $push: { dislikedPosts: postId } }
+        );
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $set: { upvotes: voteCount - 1 } }
+        );
+
+        res.json({ message: "Post downvoted" });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }

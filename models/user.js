@@ -13,6 +13,12 @@ const userSchema = new Schema({
             ref: 'posts',
         },
     ],
+    dislikedPosts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'posts',
+        },
+    ],
 });
 
 const user = mongoose.model('user', userSchema);
