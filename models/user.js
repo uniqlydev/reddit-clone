@@ -7,6 +7,12 @@ const userSchema = new Schema({
     bio: String,
     memberURL: String,
     avatar: String,
+    likedPosts: [
+        {
+            type: Schema.Types.ObjectId,
+            ref: 'posts',
+        },
+    ],
 });
 
 const user = mongoose.model('user', userSchema);

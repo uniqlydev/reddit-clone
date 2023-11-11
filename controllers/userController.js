@@ -34,6 +34,7 @@ exports.registerUser = async (req, res) => {
             bio: '',
             memberURL: 'u/' + username,
             avatar: '',
+            likedPosts: [],
         });
 
         // Save the new user to the database

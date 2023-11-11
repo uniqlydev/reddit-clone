@@ -7,7 +7,6 @@ const postSchema = new Schema({
     body: String,
     upvotes: Number,
     comments: Number,
-    downvotes: Number,
     user: String,
     date: String,
     edited: Boolean,

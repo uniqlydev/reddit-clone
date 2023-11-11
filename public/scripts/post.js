@@ -65,17 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
         // Convert to int
         let intCount = parseInt(count);
 
-
-        // If upvote button is clicked, increment count
-        intCount++;
-        votecount.innerText = intCount;
-
-
-        // Update post in database
         const urlParams = new URLSearchParams(window.location.search);
         const postId = urlParams.get('id');
-
-        console.log(intCount);
 
         const response = await fetch('/api/posts/upvote', {
             method: 'POST',
@@ -83,6 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({ postId, voteCount: intCount }),
         });
 
+        if (response.ok) {
+            intCount++;
+            votecount.innerText = intCount;
+        } else {
+            window.location.href = '/posts?id=' + postId;
+        }
     });
 
     downvotebtn.addEventListener('click', async (e) => {
@@ -91,11 +88,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Convert to int
         let intCount = parseInt(count);
 
-        // If downvote button is clicked, decrement count
-        intCount--;
-        votecount.innerText = intCount;
-
-        // Update post in database
         const urlParams = new URLSearchParams(window.location.search);
         const postId = urlParams.get('id');
 
@@ -104,5 +96,12 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ postId, voteCount: intCount }),
         });
+
+        if (response.ok) {
+            intCount--;
+            votecount.innerText = intCount;
+        } else {
+            window.location.href = '/posts?id=' + postId;
+        }
     });
 });
