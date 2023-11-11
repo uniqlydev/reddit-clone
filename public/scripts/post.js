@@ -74,9 +74,12 @@ document.addEventListener('DOMContentLoaded', () => {
             body: JSON.stringify({ postId, voteCount: intCount }),
         });
 
+        const data = await response.json();
+
         if (response.ok) {
             window.location.href = '/posts?id=' + postId;
         } else {
+            alert(data.message);
             window.location.href = '/posts?id=' + postId;
         }
     });
