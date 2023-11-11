@@ -6,6 +6,8 @@ const postSchema = new Schema({
     title: String,
     body: String,
     upvotes: Number,
+    downvotes: Number,
+    voteScore: Number,
     comments: Number,
     user: String,
     date: String,

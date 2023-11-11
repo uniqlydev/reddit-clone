@@ -82,6 +82,8 @@ exports.createPost = async (req, res) => {
             title,
             body,
             upvotes: 0,
+            downvotes: 0,
+            voteScore: 0,
             comments: 0,
             user: "u/" + req.session.username,
             date: date,
@@ -139,27 +141,22 @@ exports.upvote = async (req, res) => {
         const user = await users.findOne({ username });
 
         if (user.dislikedPosts.includes(postId)) {
-            await users.updateOne(
-                { username },
-                { $pull: { dislikedPosts: postId } }
-            );
-
-            await posts.updateOne(
-                { id: parseInt(postId) },
-                { $set: { upvotes: voteCount + 1 } }
-            );
-
-            await users.updateOne(
-                { username },
-                { $push: { likedPosts: postId } }
-            );
-
-            res.json({ message: "Post upvoted" });
+            res.status(500).json({ message: "You can't upvote a post you've downvoted!" });
             return;
         }
 
         if (user.likedPosts.includes(postId)) {
-            res.json({ message: "You've already upvoted this post!" });
+            await users.updateOne(
+                { username },
+                { $pull: { likedPosts: postId } }
+            );
+
+            await posts.updateOne(
+                { id: parseInt(postId) },
+                { $inc: { upvotes: -1, voteScore: -1 } }
+            );
+            
+            res.json({ message: "Post un-upvoted" });
             return;
         }
 
@@ -170,7 +167,7 @@ exports.upvote = async (req, res) => {
 
         await posts.updateOne(
             { id: parseInt(postId) },
-            { $set: { upvotes: voteCount + 1 } }
+            { $inc: { upvotes: 1, voteScore: 1 } }
         );
 
         res.json({ message: "Post upvoted" });
@@ -196,27 +193,22 @@ exports.downvote = async (req, res) => {
         const user = await users.findOne({ username });
 
         if (user.likedPosts.includes(postId)) {
-            await users.updateOne(
-                { username },
-                { $pull: { likedPosts: postId } }
-            );
-
-            await posts.updateOne(
-                { id: parseInt(postId) },
-                { $set: { upvotes: voteCount - 1 } }
-            );
-
-            await users.updateOne(
-                { username },
-                { $push: { dislikedPosts: postId } }
-            );
-
-            res.json({ message: "Post downvoted" });
+            res.status(500).json({ message: "You can't downvote a post you've upvoted!" });
             return;
         }
 
         if (user.dislikedPosts.includes(postId)) {
-            res.json({ message: "You've already downvoted this post!" });
+            await users.updateOne(
+                { username },
+                { $pull: { dislikedPosts: postId } }
+            );
+
+            await posts.updateOne(
+                { id: parseInt(postId) },
+                { $inc: { downvotes: -1, voteScore: 1 } }
+            );
+
+            res.json({ message: "Post un-downvoted" });
             return;
         }
 
@@ -227,7 +219,7 @@ exports.downvote = async (req, res) => {
 
         await posts.updateOne(
             { id: parseInt(postId) },
-            { $set: { upvotes: voteCount - 1 } }
+            { $inc: { downvotes: 1, voteScore: -1 } }
         );
 
         res.json({ message: "Post downvoted" });
