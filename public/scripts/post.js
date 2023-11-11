@@ -54,4 +54,55 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = `/search?query=${searchQuery}`;
         }
     });
+
+    const upvotebtn = document.getElementById('upvotebtn');
+    const downvotebtn = document.getElementById('downvotebtn');
+    const votecount = document.getElementById('vote-count');
+
+    upvotebtn.addEventListener('click', async (e) => {
+        const count = votecount.innerText;
+
+        // Convert to int
+        let intCount = parseInt(count);
+
+
+        // If upvote button is clicked, increment count
+        intCount++;
+        votecount.innerText = intCount;
+
+
+        // Update post in database
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        console.log(intCount);
+
+        const response = await fetch('/api/posts/upvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteCount: intCount }),
+        });
+
+    });
+
+    downvotebtn.addEventListener('click', async (e) => {
+        const count = votecount.innerText;
+
+        // Convert to int
+        let intCount = parseInt(count);
+
+        // If downvote button is clicked, decrement count
+        intCount--;
+        votecount.innerText = intCount;
+
+        // Update post in database
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        const response = await fetch('/api/posts/downvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteCount: intCount }),
+        });
+    });
 });

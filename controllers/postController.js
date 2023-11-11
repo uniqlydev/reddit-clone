@@ -122,3 +122,41 @@ exports.deletePost = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
+
+exports.upvote = async (req, res) => {
+    const { postId,voteCount } = req.body;
+
+    try {
+        const db = client.db(DB_NAME);
+        const posts = db.collection('posts');
+        const post = await posts.findOne({ id: parseInt(postId) });
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $set: { upvotes: parseInt(voteCount) } }
+        );
+
+        res.json({ message: "Post edited" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+}
+
+exports.downvote = async (req, res) => {
+    const { postId,voteCount } = req.body;
+
+    try {
+        const db = client.db(DB_NAME);
+        const posts = db.collection('posts');
+        const post = await posts.findOne({ id: parseInt(postId) });
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $set: { downvotes: parseInt(voteCount) } }
+        );
+
+        res.json({ message: "Post edited" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+}
