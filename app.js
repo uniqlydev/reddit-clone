@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 const axios = require('axios'); 
 const {client, connectToMongoDB, DB_NAME} = require('./database/database.js');
 const cors = require('cors');
@@ -26,6 +27,7 @@ connectToMongoDB();
 
 app.use('/api/user',userRoutes);
 app.use('/api/posts',postRoutes);
+app.use('/api/comments',commentRoutes);
 
 // Configure express-session
 app.use(session({
@@ -158,11 +160,22 @@ app.get('/posts', async (req, res) => {
             return;
         }
 
-        const username = post.user.substring(2);
+        const username = post.user.substring(2)
+
+        // Generate commments
+        const commentCursor = db.collection('comments');
+        const comments = await commentCursor.find({postId: parseInt(id)})
+            .toArray(function (err, result) {
+                if (err) throw err
+                console.log(result)
+            });
+
+        console.log(comments)
 
         res.render('post/post', {
             post,
             username,
+            comments
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

@@ -1,19 +1,19 @@
-<div class="comment">
+<div class="comment">   
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
-        <a class="username" href="/profile?username=<%= comment.content.commenter %>"><%= comment.content.commenter %></a>
-        <span class="timestamp">• <%= comment.content.created_date %></span>
+        <a class="username" href="/profile?username=<%# comment.content.commenter %>"><%= comment.user %></a>
+        <span class="timestamp">• <%= comment.date %></span>
     </div>
     <div class="comment-collapsible">
         <div class="comment-content">
-            <%= comment.content.text %>
+            <%= comment.content %>
         </div>
         <div class="comment-actions">
             <div class="vote">
                 <button class="upvote">
                     <span class="post-sprite upvote"></span>
                 </button>
-                <span class="count"><%= comment.content.votes %></span>
+                <span class="count"><%= comment.upvotes - comment.downvotes %></span>
                 <button class="downvote">
                     <span class="post-sprite downvote"></span>
                 </button>
@@ -27,10 +27,10 @@
                 <span class="count">Delete</span>
             </button>
         </div>
-        <% comment.children.forEach( (child) => { %>
+        <%#comment.children.forEach( (child) => { %>
             <div class="comment-children">
-                <%- include("comment.ejs", {comment: child}); %>
+                <%# include("comment.ejs", {comment: child}); %>
             </div>
-        <% }) %>
+        <%# }) %>
     </div>
 </div>
