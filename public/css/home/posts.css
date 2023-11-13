@@ -12,6 +12,7 @@
 .posts .post-container {
     border-radius: 15px;
     cursor: pointer;
+    list-style: none;
 }
 
 .posts .post-container:hover {
