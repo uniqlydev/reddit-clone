@@ -1,4 +1,4 @@
-<div class="comment">   
+<div class="comment" id="<%= comment._id %>">   
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
         <a class="username" href="/profile?username=<%# comment.content.commenter %>"><%= comment.user %></a>
@@ -23,8 +23,8 @@
                 <span class="count">Reply</span>
             </button>
             <button class="delete">
-                <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" /></span>
-                <span class="count">Delete</span>
+                <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" class="delete"/></span>
+                <span class="count delete">Delete</span>
             </button>
         </div>
         <%#comment.children.forEach( (child) => { %>

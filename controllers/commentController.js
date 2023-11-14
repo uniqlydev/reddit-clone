@@ -1,6 +1,8 @@
 const Comment = require('../models/comment');
 const {client, DB_NAME} = require('../database/database');
 const { application } = require('express');
+const { MongoClient, ServerApiVersion, ObjectId  } = require('mongodb')
+
 
 // GET request for list of all comments.
 exports.getComments = async (req, res) => {
@@ -9,6 +11,8 @@ exports.getComments = async (req, res) => {
         const comments = db.collection('comments');
         const commentList = await comments.find().toArray();
         res.json(commentList);
+
+        console.log(res.session)
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
@@ -99,13 +103,16 @@ exports.createComment = async (req, res) => {
 
 // POST request for deleting a comment.
 exports.deleteComment = async (req, res) => {
-    const { commentId } = req.body;
-
+    const commentId = req.body.commentId;
     try {
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');
-
-        await comments.deleteOne({ id: parseInt(commentId) });
+        await comments.updateOne({ _id: new ObjectId(commentId) }, 
+        {
+            $set: {
+                content: "[comment deleted]"
+            }
+        });
 
         res.json({ message: "Comment deleted" });
     } catch (e) {

@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // const postForm = document.getElementById('postForm');
     const commentSubmit = document.getElementById('add-comment');
 
     commentSubmit.addEventListener('click', async (e) => {
@@ -28,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+
     const searchBar = document.getElementById('search');
 
     searchBar.addEventListener('keypress', async (e) => {
@@ -37,3 +37,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+const commentDelete = async (obj) => {
+    let comment = obj
+    while (!comment.id) {
+        comment = comment.parentNode
+    }
+
+    const commentId = comment.id
+
+    const response = await fetch('/api/comments/delete-comment', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ commentId }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        document.getElementById(commentId).innerHTML = ""
+    } else {
+        alert('Server error!')
+    }
+}
+
+const commentFunctions = (evt) => {
+    if (evt.target.classList.contains("delete")) {
+        commentDelete(evt.target)
+    }
+}
+
+document.addEventListener("click", commentFunctions);

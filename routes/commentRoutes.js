@@ -4,10 +4,10 @@ const commentController = require('../controllers/commentController');
 
 
 router.get('/', commentController.getComments);
-router.post('/edit-post', commentController.editComment);
-router.post('/delete-post', commentController.deleteComment);
+router.post('/edit-comment', commentController.editComment);
+router.post('/delete-comment', commentController.deleteComment);
 router.post('/create-comment', commentController.createComment);
-router.get('/post', commentController.getComment);
+router.get('/comment', commentController.getComment);
 
 
 
