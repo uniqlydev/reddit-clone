@@ -54,4 +54,58 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = `/search?query=${searchQuery}`;
         }
     });
+
+    const upvotebtn = document.getElementById('upvotebtn');
+    const downvotebtn = document.getElementById('downvotebtn');
+    const votecount = document.getElementById('vote-count');
+
+    upvotebtn.addEventListener('click', async (e) => {
+        const count = votecount.innerText;
+
+        // Convert to int
+        let intCount = parseInt(count);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        const response = await fetch('/api/posts/upvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteCount: intCount }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            window.location.href = '/posts?id=' + postId;
+        } else {
+            alert(data.message);
+            window.location.href = '/posts?id=' + postId;
+        }
+    });
+
+    downvotebtn.addEventListener('click', async (e) => {
+        const count = votecount.innerText;
+
+        // Convert to int
+        let intCount = parseInt(count);
+
+        const urlParams = new URLSearchParams(window.location.search);
+        const postId = urlParams.get('id');
+
+        const response = await fetch('/api/posts/downvote', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ postId, voteCount: intCount }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+            window.location.href = '/posts?id=' + postId;
+        } else {
+            alert(data.message);
+            window.location.href = '/posts?id=' + postId;
+        }
+    });
 });
