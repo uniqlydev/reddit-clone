@@ -110,7 +110,8 @@ exports.deleteComment = async (req, res) => {
         await comments.updateOne({ _id: new ObjectId(commentId) }, 
         {
             $set: {
-                content: "[comment deleted]"
+                user: "[deleted]",
+                content: "[removed]"
             }
         });
 
