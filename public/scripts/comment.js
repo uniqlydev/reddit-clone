@@ -12,14 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('/api/comments/create-comment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ postId, content }),
+            body: JSON.stringify({ postId, content, parent: null }),
         });
 
         const data = await response.json();
 
         if (response.ok) {
             document.getElementById('comment-box').value = ""
-
             // refresh page
             window.location = window.location
         } else {
@@ -55,25 +54,25 @@ const showReply = (obj) => {
 }
 
 const commentReply = async (obj) => {
+    const postId = new URL(location.href).searchParams.get('id')
     const content = obj.previousElementSibling.value
-
-    let comment = obj
-    while (!comment.id) {
-        comment = comment.parentNode
-    }
-    const _id = comment.id
-
-    console.log(content)
 
     if (content === '') {
         obj.parentNode.display = 'none'
         return
     }
 
-    const response = await fetch('/api/comments/create-reply', {
+    // get parent id
+    let comment = obj
+    while (!comment.id) {
+        comment = comment.parentNode
+    }
+    const parent = comment.id
+
+    const response = await fetch('/api/comments/create-comment', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ _id, content }),
+        body: JSON.stringify({ postId, content, parent }),
     });
 
     const data = await response.json();
@@ -120,6 +119,8 @@ const commentFunctions = (evt) => {
         showReply(evt.target)
     }
     if (evt.target.classList.contains("submit-reply")) {
+        console.log(evt.target)
+        evt.preventDefault()
         commentReply(evt.target)
     }
 }

@@ -31,13 +31,15 @@
             <textarea id="comment-box" class="reply-box" placeholder="What are your thoughts?"></textarea>
             <button class="submit-reply">Submit</button>
         </div>
+        <% children = comments.filter( (child) => comment._id.equals(child.parent) ) %>
         
-        <% children.filter( (child) => child.parent === comment._id ).forEach((child) => { %>
-                        <div class="comment-children">
-                <%# include("comment.ejs", {comment: child}); %>
+        <% children.forEach((child) => { %>
+            <div class="comment-children">
+                <%- include("comment.ejs", {comment: child, children: children}) %>
             </div>
         <% }) %>
-            
+        
+
 
     </div>
 </div>

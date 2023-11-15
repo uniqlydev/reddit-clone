@@ -170,6 +170,8 @@ app.get('/posts', async (req, res) => {
                 console.log(result)
             });
 
+        console.log(comments)
+
         res.render('post/post', {
             post,
             username,

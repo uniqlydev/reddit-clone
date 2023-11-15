@@ -85,7 +85,7 @@
                     <% comments.forEach( (comment) => { %>
                         <% if (comment.parent === null) { %>
                             <div class="comment-thread">
-                                <%- include("../post/partials/comment.ejs", {comment: comment, children: comments}); %>
+                                <%- include("../post/partials/comment.ejs", {comment: comment, comments: comments}); %>
                             </div>
                         <% } %>
                     <% }) %>
