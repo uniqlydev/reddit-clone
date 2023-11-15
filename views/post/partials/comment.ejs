@@ -1,8 +1,8 @@
-<div class="comment" id="<%= comment._id %>">   
+<div class="comment" id="<%= comment._id %>">
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
         <a class="username" href="/profile?username=<%# comment.content.commenter %>"><%= comment.user %></a>
-        <span class="timestamp">• <%= comment.date %></span>
+        <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>
     <div class="comment-collapsible">
         <div class="comment-content">
@@ -22,10 +22,13 @@
                 <span class="post-sprite comment-reply reply"></span>
                 <span class="count reply">Reply</span>
             </button>
-            <button class="delete">
-                <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" class="delete"/></span>
-                <span class="count delete">Delete</span>
-            </button>
+            <% if (comment.content !== "[removed]") { %>
+                <button class="delete">
+                    <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" class="delete"/></span>
+                    <span class="count delete">Delete</span>
+                </button>
+                <button class="count edit-button">Edit</button>
+            <% } %>
         </div>
         <div class="comment-reply-box">
             <textarea id="comment-box" class="reply-box" placeholder="What are your thoughts?"></textarea>
@@ -38,8 +41,5 @@
                 <%- include("comment.ejs", {comment: child, children: children}) %>
             </div>
         <% }) %>
-        
-
-
     </div>
 </div>

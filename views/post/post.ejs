@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title><% post.title %> : r/<% # post.subreddit %></title>
+    <title><%= post.title %> : r/<%# post.subreddit %></title>
     <link rel="stylesheet" href="css/home/main.css">
     <link rel="stylesheet" href="css/home/navbar.css">
     <link rel="stylesheet" href="css/home/Side-bar.css">
@@ -94,5 +94,15 @@
         </div>
         <%- include("../post/partials/suggested-sidebar.ejs")%>
     </div>
+    <dialog id="edit-modal">
+        <div class="edit-form">
+            <span class="comment-id-holder"></span>
+            <textarea id="edit-textarea"></textarea>
+            <div class="functions">
+                <button id="edit-cancel">Cancel</button>
+                <button id="comment-edit-submit">Submit</button>
+            </div>
+        </div>
+    </dialog>
 </body>
 </html>

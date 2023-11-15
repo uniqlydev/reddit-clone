@@ -20,24 +20,28 @@ exports.getComments = async (req, res) => {
 
 // POST request for editing a comment.
 exports.editComment = async (req, res) => {
-    const { commentId, title, body } = req.body;
-
+    const { commentId, content } = req.body;
+    console.log('this should work')
+    console.log(commentId)
+    console.log(content)
     try {
-        // Reuse the MongoDB client and database connection
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');
 
-        if (title === '' || body === '') {
-            res.status(400).json({ message: "Please fill out all fields!" });
+        if (content === '') {
+            res.status(400).json({ message: "New message cannot be empty!" });
             return;
         }
 
         await comments.updateOne(
-            { id: parseInt(commentId) },
-            { $set: { title, body, edited: true } }
-        );
+            { _id: new ObjectId(commentId)}, 
+            { $set: {
+                    content: content,
+                    edited: true
+                }
+            });
 
-        res.json({ message: "Comment edited" });
+        res.json({ message: "Comment deleted" });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
