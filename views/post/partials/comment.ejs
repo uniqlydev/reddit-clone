@@ -18,7 +18,7 @@
                     <span class="post-sprite downvote"></span>
                 </button>
             </div>
-            <button class="comment-action">
+            <button class="comment-action reply">
                 <span class="post-sprite comment-reply reply"></span>
                 <span class="count reply">Reply</span>
             </button>
@@ -31,8 +31,8 @@
             <textarea id="comment-box" class="reply-box" placeholder="What are your thoughts?"></textarea>
             <button class="submit-reply">Submit</button>
         </div>
-        <% children = comments.filter( (child) => comment._id.equals(child.parent) ) %>
         
+        <% children = comments.filter( (child) => comment._id.equals(child.parent) ) %>
         <% children.forEach((child) => { %>
             <div class="comment-children">
                 <%- include("comment.ejs", {comment: child, children: children}) %>
