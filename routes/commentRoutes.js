@@ -7,6 +7,7 @@ router.get('/', commentController.getComments);
 router.post('/edit-comment', commentController.editComment);
 router.post('/delete-comment', commentController.deleteComment);
 router.post('/create-comment', commentController.createComment);
+router.post('/create-reply', commentController.createReply);
 router.get('/comment', commentController.getComment);
 
 

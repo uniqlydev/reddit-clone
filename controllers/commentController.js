@@ -107,7 +107,7 @@ exports.deleteComment = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');
-        await comments.updateOne({ _id: new ObjectId(commentId) }, 
+        await comments.updateOne({ _id: new ObjectId(commentId)}, 
         {
             $set: {
                 user: "[deleted]",
@@ -120,3 +120,43 @@ exports.deleteComment = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
+
+exports.createReply = async (req, res) => {
+    const { _id, content } = req.body;
+    const db = client.db(DB_NAME);
+    const comments = db.collection('comments');
+
+    try {
+        if (content === '') {
+            res.status(400)
+            return;
+        }
+
+        const today = new Date();
+        const date = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+        const highestId = await comments.find().sort({ id: -1 }).limit(1).toArray();
+        const id = highestId.length === 0 ? 1 : highestId[0].id + 1;
+
+        // Create a new Comment document using the Mongoose model
+        const newComment = new Comment({
+            postId,
+            commentId: id,
+            content,
+            upvotes: 1,
+            downvotes: 0,
+            user: 'u/username',
+            date: date,
+            edited: false,
+            child: null,
+        });
+
+        // Save the new comment to the database
+        const ins = await comments.insertOne(newComment);
+        console.log(ins)
+        console.log(JSON.stringify(comments.find({})))
+
+        res.json({ message: "Comment created" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+}

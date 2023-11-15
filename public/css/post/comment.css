@@ -13,7 +13,7 @@
     font-weight: 500;
 }
 
-.comment-content, .comment-actions {
+.comment-content, .comment-actions, .comment-reply-box {
     padding-left: 1.3rem;
     border-left: 1px solid white;
 }
@@ -97,4 +97,23 @@
 
 .count {
     font-size:12px;
+}
+
+.reply-box {
+    margin-left:0.5rem;
+    height: 1em;
+}
+
+.comment-reply-box > button {
+    margin-top: 0.5rem;
+    background-color: #0045ac;
+    border: none;
+    color: white;
+    padding: 0.3rem 0.5rem 0.3rem 0.5rem;
+    border-radius: 999px;
+    font-size: 12px;
+}
+
+.comment-reply-box {
+    display: none;
 }

@@ -19,18 +19,25 @@
                 </button>
             </div>
             <button class="comment-action">
-                <span class="post-sprite comment-reply"></span>
-                <span class="count">Reply</span>
+                <span class="post-sprite comment-reply reply"></span>
+                <span class="count reply">Reply</span>
             </button>
             <button class="delete">
                 <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" class="delete"/></span>
                 <span class="count delete">Delete</span>
             </button>
         </div>
-        <%#comment.children.forEach( (child) => { %>
-            <div class="comment-children">
+        <div class="comment-reply-box">
+            <textarea id="comment-box" class="reply-box" placeholder="What are your thoughts?"></textarea>
+            <button class="submit-reply">Submit</button>
+        </div>
+        
+        <% children.filter( (child) => child.parent === comment._id ).forEach((child) => { %>
+                        <div class="comment-children">
                 <%# include("comment.ejs", {comment: child}); %>
             </div>
-        <%# }) %>
+        <% }) %>
+            
+
     </div>
 </div>

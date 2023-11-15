@@ -38,6 +38,57 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
+const showReply = (obj) => {
+    let actions = obj.parentNode.parentNode.parentNode
+
+    actions.childNodes.forEach( (child) => {
+        if (child.className === "comment-reply-box") {
+            if (child.style.display === 'none') {
+                child.style.display = 'block'
+            }
+            else {
+                child.style.display = 'none'
+            }
+            return
+        }
+    })
+}
+
+const commentReply = async (obj) => {
+    const content = obj.previousElementSibling.value
+
+    let comment = obj
+    while (!comment.id) {
+        comment = comment.parentNode
+    }
+    const _id = comment.id
+
+    console.log(content)
+
+    if (content === '') {
+        obj.parentNode.display = 'none'
+        return
+    }
+
+    const response = await fetch('/api/comments/create-reply', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ _id, content }),
+    });
+
+    const data = await response.json();
+
+    if (response.ok) {
+        // refresh page
+        window.location = window.location
+    } else {
+        alert('Server error!')
+    }
+}
+
+// TODO
+// const commentVote = async (obj) => 
+
 const commentDelete = async (obj) => {
     let comment = obj
     while (!comment.id) {
@@ -55,7 +106,7 @@ const commentDelete = async (obj) => {
     const data = await response.json();
 
     if (response.ok) {
-        document.getElementById(commentId).innerHTML = ""
+        window.location = window.location
     } else {
         alert('Server error!')
     }
@@ -64,6 +115,12 @@ const commentDelete = async (obj) => {
 const commentFunctions = (evt) => {
     if (evt.target.classList.contains("delete")) {
         commentDelete(evt.target)
+    }
+    if (evt.target.classList.contains("reply")) {
+        showReply(evt.target)
+    }
+    if (evt.target.classList.contains("submit-reply")) {
+        commentReply(evt.target)
     }
 }
 
