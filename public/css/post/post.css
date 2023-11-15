@@ -168,9 +168,11 @@ h1 {
 }
 
 .post-content {
-    color: #b8c5c9;
     font-size: 14px;
     padding-bottom: 1.5rem;
+    /* Var color */
+    color: var(--body-text-color);
+
 }
 
 .comments {
