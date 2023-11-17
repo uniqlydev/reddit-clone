@@ -99,15 +99,41 @@ exports.editProfile = async (req, res) => {
         const db = client.db(DB_NAME);
         const users = db.collection('users');
 
-        await users.updateOne(
-            { username: username },
-            {
-                $set: {
-                    bio: bio,
-                    avatar: avatar,
-                },
-            }
-        );
+        if (bio === '' && avatar !== '') {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        avatar: avatar,
+                    },
+                }
+            );
+
+            res.json({ message: "Profile edited" });
+            return;
+        } else if (avatar === '' && bio !== '') {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        bio: bio,
+                    },
+                }
+            );
+
+            res.json({ message: "Profile edited" });
+            return;
+        } else {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        bio: bio,
+                        avatar: avatar,
+                    },
+                }
+            );
+        }
 
         res.json({ message: "Profile edited" });
     } catch (e) {
