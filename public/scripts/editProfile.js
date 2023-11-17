@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const bio = document.getElementById('edit-bio').value;
-        // Will add image upload later
+        const avatar = document.getElementById('edit-avatar').value;
 
         const urlParams = new URLSearchParams(window.location.search);
         const username = urlParams.get('username');
@@ -22,7 +22,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('api/user/profile-edit', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username, bio }),
+            body: JSON.stringify({ username, bio, avatar }),
         });
 
         const data = await response.json();

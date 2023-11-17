@@ -229,11 +229,17 @@ app.get('/posts', async (req, res) => {
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
+        // Get avatar from user
+        const users = db.collection('users');
+        const user = await users.findOne({ username });
+        const avatar = user.avatar;
+
         res.render('post/post', {
             post,
             username,
             authenticated,
             loggedUser,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

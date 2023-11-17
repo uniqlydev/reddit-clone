@@ -22,7 +22,7 @@
             <div class="edit-form">
                 <span class="header-title">Edit Profile</span>
                 <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
-                <input type="file" id="img-upload" name="img" accept="image/*">
+                <textarea id="edit-avatar" name="avatar" placeholder="Image URL Link Here"></textarea>
                 <p id="status-text"></p>
                 <div id="action-buttons">
                     <button id="cancel-button" class="actions">Cancel</button>
@@ -33,7 +33,7 @@
                 <span class="header-title">Profile Preview</span>
                 <div id="profile-details">
                     <div id="profile-picture">
-                        <img src="https://e0.pxfuel.com/wallpapers/906/85/desktop-wallpaper-wide-mouth-singing-cat-pop-cat-pop-cat-cat-memes-cat-profile-popcat-thumbnail.jpg" alt="Profile Picture" />
+                        <img src="<%= user.avatar %>" alt="Profile Picture" />
                     </div>
                     <div id="profile-description">
                         <span id="username"><%= user.username %></span>
