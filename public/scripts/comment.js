@@ -23,10 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (response.ok) {
             document.getElementById('comment-box').value = ""
-            // refresh page
             window.location = window.location
         } else {
-            alert('Server error!')
+            alert(data.message);
         }
     });
 
@@ -78,9 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
     
-    // TODO
-    // const commentVote = async (obj) => 
-    
     const commentDelete = async (obj) => {
         let comment = obj
         while (!comment.id) {
@@ -88,11 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const commentId = comment.id
+        const username = document.getElementById('username').innerHTML.trim()
     
         const response = await fetch('/api/comments/delete-comment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentId }),
+            body: JSON.stringify({ commentId, username }),
         });
     
         const data = await response.json();
@@ -100,13 +97,14 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
             window.location = window.location
         } else {
-            alert('Server error!')
+            alert(data.message);
         }
     }
     
     const commentEdit = async (e, currContent) => {
         const commentId = document.getElementsByClassName('comment-id-holder')[0].id
         const content = document.getElementById('edit-textarea').value;
+        const username = document.getElementById('username').innerHTML.trim()
 
         if (currContent === content) {
             editModal.close()
@@ -116,7 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const response = await fetch('/api/comments/edit-comment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ commentId, content }),
+            body: JSON.stringify({ commentId, content, username }),
         });
 
         const data = await response.json();
@@ -124,10 +122,10 @@ document.addEventListener('DOMContentLoaded', () => {
         if (response.ok) {
             const comment = document.getElementById(commentId)
             comment.lastElementChild.firstElementChild.innerHTML = content
-            comment.firstElementChild.lastElementChild.innerHTML += " • Edited"
             editModal.close()
+            window.location = window.location
         } else {
-            alert('Server error!')
+            alert(data.message);
         }
     }
 

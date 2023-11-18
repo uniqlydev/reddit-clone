@@ -20,10 +20,15 @@ exports.getComments = async (req, res) => {
 
 // POST request for editing a comment.
 exports.editComment = async (req, res) => {
-    const { commentId, content } = req.body;
-    console.log('this should work')
-    console.log(commentId)
-    console.log(content)
+    const { commentId, content, username } = req.body;
+
+    const user = username.substring(2);
+
+    if (user !== req.session.username) {
+        res.status(403).json({ message: "You do not have permission to edit this comment" });
+        return;
+    }
+
     try {
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');
@@ -70,9 +75,14 @@ exports.createComment = async (req, res) => {
     const db = client.db(DB_NAME);
     const comments = db.collection('comments');
 
+    if (!req.session.authenticated) {
+        res.status(403).json({ message: "You must be logged in to comment" });
+        return;
+    }
+
     try {
         if (content === '') {
-            res.status(400)
+            res.status(400).json({ message: "Comment cannot be empty!" });
             return;
         }
 
@@ -86,8 +96,6 @@ exports.createComment = async (req, res) => {
             postId,
             commentId: id,
             content,
-            upvotes: 1,
-            downvotes: 0,
             user: 'u/' + req.session.username,
             date: date,
             edited: false,
@@ -118,7 +126,15 @@ exports.createComment = async (req, res) => {
 
 // POST request for deleting a comment.
 exports.deleteComment = async (req, res) => {
-    const commentId = req.body.commentId;
+    const { commentId, username } = req.body;
+
+    const user = username.substring(2);
+
+    if (user !== req.session.username) {
+        res.status(403).json({ message: "You do not have permission to delete this comment" });
+        return;
+    }
+
     try {
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');
