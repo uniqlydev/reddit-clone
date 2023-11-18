@@ -285,11 +285,20 @@ app.get('/search', async (req, res) => {
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
+        const users = db.collection('users');
+        const avatars = [];
+        for (let i = 0; i < postsList.length; i++) {
+            const user = await users.findOne({ username: postsList[i].user.substring(2) });
+            avatars.push(user.avatar);
+        }
+
         res.render('home/search', {
             postsList,
+            postsLength: postsList.length,
             query,
             authenticated,
             loggedUser,
+            avatars,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
