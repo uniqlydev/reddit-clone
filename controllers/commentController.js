@@ -11,8 +11,6 @@ exports.getComments = async (req, res) => {
         const comments = db.collection('comments');
         const commentList = await comments.find().toArray();
         res.json(commentList);
-
-        console.log(res.session)
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
@@ -56,14 +54,18 @@ exports.getComment = async (req, res) => {
     try {
         const { id } = req.params;
         const db = client.db(DB_NAME);
+        const users = db.collection('users');
         const comments = db.collection('comments');
         const comment = await comments.findOne({ id: parseInt(id) });
+        const username = comment.user.substring(2)
+        const user = await users.findOne({ username });
+        const avatar = user.avatar;
 
         if (!comment) {
             res.status(404).json({ message: "Comment not found" });
         }
 
-        res.json(comment);
+        res.json({ comment, avatar });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }

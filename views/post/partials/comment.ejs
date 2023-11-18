@@ -1,6 +1,6 @@
 <div class="comment" id="<%= comment._id %>">
     <div class="comment-info" onclick="collapse(this)">
-        <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
+        <span class="user-profile"><img src="<%= avatar %>"></span>
         <a id="username" class="username" href="/profile?username=<%= comment.content.commenter %>"><%= comment.user %></a>
         <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>

@@ -55,14 +55,24 @@ app.get('/', async (req, res) => {
         const username = req.session.username;
         const loggedUser = req.session.username;
 
+        // Get avatar from users from postsList
+        const db = client.db(DB_NAME);
+        const users = db.collection('users');
+        const avatars = [];
+        for (let i = 0; i < postsList.length; i++) {
+            const user = await users.findOne({ username: postsList[i].user.substring(2) });
+            avatars.push(user.avatar);
+        }
+
         console.log(req.session);
 
         res.render('home/home', {
             postsList,
-            postLength: postsList.length,
+            postsLength: postsList.length,
             authenticated,
             username,
             loggedUser,
+            avatars
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

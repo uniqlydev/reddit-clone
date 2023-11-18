@@ -47,36 +47,36 @@
 
             <div class="posts-container">
               <ul class="posts" id="posts">
-                <% postsList.forEach(posts => { %>
-                  <li class="post-container" id="<%= posts.id %>">
-                    <div class="post" id="<%= posts.id %>">
+                <% for (i = 0; i < postsLength; i++) { %>
+                  <li class="post-container" id="<%= postsList[i].id %>">
+                    <div class="post" id="<%= postsList[i].id %>">
                       <p class="sub-reddit">
-                        <span><img class="sub-icon" src="assets/home/posts/sampleicon.png" alt=""></span><%= posts.user %>
+                        <span><img class="sub-icon" src="<%= avatars[i] %>" alt=""></span><%= postsList[i].user %>
                       </p>
               
-                      <h1 class="title"><%= posts.title %></h1>
-                      <p class="description"><%= posts.body %></p>
+                      <h1 class="title"><%= postsList[i].title %></h1>
+                      <p class="description"><%= postsList[i].body %></p>
               
                       <div class="operations">
                         <ul>
                           <li>
                             <div class="up-down-vote">
                               <img src="assets/home/posts/arrow.png" alt="" width="15px">
-                              <p><%= posts.voteScore %></p>
+                              <p><%= postsList[i].voteScore %></p>
                             </div>
                           </li>
               
                           <li>
                             <div class="comment-button">
                               <img src="assets/home/posts/comment.png" alt="" width="15px">
-                              <p><%= posts.comments %></p>
+                              <p><%= postsList[i].comments %></p>
                             </div>
                           </li>
                         </ul>
                       </div>
                     </div>
                   </li>
-                <% }) %>
+                <% } %>
               </ul>
           </div>
         </div>
