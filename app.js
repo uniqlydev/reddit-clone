@@ -272,9 +272,14 @@ app.get('/search', async (req, res) => {
         // Get all posts containing the query string in either the title or body
         const postsList = await posts.find({ $or: [{ title: { $regex: query, $options: 'i' } }, { body: { $regex: query, $options: 'i' } }] }).sort({ id: -1 }).toArray();
 
+        const authenticated = req.session.authenticated;
+        const loggedUser = req.session.username;
+
         res.render('home/search', {
             postsList,
             query,
+            authenticated,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
