@@ -1,7 +1,6 @@
 const Comment = require('../models/comment');
 const {client, DB_NAME} = require('../database/database');
-const { application } = require('express');
-const { MongoClient, ServerApiVersion, ObjectId  } = require('mongodb')
+const { ObjectId } = require('mongodb')
 
 
 // GET request for list of all comments.

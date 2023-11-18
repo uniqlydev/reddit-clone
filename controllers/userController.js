@@ -1,7 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
 const {client, DB_NAME} = require('../database/database');
-const user = require('../models/user');
 
 // POST 
 exports.registerUser = async (req, res) => {
