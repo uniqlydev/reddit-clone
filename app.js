@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
+const commentRoutes = require('./routes/commentRoutes');
 const axios = require('axios'); 
 const {client, connectToMongoDB, DB_NAME} = require('./database/database.js');
 const cors = require('cors');
@@ -25,6 +26,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Connect first before routing
 connectToMongoDB();
 
+
 // Configure express-session
 app.use(session({
     secret: process.env.SESSION_SECRET,
@@ -39,6 +41,7 @@ app.use(session({
 
 app.use('/api/user',userRoutes);
 app.use('/api/posts',postRoutes);
+app.use('/api/comments',commentRoutes);
 
 
 const port = process.env.PORT;
@@ -225,6 +228,17 @@ app.get('/posts', async (req, res) => {
             return;
         }
 
+        const username = post.user.substring(2)
+
+        // Generate commments
+        const commentCursor = db.collection('comments');
+        const comments = await commentCursor.find({postId: parseInt(id)})
+            .toArray(function (err, result) {
+                if (err) throw err
+                console.log(result)
+            });
+
+        console.log(comments)
         const username = post.user.substring(2);
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
@@ -232,6 +246,7 @@ app.get('/posts', async (req, res) => {
         res.render('post/post', {
             post,
             username,
+            comments,
             authenticated,
             loggedUser,
         });

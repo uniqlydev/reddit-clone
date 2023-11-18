@@ -1,35 +1,44 @@
-<div class="comment">
+<div class="comment" id="<%= comment._id %>">
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
-        <a class="username" href="/profile?username=<%= comment.content.commenter %>"><%= comment.content.commenter %></a>
-        <span class="timestamp">• <%= comment.content.created_date %></span>
+        <a class="username" href="/profile?username=<%# comment.content.commenter %>"><%= comment.user %></a>
+        <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>
     <div class="comment-collapsible">
         <div class="comment-content">
-            <%= comment.content.text %>
+            <%= comment.content %>
         </div>
         <div class="comment-actions">
             <div class="vote">
                 <button class="upvote">
                     <span class="post-sprite upvote"></span>
                 </button>
-                <span class="count"><%= comment.content.votes %></span>
+                <span class="count"><%= comment.upvotes - comment.downvotes %></span>
                 <button class="downvote">
                     <span class="post-sprite downvote"></span>
                 </button>
             </div>
-            <button class="comment-action">
-                <span class="post-sprite comment-reply"></span>
-                <span class="count">Reply</span>
+            <button class="comment-action reply">
+                <span class="post-sprite comment-reply reply"></span>
+                <span class="count reply">Reply</span>
             </button>
-            <button class="delete">
-                <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" /></span>
-                <span class="count">Delete</span>
-            </button>
+            <% if (comment.content !== "[removed]") { %>
+                <button class="delete">
+                    <span><img src="https://cdn.icon-icons.com/icons2/868/PNG/512/trash_bin_icon-icons.com_67981.png" alt="Delete icon" width="15px" height="15px" style="filter: invert(100%);" class="delete"/></span>
+                    <span class="count delete">Delete</span>
+                </button>
+                <button class="count edit-button">Edit</button>
+            <% } %>
         </div>
-        <% comment.children.forEach( (child) => { %>
+        <div class="comment-reply-box">
+            <textarea id="comment-box" class="reply-box" placeholder="What are your thoughts?"></textarea>
+            <button class="submit-reply">Submit</button>
+        </div>
+        
+        <% children = comments.filter( (child) => comment._id.equals(child.parent) ) %>
+        <% children.forEach((child) => { %>
             <div class="comment-children">
-                <%- include("comment.ejs", {comment: child}); %>
+                <%- include("comment.ejs", {comment: child, children: children}) %>
             </div>
         <% }) %>
     </div>

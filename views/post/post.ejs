@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reddit - Dive Deep!</title>
+    <title><%= post.title %> : r/<%# post.subreddit %></title>
     <link rel="stylesheet" href="css/home/main.css">
     <link rel="stylesheet" href="css/home/navbar.css">
     <link rel="stylesheet" href="css/home/Side-bar.css">
@@ -14,7 +14,8 @@
     <link rel="icon" href="https://www.redditinc.com/assets/images/site/reddit-logo.png">
     <link rel="stylesheet" href="css/post/comment.css">
     <script src="scripts/post.js"></script>
-</head>
+    <script src="scripts/comment.js"></script>
+</head> 
 <body>
     <!-- Navbar -->
     <%- include('../home/partials/navbar.ejs')%>
@@ -81,15 +82,27 @@
                     </button>
                 </div>
                 <div class="comments">
-                    <%# comments.forEach( (comment) => { %>
-                        <div class="comment-thread">
-                            <%#- include("../post/partials/comment.ejs", {comment: comment}); %>
-                        </div>
-                    <%# }) %>
+                    <% comments.forEach( (comment) => { %>
+                        <% if (comment.parent === null) { %>
+                            <div class="comment-thread">
+                                <%- include("../post/partials/comment.ejs", {comment: comment, comments: comments}); %>
+                            </div>
+                        <% } %>
+                    <% }) %>
                 </div>
             </section>
         </div>
         <%- include("../post/partials/suggested-sidebar.ejs")%>
     </div>
+    <dialog id="edit-modal">
+        <div class="edit-form">
+            <span class="comment-id-holder"></span>
+            <textarea id="edit-textarea"></textarea>
+            <div class="functions">
+                <button id="edit-cancel">Cancel</button>
+                <button id="comment-edit-submit">Submit</button>
+            </div>
+        </div>
+    </dialog>
 </body>
 </html>

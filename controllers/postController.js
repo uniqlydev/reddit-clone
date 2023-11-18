@@ -15,7 +15,7 @@ exports.getPosts = async (req, res) => {
 // POST request for editing a post.
 exports.editPost = async (req, res) => {
     const { postId, title, body } = req.body;
-
+    
     try {
         // Reuse the MongoDB client and database connection
         const db = client.db(DB_NAME);

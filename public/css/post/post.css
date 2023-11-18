@@ -197,3 +197,21 @@ h1 {
     min-height: 150px;
     max-height: 400px;
 }
+
+.edit-form, #edit-modal {
+    background-color:#223237;
+}
+
+.edit-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.edit-form > textarea {
+    width: 300px;
+    height: 150px;
+}
+
+.edit-form > .functions {
+    margin-left: auto;
+}
