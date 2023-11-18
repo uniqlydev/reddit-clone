@@ -12,6 +12,23 @@
 .posts .post-container {
     border-radius: 15px;
     cursor: pointer;
+    list-style: none;
+    width: 75%;
+    height: 50%;
+}
+
+.posts .post-container .description {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.posts .post-container .title {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .posts .post-container:hover {

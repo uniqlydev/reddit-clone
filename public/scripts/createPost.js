@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // const postForm = document.getElementById('postForm');
     const statusMsg = document.getElementById('status-msg');
     const postSubmit = document.getElementById('post-submit');
 
@@ -25,12 +24,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    const searchBar = document.getElementById('search');
-
-    searchBar.addEventListener('keypress', async (e) => {
-        if (e.key === 'Enter') {
-            const searchQuery = searchBar.value;
-            window.location.href = `/search?query=${searchQuery}`;
-        }
-    });
+    const login = document.getElementById('loginbtn');
+    // If login is null, it means the user is already logged in 
+    if (login === null) {
+        const loggedin = document.getElementById('loggedin');
+        // View profile get username from p tag under button
+        loggedin.addEventListener('click', () => {
+            const username = document.getElementById('logged-user').innerText;
+            window.location.href = `/profile?username=${username}`;
+        });
+    } else {
+        login.addEventListener('click', () => {
+            window.location.href = `/login`;
+        });
+    }
 });

@@ -7,6 +7,7 @@ const axios = require('axios');
 const {client, connectToMongoDB, DB_NAME} = require('./database/database.js');
 const cors = require('cors');
 const session = require('express-session');
+const mongoStore = require('connect-mongo');
 
 const app = express();
 app.use(express.json());
@@ -25,16 +26,23 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Connect first before routing
 connectToMongoDB();
 
-app.use('/api/user',userRoutes);
-app.use('/api/posts',postRoutes);
-app.use('/api/comments',commentRoutes);
 
 // Configure express-session
 app.use(session({
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    store: mongoStore.create({
+        mongoUrl: process.env.DB_CONN, // replace with your MongoDB connection string
+        ttl: 14 * 24 * 60 * 60, // session TTL in seconds
+    }),
 }));
+
+
+app.use('/api/user',userRoutes);
+app.use('/api/posts',postRoutes);
+app.use('/api/comments',commentRoutes);
+
 
 const port = process.env.PORT;
 
@@ -43,10 +51,18 @@ app.get('/', async (req, res) => {
     try {
         const response = await axios.get(`http://localhost:${port}/api/posts`);
         const postsList = response.data;
+        const authenticated = req.session.authenticated;
+        const username = req.session.username;
+        const loggedUser = req.session.username;
+
+        console.log(req.session);
 
         res.render('home/home', {
             postsList,
-            postLength: postsList.length
+            postLength: postsList.length,
+            authenticated,
+            username,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -72,8 +88,14 @@ app.get('/profile', async (req, res) => {
         }
 
         const userPosts = await posts.find({ user: "u/" + username }).sort({ id: -1 }).toArray();
+        const authenticated = req.session.authenticated;
+        const loggedUser = req.session.username;
+
 
         res.render('home/profile', {
+            username,
+            authenticated,
+            loggedUser,
             user,
             postsList: userPosts,
         });
@@ -93,9 +115,18 @@ app.get('/profile-edit', async (req, res) => {
         const users = db.collection('users');
 
         const user = await users.findOne({ username });
+        const loggedUser = req.session.username;
+        const authenticated = req.session.authenticated;
+
+        if (loggedUser !== username) {
+            res.redirect('/profile?username=' + username);
+            return;
+        }
 
         res.render('home/profileEdit', {
             user,
+            authenticated,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -108,6 +139,18 @@ app.get('/login', (req, res) => {
     });
 });
 
+app.get('/logout', (req, res) => {
+    req.session.destroy((err) => {
+        if (err) {
+            console.error('Error destroying session:', err);
+            res.status(500).json({ message: 'Internal server error' });
+        } else {
+            res.redirect('/');
+        }
+    });
+});
+
+
 // Register Page
 app.get('/register', (req, res) => {
     res.render('home/register', {
@@ -116,8 +159,19 @@ app.get('/register', (req, res) => {
 
 // Create Post Page
 app.get('/create-post', (req, res) => {
-    res.render('post/createPost', {
-    });
+    const authenticated = req.session.authenticated;
+    const username = req.session.username;
+    const loggedUser = req.session.username;
+
+    if (authenticated === true) {
+        res.render('post/createPost', {
+            authenticated,
+            username,
+            loggedUser,
+        });
+    }else {
+        res.redirect('/login');
+    }
 });
 
 app.get('/edit-post', async (req, res) => {
@@ -136,7 +190,21 @@ app.get('/edit-post', async (req, res) => {
             return;
         }
 
+        const userPoster = post.user.substring(2);
+
+        const authenticated = req.session.authenticated;
+        const username = req.session.username;
+        const loggedUser = req.session.username;
+
+        if (loggedUser !== userPoster) {
+            res.redirect('/posts?id=' + id);
+            return;
+        }
+
         res.render('post/editPost', {
+            authenticated,
+            username,
+            loggedUser,
             post,
         });
     } catch (e) {
@@ -171,11 +239,16 @@ app.get('/posts', async (req, res) => {
             });
 
         console.log(comments)
+        const username = post.user.substring(2);
+        const authenticated = req.session.authenticated;
+        const loggedUser = req.session.username;
 
         res.render('post/post', {
             post,
             username,
-            comments
+            comments,
+            authenticated,
+            loggedUser,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

@@ -48,12 +48,12 @@
                 <div class="post-content" id="post-body"><%= post.body %></div>
                 <div class="user-actions">
                     <div class="vote">
-                        <button class="upvote">
+                        <button class="upvote" id="upvotebtn">
                             <span class="post-sprite upvote"></span>
                         </button>
-                        <span class="count"><%= post.upvotes %></span>
-                        <button class="downvote">
-                            <span class="post-sprite downvote"></span>
+                        <span class="count" id="vote-count"><%= post.voteScore %></span>
+                        <button class="downvote" id="downvotebtn">
+                            <span class="post-sprite downvote" id="downvote-count"></span>
                         </button>
                     </div>
                     <button class="comment-action">

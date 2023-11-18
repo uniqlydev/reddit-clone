@@ -6,7 +6,7 @@ exports.getPosts = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
-        const postList = await posts.find().toArray();
+        const postList = await posts.find().sort({ id: -1 }).toArray();
         res.json(postList);
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -60,6 +60,11 @@ exports.createPost = async (req, res) => {
     const db = client.db(DB_NAME);
     const posts = db.collection('posts');
 
+    if (!req.session.authenticated) {
+        res.status(401).json({ message: "You must be logged in to create a post!" });
+        return;
+    }
+
     try {
         if (title === '' || body === '') {
             res.status(400).json({ message: "Please fill out all fields!" });
@@ -77,9 +82,10 @@ exports.createPost = async (req, res) => {
             title,
             body,
             upvotes: 0,
-            comments: 0,
             downvotes: 0,
-            user: "u/username", // No idea how yet
+            voteScore: 0,
+            comments: 0,
+            user: "u/" + req.session.username,
             date: date,
             edited: false,
         });
@@ -100,6 +106,15 @@ exports.deletePost = async (req, res) => {
     try {
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
+        const post = await posts.findOne({ id: parseInt(postId) });
+
+        const userPoster = post.user.substring(2);
+        const loggedUser = req.session.username;
+
+        if (loggedUser !== userPoster) {
+            res.status(401).json({ message: "You can't delete someone else's post!" });
+            return;
+        }
 
         await posts.deleteOne({ id: parseInt(postId) });
 
@@ -108,3 +123,107 @@ exports.deletePost = async (req, res) => {
         res.status(500).json({ message: e.message });
     }
 };
+
+// POST request for upvoting a post
+exports.upvote = async (req, res) => {
+    const { postId, voteCount } = req.body;
+
+    try {
+        if (!req.session.authenticated) {
+            res.status(401).json({ message: "You must be logged in to upvote a post!" });
+            return;
+        }
+
+        const db = client.db(DB_NAME);
+        const posts = db.collection('posts');
+        const username = req.session.username;
+        const users = db.collection('users');
+        const user = await users.findOne({ username });
+
+        if (user.dislikedPosts.includes(postId)) {
+            res.status(500).json({ message: "You can't upvote a post you've downvoted!" });
+            return;
+        }
+
+        if (user.likedPosts.includes(postId)) {
+            await users.updateOne(
+                { username },
+                { $pull: { likedPosts: postId } }
+            );
+
+            await posts.updateOne(
+                { id: parseInt(postId) },
+                { $inc: { upvotes: -1, voteScore: -1 } }
+            );
+            
+            res.json({ message: "Post un-upvoted" });
+            return;
+        }
+
+        await users.updateOne(
+            { username },
+            { $push: { likedPosts: postId } }
+        );
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $inc: { upvotes: 1, voteScore: 1 } }
+        );
+
+        res.json({ message: "Post upvoted" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+}
+
+// POST request for downvoting a post
+exports.downvote = async (req, res) => {
+    const { postId, voteCount } = req.body;
+
+    try {
+        if (!req.session.authenticated) {
+            res.status(401).json({ message: "You must be logged in to downvote a post!" });
+            return;
+        }
+
+        const db = client.db(DB_NAME);
+        const posts = db.collection('posts');
+        const username = req.session.username;
+        const users = db.collection('users');
+        const user = await users.findOne({ username });
+
+        if (user.likedPosts.includes(postId)) {
+            res.status(500).json({ message: "You can't downvote a post you've upvoted!" });
+            return;
+        }
+
+        if (user.dislikedPosts.includes(postId)) {
+            await users.updateOne(
+                { username },
+                { $pull: { dislikedPosts: postId } }
+            );
+
+            await posts.updateOne(
+                { id: parseInt(postId) },
+                { $inc: { downvotes: -1, voteScore: 1 } }
+            );
+
+            res.json({ message: "Post un-downvoted" });
+            return;
+        }
+
+        await users.updateOne(
+            { username },
+            { $push: { dislikedPosts: postId } }
+        );
+
+        await posts.updateOne(
+            { id: parseInt(postId) },
+            { $inc: { downvotes: 1, voteScore: -1 } }
+        );
+
+        res.json({ message: "Post downvoted" });
+    } catch (e) {
+        res.status(500).json({ message: e.message });
+    }
+}
