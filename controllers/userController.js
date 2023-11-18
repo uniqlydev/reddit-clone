@@ -33,7 +33,7 @@ exports.registerUser = async (req, res) => {
             password: hashedPassword,
             bio: '',
             memberURL: 'u/' + username,
-            avatar: '',
+            avatar: 'https://www.redditstatic.com/avatars/avatar_default_02_4856A3.png',
             likedPosts: [],
             dislikedPosts: [],
         });
@@ -88,16 +88,52 @@ exports.loginUser = async (req, res) => {
 
 exports.editProfile = async (req, res) => {
     try {
-        const { username, bio } = req.body;
+        const { username, bio, avatar } = req.body;
+
+        if (bio === '' && avatar === '') {
+            res.status(400).json({ message: "Fields cannot be empty!" });
+            return;
+        }
 
         // Reuse the MongoDB client and database connection
         const db = client.db(DB_NAME);
         const users = db.collection('users');
 
-        await users.updateOne(
-            { username: username },
-            { $set: { bio: bio } }
-        );
+        if (bio === '' && avatar !== '') {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        avatar: avatar,
+                    },
+                }
+            );
+
+            res.json({ message: "Profile edited" });
+            return;
+        } else if (avatar === '' && bio !== '') {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        bio: bio,
+                    },
+                }
+            );
+
+            res.json({ message: "Profile edited" });
+            return;
+        } else {
+            await users.updateOne(
+                { username: username },
+                {
+                    $set: {
+                        bio: bio,
+                        avatar: avatar,
+                    },
+                }
+            );
+        }
 
         res.json({ message: "Profile edited" });
     } catch (e) {

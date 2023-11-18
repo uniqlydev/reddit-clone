@@ -78,7 +78,21 @@
     filter: opacity(80%);
 }
 
+#edit-avatar {
+    margin-bottom: 10px;
+    font-size: 16px;
+    width: 85%;
+    min-height: 30px;
+    resize: none;
+    border-radius: 5px;
+    filter: opacity(80%);
+}
+
 #edit-bio:focus {
+    filter: opacity(100%);
+}
+
+#edit-avatar:focus {
     filter: opacity(100%);
 }
 
