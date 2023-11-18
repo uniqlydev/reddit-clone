@@ -5,7 +5,7 @@
 ## Guide
 - Before running, do ```npm install``` to install all the dependencies.
 - Run ```npm run devStart``` to start the server.
-- OPen ```localhost:8080``` in your browser.
+- OPen ```localhost:3000``` in your browser.
 
 ## Connecting to back-end
 - Create a .env file in the root directory.
