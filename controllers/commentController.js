@@ -65,7 +65,7 @@ exports.getComment = async (req, res) => {
             res.status(404).json({ message: "Comment not found" });
         }
 
-        res.json({ comment, avatar });
+        res.json({ comment, avatar, username });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
