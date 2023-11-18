@@ -8,6 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const username = document.getElementById('username').value;
         const password = document.getElementById('password').value;
 
+        if (username === '' || password === '') {
+            errorMsg.textContent = "Fields cannot be empty!";
+            return;
+        }
+
         const response = await fetch('/api/user/login', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

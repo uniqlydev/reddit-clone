@@ -51,24 +51,27 @@
     border: 1px solid #575757;
     padding: 5px;
     background: none;
-    color: white;
+    color: var(--body-text-color);
     outline: none;
+
+    line-height: 40px;
+    resize: none;
 }
 
 #body-input {
     margin-top: 10px;
     margin-bottom: 10px;
     width: 98%;
-    height: 200px;
+    height: 500px;
     font-size: 14px;
     border-radius: 5px;
     border: 1px solid #575757;
-    padding: 5px;
-    resize: vertical;
+    padding: 10px;
+    resize: none;
     max-height: 400px;
     min-height: 200px;
     background: none;
-    color: white;
+    color: var(--body-text-color);
     outline: none;
 }
 
