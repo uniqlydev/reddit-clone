@@ -88,7 +88,7 @@ exports.createComment = async (req, res) => {
             content,
             upvotes: 1,
             downvotes: 0,
-            user: 'u/username',
+            user: 'u/' + req.session.username,
             date: date,
             edited: false,
             parent: parent ? new ObjectId(parent) : parent,
@@ -96,6 +96,17 @@ exports.createComment = async (req, res) => {
 
         // Save the new comment to the database
         const ins = await comments.insertOne(newComment);
+
+        // Increment comment post count
+        const posts = db.collection('posts');
+
+        await posts.updateOne({ id: parseInt(postId)}, 
+        {
+            $inc: {
+                comments: 1
+            }
+        });
+
         console.log(ins)
         console.log(JSON.stringify(comments.find({})))
 
@@ -118,6 +129,18 @@ exports.deleteComment = async (req, res) => {
                 content: "[removed]"
             }
         });
+
+
+        // Decrement comment post count
+        const posts = db.collection('posts');
+        const comment = await comments.findOne({ _id: new ObjectId(commentId) });
+        await posts.updateOne({ id: parseInt(comment.postId)}, 
+        {
+            $inc: {
+                comments: -1
+            }
+        });
+
 
         res.json({ message: "Comment deleted" });
     } catch (e) {

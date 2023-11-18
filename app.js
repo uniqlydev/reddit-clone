@@ -239,7 +239,6 @@ app.get('/posts', async (req, res) => {
             });
 
         console.log(comments)
-        const username = post.user.substring(2);
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
