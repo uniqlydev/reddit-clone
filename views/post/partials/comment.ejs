@@ -1,7 +1,7 @@
 <div class="comment" id="<%= comment._id %>">
     <div class="comment-info" onclick="collapse(this)">
-        <span class="user-profile"><img src="https://www.redditstatic.com/avatars/defaults/v2/avatar_default_5.png"></span>
-        <a class="username" href="/profile?username=<%# comment.content.commenter %>"><%= comment.user %></a>
+        <span class="user-profile"><img src="<%= avatar %>"></span>
+        <a id="username" class="username" href="/profile?username=<%= username %>"><%= comment.user %></a>
         <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>
     <div class="comment-collapsible">
@@ -9,15 +9,6 @@
             <%= comment.content %>
         </div>
         <div class="comment-actions">
-            <div class="vote">
-                <button class="upvote">
-                    <span class="post-sprite upvote"></span>
-                </button>
-                <span class="count"><%= comment.upvotes - comment.downvotes %></span>
-                <button class="downvote">
-                    <span class="post-sprite downvote"></span>
-                </button>
-            </div>
             <button class="comment-action reply">
                 <span class="post-sprite comment-reply reply"></span>
                 <span class="count reply">Reply</span>

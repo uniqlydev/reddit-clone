@@ -5,8 +5,6 @@ var commentSchema = mongoose.Schema({
     postId: Number,
     commentId: Number,
     content: String,
-    upvotes: Number,
-    downvotes: Number,
     user: String,
     date: String,
     edited: Boolean,

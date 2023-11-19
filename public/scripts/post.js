@@ -24,10 +24,12 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         // Redirect to home page if successful
+        const data = await response.json();
+
         if (response.ok) {
             window.location.href = '/';
         }else {
-            const data = await response.json();
+            alert(data.message);
             window.location.href = '/posts?id=' + postId;
         }
     });
