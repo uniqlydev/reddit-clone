@@ -116,6 +116,11 @@ exports.deletePost = async (req, res) => {
             return;
         }
 
+
+        // Delete all the comments 
+        const comments = db.collection('comments');
+        await comments.deleteMany({ postId: parseInt(postId) });
+
         await posts.deleteOne({ id: parseInt(postId) });
 
         res.json({ message: "Post deleted" });
