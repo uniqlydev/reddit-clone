@@ -150,6 +150,9 @@ document.addEventListener('DOMContentLoaded', () => {
             });
     }
 
+    const username = document.getElementById('username');
+    // remove u/ from username
+    username.href = "/profile?username=" + username.innerHTML.substring(2);
 
     const commentFunctions = (evt) => {
         if (evt.target.classList.contains("delete")) {
