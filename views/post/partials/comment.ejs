@@ -1,7 +1,7 @@
 <div class="comment" id="<%= comment._id %>">
     <div class="comment-info" onclick="collapse(this)">
         <span class="user-profile"><img src="<%= avatar %>"></span>
-        <a id="username" class="username" href="/profile?username=<%= username %>"><%= comment.user %></a>
+        <a id="username" class="username" href="/profile?username=<%= comment.user %>"><%= comment.user %></a>
         <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>
     <div class="comment-collapsible">

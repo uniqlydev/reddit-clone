@@ -98,7 +98,7 @@ exports.createComment = async (req, res) => {
             postId,
             commentId: id,
             content,
-            user: 'u/' + req.session.username,
+            user: req.session.username,
             date: date,
             edited: false,
             parent: parent ? new ObjectId(parent) : parent,
