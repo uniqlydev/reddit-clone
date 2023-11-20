@@ -20,6 +20,11 @@ exports.getComments = async (req, res) => {
 exports.editComment = async (req, res) => {
     const { commentId, content, username } = req.body;
 
+    if (!req.session.authenticated) {
+        res.status(403).json({ message: "You must be logged in to edit a comment" });
+        return;
+    }
+
     if (username !== req.session.username) {
         res.status(403).json({ message: "You do not have permission to edit this comment" });
         return;

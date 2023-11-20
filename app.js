@@ -354,6 +354,13 @@ app.get('/search', async (req, res) => {
             avatars.push(user.avatar);
         }
 
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
         res.render('home/search', {
             postsList,
             postsLength: postsList.length,
@@ -361,6 +368,7 @@ app.get('/search', async (req, res) => {
             authenticated,
             loggedUser,
             avatars,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
