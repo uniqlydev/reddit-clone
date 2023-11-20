@@ -64,12 +64,16 @@ app.get('/', async (req, res) => {
             avatars.push(user.avatar);
         }
 
-        let avatar = "";
+        console.log(authenticated);
+
+        let avatar = null;
         // If logged in, get avatar from logged user
         if (authenticated === true) {
             const loggedUseravatar = await users.findOne({ username: loggedUser });
             avatar = loggedUseravatar.avatar;
-        };
+        }else {
+            avatar = "";
+        }
 
         res.render('home/home', {
             postsList,
