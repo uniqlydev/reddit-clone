@@ -133,9 +133,12 @@ exports.createComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
     const { commentId, username } = req.body;
 
-    const user = username.substring(2);
+    if (!req.session.authenticated) {
+        res.status(403).json({ message: "You must be logged in to delete a comment" });
+        return;
+    }
 
-    if (user !== req.session.username) {
+    if (username !== req.session.username) {
         res.status(403).json({ message: "You do not have permission to delete this comment" });
         return;
     }

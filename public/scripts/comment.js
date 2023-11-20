@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const commentId = comment.id
-        const username = document.getElementById('username').innerHTML.trim()
+        const username = document.getElementById('commentUsername').innerHTML.trim()
     
         const response = await fetch('/api/comments/delete-comment', {
             method: 'POST',
