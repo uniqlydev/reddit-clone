@@ -64,7 +64,10 @@ app.get('/', async (req, res) => {
             avatars.push(user.avatar);
         }
 
-        console.log(req.session);
+        // Get the avatar of the logged in user
+        const user = await users.findOne({ username: loggedUser });
+        const avatar = user.avatar;
+
 
         res.render('home/home', {
             postsList,
@@ -72,7 +75,8 @@ app.get('/', async (req, res) => {
             authenticated,
             username,
             loggedUser,
-            avatars
+            avatars,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -101,6 +105,11 @@ app.get('/profile', async (req, res) => {
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
+        const loggeduseravatar = await users.findOne({ username: loggedUser });
+        const avatar = loggeduseravatar.avatar;
+
+        
+
 
         res.render('home/profile', {
             username,
@@ -108,6 +117,7 @@ app.get('/profile', async (req, res) => {
             loggedUser,
             user,
             postsList: userPosts,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -128,6 +138,9 @@ app.get('/profile-edit', async (req, res) => {
         const loggedUser = req.session.username;
         const authenticated = req.session.authenticated;
 
+        const loggeduseravatar = await users.findOne({ username: loggedUser });
+        const avatar = loggeduseravatar.avatar;
+
         if (loggedUser !== username) {
             res.redirect('/profile?username=' + username);
             return;
@@ -137,6 +150,7 @@ app.get('/profile-edit', async (req, res) => {
             user,
             authenticated,
             loggedUser,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -168,16 +182,23 @@ app.get('/register', (req, res) => {
 });
 
 // Create Post Page
-app.get('/create-post', (req, res) => {
+app.get('/create-post', async (req, res) => {
     const authenticated = req.session.authenticated;
     const username = req.session.username;
     const loggedUser = req.session.username;
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
+    const user = await users.findOne({ username: loggedUser });
+    const avatar = user.avatar;
+
 
     if (authenticated === true) {
         res.render('post/createPost', {
             authenticated,
             username,
             loggedUser,
+            avatar,
         });
     }else {
         res.redirect('/login');
@@ -206,6 +227,10 @@ app.get('/edit-post', async (req, res) => {
         const username = req.session.username;
         const loggedUser = req.session.username;
 
+
+        const loggeduseravatar = await users.findOne({ username: loggedUser });
+        const avatar = loggeduseravatar.avatar;
+
         if (loggedUser !== userPoster) {
             res.redirect('/posts?id=' + id);
             return;
@@ -216,6 +241,7 @@ app.get('/edit-post', async (req, res) => {
             username,
             loggedUser,
             post,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -255,7 +281,11 @@ app.get('/posts', async (req, res) => {
         // Get avatar from user
         const users = db.collection('users');
         const user = await users.findOne({ username });
-        const avatar = user.avatar;
+        const poster_avatar = user.avatar;
+
+        // Get avatar from logged user
+        const loggeduseravatar = await users.findOne({ username: loggedUser });
+        const avatar = loggeduseravatar.avatar;
 
         res.render('post/post', {
             post,
@@ -263,7 +293,8 @@ app.get('/posts', async (req, res) => {
             comments,
             authenticated,
             loggedUser,
-            avatar,
+            poster_avatar,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

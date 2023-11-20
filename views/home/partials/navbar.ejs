@@ -10,7 +10,7 @@
         
         <% if (authenticated) {%>
             <button class="logged-user" id="loggedin">
-                <img src="" alt="" class="profilepic">
+                <img src="<%= avatar %>" alt="" class="profilepic" id="profile-pic">
                 <div class="right-nav">
                     <p class="username" id="logged-user"><%= loggedUser %></p>
                 </div>
