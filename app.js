@@ -46,7 +46,8 @@ app.use('/api/comments',commentRoutes);
 
 const port = process.env.PORT;
 
-// Will serve as the homepage
+
+/* The above code is defining a route handler for the root URL ("/") in an Express.js application. */
 app.get('/', async (req, res) => {
     try {
         const response = await axios.get(`http://localhost:${port}/api/posts`);
@@ -89,8 +90,9 @@ app.get('/', async (req, res) => {
     }
 });
 
-// Go to specific users page
 
+/* The above code is defining a route handler for the '/profile' endpoint in a Node.js Express
+application. When a GET request is made to this endpoint, the code performs the following actions: */
 app.get('/profile', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -135,7 +137,9 @@ app.get('/profile', async (req, res) => {
     }
 });
 
-// Profile Edit page
+
+/* The above code is defining a route handler for the '/profile-edit' endpoint. When a GET request is
+made to this endpoint, the code performs the following actions: */
 app.get('/profile-edit', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -173,12 +177,23 @@ app.get('/profile-edit', async (req, res) => {
     }
 });
 
-// Login Page
+
+/* The code `app.get('/login', (req, res) => {
+    res.render('home/login', {
+    });
+});` is defining a route handler for the '/login' endpoint in an Express.js application. When a GET
+request is made to this endpoint, the code renders the 'home/login' view and sends it as a response.
+This allows the user to access the login page of the application. */
 app.get('/login', (req, res) => {
     res.render('home/login', {
     });
 });
 
+/* The above code is defining a route for the "/logout" endpoint in a Node.js application. When a GET
+request is made to this endpoint, it destroys the session associated with the request. If there is
+an error while destroying the session, it logs the error and sends a response with a status code of
+500 and a JSON object containing a message indicating an internal server error. If the session is
+successfully destroyed, it redirects the user to the root ("/") endpoint. */
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -190,14 +205,19 @@ app.get('/logout', (req, res) => {
     });
 });
 
-
-// Register Page
+/* The code `app.get('/register', (req, res) => {
+    res.render('home/register', {
+    });
+});` is defining a route handler for the '/register' endpoint in an Express.js application. When a
+GET request is made to this endpoint, the code renders the 'home/register' view and sends it as a
+response. This allows the user to access the registration page of the application. */
 app.get('/register', (req, res) => {
     res.render('home/register', {
     });
 });
 
-// Create Post Page
+
+/* The above code is defining a route handler for the '/create-post' endpoint. */
 app.get('/create-post', async (req, res) => {
     const authenticated = req.session.authenticated;
     const username = req.session.username;
@@ -227,6 +247,8 @@ app.get('/create-post', async (req, res) => {
     }
 });
 
+/* The above code is defining a route handler for the '/edit-post' endpoint. When a GET request is made
+to this endpoint, the code performs the following steps: */
 app.get('/edit-post', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -274,6 +296,8 @@ app.get('/edit-post', async (req, res) => {
     }
 });
 
+/* The above code is defining a route handler for the '/posts' endpoint. When a GET request is made to
+this endpoint, the code performs the following steps: */
 app.get('/posts', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -332,6 +356,8 @@ app.get('/posts', async (req, res) => {
     }
 });
 
+/* The above code is defining a route handler for the '/search' endpoint in a Node.js Express
+application. When a GET request is made to this endpoint, the code performs the following steps: */
 app.get('/search', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -375,7 +401,9 @@ app.get('/search', async (req, res) => {
     }
 });
 
-
+/* The above code is starting a server and listening for incoming requests on the specified port. Once
+the server is started, it will log a message to the console indicating the port on which the server
+is running. */
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });
