@@ -235,6 +235,7 @@ app.get('/edit-post', async (req, res) => {
         // Reuse the MongoDB client and database connection
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
+        const users = db.collection('users');
 
         const post = await posts.findOne({ id: parseInt(id) });
 
@@ -249,18 +250,16 @@ app.get('/edit-post', async (req, res) => {
         const username = req.session.username;
         const loggedUser = req.session.username;
 
+        if (loggedUser !== userPoster) {
+            res.redirect('/posts?id=' + id);
+            return;
+        }
 
         let avatar = "";
 
         if (authenticated === true) {
             const loggedUseravatar = await users.findOne({ username: loggedUser });
             avatar = loggedUseravatar.avatar;
-        }
-
-
-        if (loggedUser !== userPoster) {
-            res.redirect('/posts?id=' + id);
-            return;
         }
 
         res.render('post/editPost', {
