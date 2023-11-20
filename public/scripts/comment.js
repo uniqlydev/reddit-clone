@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
+    let currSelectedComment = "";
+
     const commentSubmit = document.getElementById('add-comment');
 
     const editModal = document.getElementById('edit-modal')
@@ -84,7 +86,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const commentId = comment.id
-        const username = document.getElementById('commentUsername').innerHTML.trim()
+        const username = document.getElementById(commentId).firstElementChild.firstElementChild.textContent
     
         const response = await fetch('/api/comments/delete-comment', {
             method: 'POST',
@@ -102,9 +104,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     
     const commentEdit = async (e, currContent) => {
-        const commentId = document.getElementsByClassName('comment-id-holder')[0].id
+        const commentId = currSelectedComment
         const content = document.getElementById('edit-textarea').value;
-        const username = document.getElementById('commentUsername').innerHTML.trim()
+        const username = document.getElementById(commentId).firstElementChild.firstElementChild.textContent
 
         if (currContent === content) {
             editModal.close()
@@ -140,7 +142,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         textarea.value = currContent
 
-        document.getElementsByClassName('comment-id-holder')[0].id = comment.id
+        currSelectedComment = comment.id
 
         editModal.showModal()
 
