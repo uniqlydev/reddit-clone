@@ -64,10 +64,12 @@ app.get('/', async (req, res) => {
             avatars.push(user.avatar);
         }
 
-        // Get the avatar of the logged in user
-        const user = await users.findOne({ username: loggedUser });
-        const avatar = user.avatar;
-
+        let avatar = "";
+        // If logged in, get avatar from logged user
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        };
 
         res.render('home/home', {
             postsList,
@@ -76,7 +78,7 @@ app.get('/', async (req, res) => {
             username,
             loggedUser,
             avatars,
-            avatar,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
@@ -105,8 +107,13 @@ app.get('/profile', async (req, res) => {
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
-        const loggeduseravatar = await users.findOne({ username: loggedUser });
-        const avatar = loggeduseravatar.avatar;
+        // const loggeduseravatar = await users.findOne({ username: loggedUser });
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
 
         
 
@@ -138,8 +145,13 @@ app.get('/profile-edit', async (req, res) => {
         const loggedUser = req.session.username;
         const authenticated = req.session.authenticated;
 
-        const loggeduseravatar = await users.findOne({ username: loggedUser });
-        const avatar = loggeduseravatar.avatar;
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
 
         if (loggedUser !== username) {
             res.redirect('/profile?username=' + username);
@@ -189,8 +201,14 @@ app.get('/create-post', async (req, res) => {
 
     const db = client.db(DB_NAME);
     const users = db.collection('users');
-    const user = await users.findOne({ username: loggedUser });
-    const avatar = user.avatar;
+
+    let avatar = "";
+
+    if (authenticated === true) {
+        const loggedUseravatar = await users.findOne({ username: loggedUser });
+        avatar = loggedUseravatar.avatar;
+    }
+
 
 
     if (authenticated === true) {
@@ -228,8 +246,13 @@ app.get('/edit-post', async (req, res) => {
         const loggedUser = req.session.username;
 
 
-        const loggeduseravatar = await users.findOne({ username: loggedUser });
-        const avatar = loggeduseravatar.avatar;
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
 
         if (loggedUser !== userPoster) {
             res.redirect('/posts?id=' + id);
@@ -284,8 +307,13 @@ app.get('/posts', async (req, res) => {
         const poster_avatar = user.avatar;
 
         // Get avatar from logged user
-        const loggeduseravatar = await users.findOne({ username: loggedUser });
-        const avatar = loggeduseravatar.avatar;
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
 
         res.render('post/post', {
             post,
