@@ -25,10 +25,10 @@ exports.editComment = async (req, res) => {
         return;
     }
 
-    if (username !== req.session.username) {
-        res.status(403).json({ message: "You do not have permission to edit this comment" });
-        return;
-    }
+    // if (username !== req.session.username) {
+    //     res.status(403).json({ message: "You do not have permission to edit this comment" });
+    //     return;
+    // }
 
     try {
         const db = client.db(DB_NAME);
@@ -138,10 +138,10 @@ exports.deleteComment = async (req, res) => {
         return;
     }
 
-    if (username !== req.session.username) {
-        res.status(403).json({ message: "You do not have permission to delete this comment" });
-        return;
-    }
+    // if (username !== req.session.username) {
+    //     res.status(403).json({ message: "You do not have permission to delete this comment" });
+    //     return;
+    // }
 
     try {
         const db = client.db(DB_NAME);
