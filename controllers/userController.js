@@ -1,6 +1,6 @@
 const User = require('../models/user');
 const bcrypt = require('bcrypt');
-const {client, DB_NAME} = require('../database/database');
+const {client, DB_NAME} = require('../models/database');
 const user = require('../models/user');
 
 // POST 

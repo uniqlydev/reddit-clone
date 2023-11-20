@@ -1,5 +1,5 @@
 const Comment = require('../models/comment');
-const {client, DB_NAME} = require('../database/database');
+const {client, DB_NAME} = require('../models/database');
 const { application } = require('express');
 const { MongoClient, ServerApiVersion, ObjectId  } = require('mongodb')
 
