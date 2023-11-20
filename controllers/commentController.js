@@ -20,9 +20,7 @@ exports.getComments = async (req, res) => {
 exports.editComment = async (req, res) => {
     const { commentId, content, username } = req.body;
 
-    const user = username.substring(2);
-
-    if (user !== req.session.username) {
+    if (username !== req.session.username) {
         res.status(403).json({ message: "You do not have permission to edit this comment" });
         return;
     }

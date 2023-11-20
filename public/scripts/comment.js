@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentEdit = async (e, currContent) => {
         const commentId = document.getElementsByClassName('comment-id-holder')[0].id
         const content = document.getElementById('edit-textarea').value;
-        const username = document.getElementById('username').innerHTML.trim()
+        const username = document.getElementById('username').value;
 
         if (currContent === content) {
             editModal.close()
