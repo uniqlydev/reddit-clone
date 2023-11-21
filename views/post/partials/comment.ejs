@@ -1,5 +1,5 @@
 <div class="comment" id="<%= comment._id %>">
-    <div class="comment-info" onclick="collapse(this)">
+    <div class="comment-info">
         <a id="commentUsername" class="username" href="/profile?username=<%= comment.user %>" style="font-weight: bolder;"><%= comment.user %></a>
         <span class="timestamp">• <%= comment.date %><%= (comment.edited === true) ? " • Edited" : "" %> </span>
     </div>
