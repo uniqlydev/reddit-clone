@@ -9,6 +9,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const password = document.getElementById('password').value;
         const confirmPassword = document.getElementById('confirm-password').value;
 
+
+
+        if (username === '' || password === '' || confirmPassword === '') {
+            statusMsg.textContent = "Fields cannot be empty!";
+            return;
+        }
+
         const response = await fetch('/api/user/register', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },

@@ -3,7 +3,8 @@ const bcrypt = require('bcrypt');
 const {client, DB_NAME} = require('../models/database');
 const user = require('../models/user');
 
-// POST 
+/* The `exports.registerUser` function is responsible for handling the registration of a new user. It
+receives the request (`req`) and response (`res`) objects as parameters. */
 exports.registerUser = async (req, res) => {
 
     const db = client.db(DB_NAME);
@@ -47,7 +48,8 @@ exports.registerUser = async (req, res) => {
     }
 };
 
-
+/* The `exports.loginUser` function is responsible for handling the login functionality for a user. It
+receives the request (`req`) and response (`res`) objects as parameters. */
 exports.loginUser = async (req, res) => {
     try {
         const { username, password } = req.body;
@@ -86,6 +88,8 @@ exports.loginUser = async (req, res) => {
     }
 };
 
+/* The `exports.editProfile` function is responsible for handling the editing of a user's profile. It
+receives the request (`req`) and response (`res`) objects as parameters. */
 exports.editProfile = async (req, res) => {
     try {
         const { username, bio, avatar } = req.body;

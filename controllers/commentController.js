@@ -147,6 +147,7 @@ exports.deleteComment = async (req, res) => {
         return;
     }
 
+
     try {
         const db = client.db(DB_NAME);
         const comments = db.collection('comments');

@@ -1,3 +1,4 @@
+/* This code is defining a Mongoose schema and model for a post. */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

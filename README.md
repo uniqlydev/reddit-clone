@@ -10,3 +10,7 @@
 ## Connecting to back-end
 - Create a .env file in the root directory.
 - Copy the following code in the ```.env.test``` to your .env file.
+
+
+## Note
+- All the passwords for the users of the forum site are the same as their usernames (i.e., machew/machew, bren/bren, mpayao/mpayao)

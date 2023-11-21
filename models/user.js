@@ -1,3 +1,4 @@
+/* The code is defining a Mongoose schema for a user object. */
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
