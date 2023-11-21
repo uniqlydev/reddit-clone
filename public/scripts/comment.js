@@ -84,7 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     
         const commentId = comment.id
-        const username = document.getElementById('username').innerHTML.trim()
+        const username = document.getElementById('commentUsername').innerHTML.trim()
     
         const response = await fetch('/api/comments/delete-comment', {
             method: 'POST',
@@ -104,7 +104,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const commentEdit = async (e, currContent) => {
         const commentId = document.getElementsByClassName('comment-id-holder')[0].id
         const content = document.getElementById('edit-textarea').value;
-        const username = document.getElementById('username').innerHTML.trim()
+        const username = document.getElementById('commentUsername').innerHTML.trim()
 
         if (currContent === content) {
             editModal.close()

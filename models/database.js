@@ -1,3 +1,7 @@
+/**
+ * The above code exports a MongoDB client and a function to connect to a MongoDB database using the
+ * provided connection string and database name.
+ */
 const { MongoClient } = require('mongodb');
 const dotenv = require('dotenv');
 

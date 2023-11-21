@@ -1,3 +1,5 @@
+/* This code is setting up a router for handling different routes in a web application using the
+Express framework in JavaScript. */
 const express = require('express');
 const router = express.Router();
 const postController = require('../controllers/postController');

@@ -1,5 +1,5 @@
 const Post = require('../models/post');
-const {client, DB_NAME} = require('../database/database');
+const {client, DB_NAME} = require('../models/database');
 
 // GET request for list of all posts.
 exports.getPosts = async (req, res) => {

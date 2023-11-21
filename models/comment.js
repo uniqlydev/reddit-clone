@@ -1,3 +1,4 @@
+/* The code is defining a Mongoose schema for a comment object in a MongoDB database. */
 var mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 

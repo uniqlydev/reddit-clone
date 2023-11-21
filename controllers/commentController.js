@@ -1,5 +1,7 @@
 const Comment = require('../models/comment');
-const {client, DB_NAME} = require('../database/database');
+const {client, DB_NAME} = require('../models/database');
+const { application } = require('express');
+const { MongoClient, ServerApiVersion, ObjectId  } = require('mongodb')
 const { ObjectId } = require('mongodb')
 
 
@@ -19,12 +21,15 @@ exports.getComments = async (req, res) => {
 exports.editComment = async (req, res) => {
     const { commentId, content, username } = req.body;
 
-    const user = username.substring(2);
-
-    if (user !== req.session.username) {
-        res.status(403).json({ message: "You do not have permission to edit this comment" });
+    if (!req.session.authenticated) {
+        res.status(403).json({ message: "You must be logged in to edit a comment" });
         return;
     }
+
+    // if (username !== req.session.username) {
+    //     res.status(403).json({ message: "You do not have permission to edit this comment" });
+    //     return;
+    // }
 
     try {
         const db = client.db(DB_NAME);
@@ -97,7 +102,7 @@ exports.createComment = async (req, res) => {
             postId,
             commentId: id,
             content,
-            user: 'u/' + req.session.username,
+            user: req.session.username,
             date: date,
             edited: false,
             parent: parent ? new ObjectId(parent) : parent,
@@ -129,12 +134,15 @@ exports.createComment = async (req, res) => {
 exports.deleteComment = async (req, res) => {
     const { commentId, username } = req.body;
 
-    const user = username.substring(2);
-
-    if (user !== req.session.username) {
-        res.status(403).json({ message: "You do not have permission to delete this comment" });
+    if (!req.session.authenticated) {
+        res.status(403).json({ message: "You must be logged in to delete a comment" });
         return;
     }
+
+    // if (username !== req.session.username) {
+    //     res.status(403).json({ message: "You do not have permission to delete this comment" });
+    //     return;
+    // }
 
     try {
         const db = client.db(DB_NAME);

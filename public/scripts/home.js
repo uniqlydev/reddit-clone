@@ -12,6 +12,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('logged-user').innerText;
             window.location.href = `/profile?username=${username}`;
         });
+
+        const profilepic = document.getElementById('profile-pic');
+
+        // add image source
+        
     } else {
         login.addEventListener('click', () => {
             window.location.href = `/login`;

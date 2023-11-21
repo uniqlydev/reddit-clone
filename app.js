@@ -4,7 +4,7 @@ const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
 const axios = require('axios'); 
-const {client, connectToMongoDB, DB_NAME} = require('./database/database.js');
+const {client, connectToMongoDB, DB_NAME} = require('./models/database.js');
 const cors = require('cors');
 const session = require('express-session');
 const mongoStore = require('connect-mongo');
@@ -46,7 +46,8 @@ app.use('/api/comments',commentRoutes);
 
 const port = process.env.PORT;
 
-// Will serve as the homepage
+
+/* The above code is defining a route handler for the root URL ("/") in an Express.js application. */
 app.get('/', async (req, res) => {
     try {
         const response = await axios.get(`http://localhost:${port}/api/posts`);
@@ -64,7 +65,16 @@ app.get('/', async (req, res) => {
             avatars.push(user.avatar);
         }
 
-        console.log(req.session);
+        console.log(authenticated);
+
+        let avatar = null;
+        // If logged in, get avatar from logged user
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }else {
+            avatar = "";
+        }
 
         res.render('home/home', {
             postsList,
@@ -72,15 +82,17 @@ app.get('/', async (req, res) => {
             authenticated,
             username,
             loggedUser,
-            avatars
+            avatars,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
-// Go to specific users page
 
+/* The above code is defining a route handler for the '/profile' endpoint in a Node.js Express
+application. When a GET request is made to this endpoint, the code performs the following actions: */
 app.get('/profile', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -101,6 +113,16 @@ app.get('/profile', async (req, res) => {
         const authenticated = req.session.authenticated;
         const loggedUser = req.session.username;
 
+        // const loggeduseravatar = await users.findOne({ username: loggedUser });
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
+        
+
 
         res.render('home/profile', {
             username,
@@ -108,13 +130,16 @@ app.get('/profile', async (req, res) => {
             loggedUser,
             user,
             postsList: userPosts,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
-// Profile Edit page
+
+/* The above code is defining a route handler for the '/profile-edit' endpoint. When a GET request is
+made to this endpoint, the code performs the following actions: */
 app.get('/profile-edit', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -128,6 +153,14 @@ app.get('/profile-edit', async (req, res) => {
         const loggedUser = req.session.username;
         const authenticated = req.session.authenticated;
 
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
+
         if (loggedUser !== username) {
             res.redirect('/profile?username=' + username);
             return;
@@ -137,18 +170,30 @@ app.get('/profile-edit', async (req, res) => {
             user,
             authenticated,
             loggedUser,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
-// Login Page
+
+/* The code `app.get('/login', (req, res) => {
+    res.render('home/login', {
+    });
+});` is defining a route handler for the '/login' endpoint in an Express.js application. When a GET
+request is made to this endpoint, the code renders the 'home/login' view and sends it as a response.
+This allows the user to access the login page of the application. */
 app.get('/login', (req, res) => {
     res.render('home/login', {
     });
 });
 
+/* The above code is defining a route for the "/logout" endpoint in a Node.js application. When a GET
+request is made to this endpoint, it destroys the session associated with the request. If there is
+an error while destroying the session, it logs the error and sends a response with a status code of
+500 and a JSON object containing a message indicating an internal server error. If the session is
+successfully destroyed, it redirects the user to the root ("/") endpoint. */
 app.get('/logout', (req, res) => {
     req.session.destroy((err) => {
         if (err) {
@@ -160,30 +205,50 @@ app.get('/logout', (req, res) => {
     });
 });
 
-
-// Register Page
+/* The code `app.get('/register', (req, res) => {
+    res.render('home/register', {
+    });
+});` is defining a route handler for the '/register' endpoint in an Express.js application. When a
+GET request is made to this endpoint, the code renders the 'home/register' view and sends it as a
+response. This allows the user to access the registration page of the application. */
 app.get('/register', (req, res) => {
     res.render('home/register', {
     });
 });
 
-// Create Post Page
-app.get('/create-post', (req, res) => {
+
+/* The above code is defining a route handler for the '/create-post' endpoint. */
+app.get('/create-post', async (req, res) => {
     const authenticated = req.session.authenticated;
     const username = req.session.username;
     const loggedUser = req.session.username;
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
+
+    let avatar = "";
+
+    if (authenticated === true) {
+        const loggedUseravatar = await users.findOne({ username: loggedUser });
+        avatar = loggedUseravatar.avatar;
+    }
+
+
 
     if (authenticated === true) {
         res.render('post/createPost', {
             authenticated,
             username,
             loggedUser,
+            avatar,
         });
     }else {
         res.redirect('/login');
     }
 });
 
+/* The above code is defining a route handler for the '/edit-post' endpoint. When a GET request is made
+to this endpoint, the code performs the following steps: */
 app.get('/edit-post', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -192,6 +257,7 @@ app.get('/edit-post', async (req, res) => {
         // Reuse the MongoDB client and database connection
         const db = client.db(DB_NAME);
         const posts = db.collection('posts');
+        const users = db.collection('users');
 
         const post = await posts.findOne({ id: parseInt(id) });
 
@@ -211,17 +277,27 @@ app.get('/edit-post', async (req, res) => {
             return;
         }
 
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
         res.render('post/editPost', {
             authenticated,
             username,
             loggedUser,
             post,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
+/* The above code is defining a route handler for the '/posts' endpoint. When a GET request is made to
+this endpoint, the code performs the following steps: */
 app.get('/posts', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -255,7 +331,16 @@ app.get('/posts', async (req, res) => {
         // Get avatar from user
         const users = db.collection('users');
         const user = await users.findOne({ username });
-        const avatar = user.avatar;
+        const poster_avatar = user.avatar;
+
+        // Get avatar from logged user
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
 
         res.render('post/post', {
             post,
@@ -263,13 +348,16 @@ app.get('/posts', async (req, res) => {
             comments,
             authenticated,
             loggedUser,
-            avatar,
+            poster_avatar,
+            avatar
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
+/* The above code is defining a route handler for the '/search' endpoint in a Node.js Express
+application. When a GET request is made to this endpoint, the code performs the following steps: */
 app.get('/search', async (req, res) => {
     try {
         const urlParams = new URLSearchParams(req.query);
@@ -292,6 +380,13 @@ app.get('/search', async (req, res) => {
             avatars.push(user.avatar);
         }
 
+        let avatar = "";
+
+        if (authenticated === true) {
+            const loggedUseravatar = await users.findOne({ username: loggedUser });
+            avatar = loggedUseravatar.avatar;
+        }
+
         res.render('home/search', {
             postsList,
             postsLength: postsList.length,
@@ -299,13 +394,16 @@ app.get('/search', async (req, res) => {
             authenticated,
             loggedUser,
             avatars,
+            avatar,
         });
     } catch (e) {
         res.status(500).json({ message: e.message });
     }
 });
 
-
+/* The above code is starting a server and listening for incoming requests on the specified port. Once
+the server is started, it will log a message to the console indicating the port on which the server
+is running. */
 app.listen(port, () => {
     console.log(`Server started on port ${port}`);
 });

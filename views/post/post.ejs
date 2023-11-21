@@ -26,7 +26,7 @@
             <div class="main-post">
                 <div class="credit-bar">
                     <span class="icon">
-                        <img src="<%= avatar %>" onclick="window.location.href='/profile?username=<%= username %>'" style="cursor: pointer;">
+                        <img src="<%= poster_avatar %>" onclick="window.location.href='/profile?username=<%= username %>'" style="cursor: pointer;">
                     </span>
                     <div class="post-info">
                             <div class="upper-post-info">
@@ -45,7 +45,7 @@
                     </button>
                 </div>
                 <h1 class="post-title" id="post-title"><%= post.title %></h1>
-                <div class="post-content" id="post-body"><%= post.body %></div>
+                <div class="post-content" id="post-body" style="color: rgb(176, 178, 181);"><%= post.body %></div>
                 <div class="user-actions">
                     <div class="vote">
                         <button class="upvote" id="upvotebtn">
