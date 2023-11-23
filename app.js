@@ -236,7 +236,7 @@ app.get('/create-post', async (req, res) => {
 
 
     if (authenticated === true) {
-        res.render('post/createPost', {
+        res.render('post/createpost', {
             authenticated,
             username,
             loggedUser,
