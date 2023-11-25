@@ -284,7 +284,7 @@ app.get('/edit-post', async (req, res) => {
             avatar = loggedUseravatar.avatar;
         }
 
-        res.render('post/editPost', {
+        res.render('post/editpost', {
             authenticated,
             username,
             loggedUser,
