@@ -10,6 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const saveBtn = document.getElementById('save-button');
     const statusText = document.getElementById('status-text');
 
+
     saveBtn.addEventListener('click', async (e) => {
         e.preventDefault();
 
@@ -32,6 +33,30 @@ document.addEventListener('DOMContentLoaded', () => {
             window.location.href = `/profile?username=` + username;
         } else {
             statusText.textContent = data.message;
+        }
+
+        // For file uplouad
+
+            // For file input
+        const fileInput = document.getElementById('edit-avatar');
+        const file = fileInput.files[0];
+
+        if (file) {
+            const formData = new FormData();
+            formData.append('avatar', file);
+
+            fetch('/upload', {
+                method: 'POST',
+                body: formData,
+    
+            })
+            .then (response => response.json())
+            .then (data => {
+                console.log("File uploaded successfully!");
+            })
+            .catch (error => {
+                console.error(error);
+            });
         }
     });
 

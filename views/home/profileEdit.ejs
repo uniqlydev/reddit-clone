@@ -22,7 +22,10 @@
             <div class="edit-form">
                 <span class="header-title">Edit Profile</span>
                 <textarea id="edit-bio" name="bio" placeholder="Description"></textarea>
-                <textarea id="edit-avatar" name="avatar" placeholder="Image URL Link Here"></textarea>
+                <!-- Upload file  -->
+                <label for="edit-avatar" id="avatar-label">Add Avatar</label>
+                <input type="file" id="edit-avatar" name="avatar" accept="image/png, image/jpeg">
+                <!-- <textarea id="edit-avatar" name="avatar" placeholder="Image URL Link Here"></textarea> -->
                 <p id="status-text"></p>
                 <div id="action-buttons">
                     <button id="cancel-button" class="actions">Cancel</button>

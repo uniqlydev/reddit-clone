@@ -3,6 +3,7 @@ const path = require('path');
 const userRoutes = require('./routes/userRoutes');
 const postRoutes = require('./routes/postRoutes');
 const commentRoutes = require('./routes/commentRoutes');
+const fileuploadRoutes = require('./routes/fileUploadRoutes');
 const axios = require('axios'); 
 const {client, connectToMongoDB, DB_NAME} = require('./models/database.js');
 const cors = require('cors');
@@ -42,6 +43,9 @@ app.use(session({
 app.use('/api/user',userRoutes);
 app.use('/api/posts',postRoutes);
 app.use('/api/comments',commentRoutes);
+
+// To handle file uploads
+app.use(fileuploadRoutes);
 
 
 const port = process.env.PORT;
