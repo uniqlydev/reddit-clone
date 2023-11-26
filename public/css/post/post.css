@@ -154,7 +154,12 @@ h1 {
     background-position-x: -40px;
 }
 
-.upvote:hover {
+/* .upvote:hover {
+    background-position-x: -55px;
+} */
+
+.upvoteTrue {
+    width: 15px;
     background-position-x: -55px;
 }
 
@@ -163,7 +168,12 @@ h1 {
     background-position-x: -70px;
 }
 
-.downvote:hover {
+/* .downvote:hover {
+    background-position-x: -85px;
+} */
+
+.downvoteTrue {
+    width: 15px;
     background-position-x: -85px;
 }
 

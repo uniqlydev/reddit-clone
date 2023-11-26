@@ -79,10 +79,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         if (response.ok) {
-            window.location.href = '/posts?id=' + postId;
+            window.location.reload();
         } else {
             alert(data.message);
-            window.location.href = '/posts?id=' + postId;
+            window.location.reload();
         }
     });
 
@@ -104,10 +104,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const data = await response.json();
 
         if (response.ok) {
-            window.location.href = '/posts?id=' + postId;
+            window.location.reload();
         } else {
             alert(data.message);
-            window.location.href = '/posts?id=' + postId;
+            window.location.reload();
         }
     });
 });

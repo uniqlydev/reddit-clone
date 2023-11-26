@@ -48,13 +48,25 @@
                 <div class="post-content" id="post-body" style="color: rgb(176, 178, 181);"><%= post.body %></div>
                 <div class="user-actions">
                     <div class="vote">
-                        <button class="upvote" id="upvotebtn">
-                            <span class="post-sprite upvote"></span>
-                        </button>
+                        <% if(upvoted == true) { %> 
+                            <button class="upvoteTrue" id="upvotebtn">
+                                <span class="post-sprite upvoteTrue"></span>
+                            </button>
+                        <% } else { %>
+                            <button class="upvote" id="upvotebtn">
+                                <span class="post-sprite upvote"></span>
+                            </button>
+                        <% } %>
                         <span class="count" id="vote-count"><%= post.voteScore %></span>
-                        <button class="downvote" id="downvotebtn">
-                            <span class="post-sprite downvote" id="downvote-count"></span>
-                        </button>
+                        <% if (downvoted == true) { %>
+                            <button class="downvoteTrue" id="downvotebtn">
+                                <span class="post-sprite downvoteTrue" id="downvote-count"></span>
+                            </button>
+                        <% } else { %>
+                            <button class="downvote" id="downvotebtn">
+                                <span class="post-sprite downvote" id="downvote-count"></span>
+                            </button>
+                        <% } %>
                     </div>
                     <button class="comment-action">
                         <span class="post-sprite comment-action"></span>
