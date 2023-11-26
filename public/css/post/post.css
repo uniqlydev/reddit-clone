@@ -210,18 +210,22 @@ h1 {
 
 .edit-form, #edit-modal {
     background-color:#223237;
+    resize: none;
 }
 
 .edit-form {
     display: flex;
     flex-direction: column;
+    resize: none;
 }
 
 .edit-form > textarea {
     width: 300px;
     height: 150px;
+    resize: none;
 }
 
 .edit-form > .functions {
     margin-left: auto;
+    resize: none;
 }
