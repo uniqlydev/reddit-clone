@@ -123,3 +123,7 @@
 #save-button {
     background-color: rgb(124, 255, 124);
 }
+
+@media screen and (max-width: 375px) {
+    
+}

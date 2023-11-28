@@ -137,11 +137,12 @@ nav .get-app-and-login .more {
 }
 
 .logged-user .right-nav {
-    /* Make elements on top of each other */
+    /* Make elements side by side */
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 150px;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .logged-user .right-nav p {
@@ -164,3 +165,95 @@ nav .get-app-and-login .more {
     font-size: 15px;
 }
 
+
+
+@media screen and (max-width: 375px) {
+    nav {
+        padding-left: 10px;
+        padding-right: 10px;
+        height: 180px;
+        padding: 10px;
+    } 
+    
+    nav .logo-and-form {
+        /* Make elements stack */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    nav .logo-and-form .main-logo {
+        /* Put to top left dynamically */
+        margin-top: 10px;
+        margin-left: 10px;
+
+        height: 40px;
+        width: 120px;
+    }
+
+    /* Put search-bar below the main logo */
+    nav form {
+        margin-left: 0px;
+        margin-top: 10px;
+    }
+
+    nav form .search-bar {
+        width: 250px;
+        height: 20px;
+        font-size: 12px;
+        margin: 10px;
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+    }
+
+    nav .get-app-and-login {
+        margin-right: 0px;
+        margin-top: 10px;
+        margin: 10px;
+    }
+
+
+    nav .get-app-and-login {
+        margin-right: 0px;
+        margin-top: 10px;
+        margin: 10px;
+    }
+
+    .logged-user .right-nav {
+        /* Make elements side by side */
+        display: flex;
+        align-items: center;
+        width: 150px;
+        flex-direction: row;
+    }
+
+    .logged-user .right-nav p {
+        margin: 10px; /* Set margin to zero */
+        padding: 1px;
+        font-size: 12px;
+    }
+
+    .logged-user .profilepic {
+        /* Make size icon */
+        height: 30px;
+        width: 30px;
+    }
+
+    .logoutbtn {
+        height: 40px;
+        width: 100px;
+
+        border-radius: 20px;
+        background-color: var(--orange);
+        color: var(--body-text-color);
+        border: none;
+        cursor: pointer;
+
+        font-weight: bold;
+        font-size: 15px;
+    }
+}

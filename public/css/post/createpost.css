@@ -153,3 +153,24 @@
 #reddit-rules li {
     margin-top: 5px;
 }
+
+@media screen and (max-width: 375px) {
+    #main-container {
+        /* Make elements stack on top of each other */
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        /* Reverse flow direction */
+        flex-flow: column-reverse;
+
+    }
+
+    #post-container {
+        width: 100%;
+    }
+
+    #post-container #body-input {
+        width: auto;
+    }
+}
