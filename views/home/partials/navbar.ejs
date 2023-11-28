@@ -12,8 +12,12 @@
             <div class="logged-user" id="loggedin">
                 <img src="<%= avatar %>" alt="" class="profilepic" id="profile-pic" style="border-radius: 50%;">
                 <div class="right-nav">
-                    <p class="username" id="logged-user"><%= loggedUser %></p>
-                    <button class="logoutbtn" onclick="window.location.href='/logout'">Log out</button>
+                    <div class="username-container">
+                        <p class="username" id="logged-user"><%= loggedUser %></p>
+                    </div>
+                    <div class="login">
+                        <button class="logoutbtn" onclick="window.location.href='/logout'">Log out</button>
+                    </div>
                 </div>
             </div>
         <% } else { %>

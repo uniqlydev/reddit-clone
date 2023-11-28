@@ -117,3 +117,120 @@
     color: white;
     text-decoration: none;
 }
+
+
+@media screen and (max-width: 375px) {
+    .profile-posts {
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+
+        /* Center elements inside */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .post {
+        width: 100%;
+        border: 1px solid #474748;
+        border-radius: 10px;
+        display: flex;
+        flex-direction: column;
+        padding: 5px;
+        cursor: pointer;
+    }
+
+    .vote {
+        display: flex;
+        flex-direction: row;
+        margin: 10px;
+    }
+
+    .vote img {
+        filter: invert(100%);
+    }
+
+    .upvote-button {
+        background: none;
+        border: none;
+    }
+
+    .upvote-button:hover {
+        filter: brightness(50%);
+    }
+
+    .downvote-button {
+        background: none;
+        border: none;
+    }
+
+    .downvote-button:hover {
+        filter: brightness(50%);
+    }
+
+    .score {
+        text-align: center;
+        margin-bottom: 4px;
+    }
+
+    .post-container {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .post-details {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .post-location {
+        margin: 5px;
+    }
+
+    .post-location-sub {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .post-date {
+        margin: 5px;
+    }
+
+    .post-header {
+        margin: 5px;
+        font-size: 24px;
+    }
+
+    .post-body {
+        margin: 5px;
+        font-size: 16px;
+        color: #a2a2a2;
+
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; 
+        -webkit-box-orient: vertical;
+
+    }
+
+    .post-actions {
+        display: flex;
+        flex-direction: row;
+        margin-top: 5px;
+    }
+
+    .buttons {
+        margin-right: 20px;
+        border-radius: 7.5px;
+        background: none;
+        border: none;
+        color: white;
+        display: flex;
+        align-items: center;
+        justify-content: center
+    }
+}

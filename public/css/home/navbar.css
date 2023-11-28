@@ -137,11 +137,12 @@ nav .get-app-and-login .more {
 }
 
 .logged-user .right-nav {
-    /* Make elements on top of each other */
+    /* Make elements side by side */
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    align-items: center;
     width: 150px;
+    flex-direction: row;
+    gap: 10px;
 }
 
 .logged-user .right-nav p {
