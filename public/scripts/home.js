@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const login = document.getElementById('loginbtn');
     // If login is null, it means the user is already logged in 
     if (login === null) {
-        const loggedin = document.getElementById('loggedin');
+        const loggedin = document.getElementById('logged-user');
         // View profile get username from p tag under button
         loggedin.addEventListener('click', () => {
             const username = document.getElementById('logged-user').innerText;
