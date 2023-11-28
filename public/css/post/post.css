@@ -217,7 +217,7 @@ h1 {
 }
 
 
-@media screen and (max-width: 375px) {
+@media only screen and (max-width: 600px) {
     .main-content {
         width: 100%;
         margin: 0;

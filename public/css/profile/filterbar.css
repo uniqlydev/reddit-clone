@@ -45,7 +45,7 @@
     padding-right: 10%;
 }
 
-@media screen and (max-width: 375px) {
+@media only screen and (max-width: 600px) {
     #filter-bar {
         width: 100%;
         margin: 0;

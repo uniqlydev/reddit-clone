@@ -111,7 +111,7 @@
     background-color: rgb(31, 31, 31);
 }
 
-@media screen and (max-width: 375px) {
+@media only screen and (max-width: 600px) {
     #profilestats {
         width: 100%;
         margin: 0;

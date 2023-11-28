@@ -119,7 +119,7 @@
 }
 
 
-@media screen and (max-width: 375px) {
+@media only screen and (max-width: 600px) {
     .profile-posts {
         width: 100%;
         margin: 0;
