@@ -65,7 +65,7 @@ aside .topics-portion h4 {
     font-size: 15px;
 }
 
-@media screen and (max-width: 375px) {
+@media only screen and (max-width: 600px) {
     aside {
         display: none;
     }
