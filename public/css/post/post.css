@@ -215,3 +215,26 @@ h1 {
 .edit-form > .functions {
     margin-left: auto;
 }
+
+
+@media screen and (max-width: 375px) {
+    .main-content {
+        width: 100%;
+        margin: 0;
+        max-width: none;   
+        padding: 10px;
+    }
+
+    .main-content #comment-box {
+        width: -moz-available;
+    }
+
+    .main-content #post-title, .post-content {
+        width: 80%;
+    }
+
+    .main-content .user-actions {
+        gap: 0.25rem;
+
+    }
+}
