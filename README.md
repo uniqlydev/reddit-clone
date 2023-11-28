@@ -1,15 +1,18 @@
 # CCAPDEV
 
-<!-- Generate functions to run the program -->
-
 ## Guide
 - Before running, do ```npm install``` to install all the dependencies.
-- Run ```npm run devStart``` to start the server.
-- OPen ```localhost:3000``` in your browser.
+- Create your ```.env``` file then use the ```.env.test``` as reference
+- Run the web application by running ```npm run devStart``` on your terminal.
 
-## Connecting to back-end
-- Create a .env file in the root directory.
-- Copy the following code in the ```.env.test``` to your .env file.
+## Members
+- Brendan Castillo
+- Matthew Wassmer 
+- John Angelo Soriano
+- Lance Labarrete
+
+## Hosted Site
+- https://reddit-clone-c9rn.onrender.com
 
 
 ## Note
