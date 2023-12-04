@@ -164,3 +164,18 @@ nav .get-app-and-login .more {
     font-size: 15px;
 }
 
+
+.abbtn {
+    height: 40px;
+    width: 100px;
+
+    border-radius: 20px;
+    background-color: var(--orange);
+    color: var(--body-text-color);
+    border: none;
+    cursor: pointer;
+
+    font-weight: bold;
+    font-size: 15px;
+}
+

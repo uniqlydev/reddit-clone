@@ -91,6 +91,27 @@ app.get('/', async (req, res) => {
 });
 
 
+app.get('/about', async (req,res) => {
+    const authenticated = req.session.authenticated;
+    const loggedUser = req.session.username;
+
+    const db = client.db(DB_NAME);
+    const users = db.collection('users');
+
+    let avatar = "";
+
+    if (authenticated === true) {
+        const loggedUseravatar = await users.findOne({ username: loggedUser });
+        avatar = loggedUseravatar.avatar;
+    }
+
+    res.render('home/about', {
+        authenticated,
+        loggedUser,
+        avatar
+    });
+})
+
 /* The above code is defining a route handler for the '/profile' endpoint in a Node.js Express
 application. When a GET request is made to this endpoint, the code performs the following actions: */
 app.get('/profile', async (req, res) => {

@@ -7,6 +7,10 @@
         <form id="search-bar">
             <textarea name="search" id="search" placeholder="Search" class="search-bar" maxlength="100"></textarea>
         </form>
+
+        <div class="About-container">
+            <button class="abbtn" onclick="window.location.href='/about'">About</button>
+        </div>
         
         <% if (authenticated) {%>
             <button class="logged-user" id="loggedin">

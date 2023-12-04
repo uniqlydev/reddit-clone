@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About</title>
+    <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/main.css">
+    <link rel="stylesheet" href="css/home/navbar.css">
+    <link rel="stylesheet" href="css/home/Side-bar.css">
+    <link rel="stylesheet" href="css/home/main-frame.css">
+    <link rel="stylesheet" href="css/home/posts.css">
+
+    <style>
+        /* Center dep etc */
+        .dep {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .dev-dep {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .item-dep {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .item-dep li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+
+        .item-dep li::after {
+            content: " | ";
+        }
+
+        .item-dep li:last-child::after {
+            content: "";
+        }
+
+        .item-dep li:hover {
+            color: #0079d3;
+        }
+
+        .item-dep li a {
+            text-decoration: none;
+            color: #0079d3;
+        }
+
+        .item-dep li a:hover {
+            text-decoration: underline;
+        }
+
+        /* Center dep etc end */
+    </style>
+</head>
+<body>
+
+    <!-- Add navbar partial -->
+    <%- include('partials/navbar.ejs')%>
+
+    <!-- List all node modules -->
+    <h1 class="dep">dependencies</h1>
+    <ul class="item-dep">
+        <li>axios</li>
+        <li>bcrypt</li>
+        <li>body-parser</li>
+        <li>connect-mongo</li>
+        <li>cors</li>
+        <li>dotenv</li>
+        <li>ejs</li>
+        <li>express</li>
+        <li>express-session</li>
+        <li>mongodb</li>
+        <li>mongoose</li>
+        <li>path</li>
+        <li>punycode</li>
+    </ul>
+
+    <h1 class="dev-dep">Dev dependencies</h1>
+    <ul class="item-dep">
+        <li>nodemon</li>
+    </ul>
+    
+</body>
+</html>
