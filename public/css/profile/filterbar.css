@@ -44,3 +44,17 @@
     filter: invert(100%);
     padding-right: 10%;
 }
+
+@media only screen and (max-width: 600px) {
+    #filter-bar {
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+
+        /* Center elements inside */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+}

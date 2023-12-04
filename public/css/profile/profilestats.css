@@ -110,3 +110,16 @@
 #profile-options:hover {
     background-color: rgb(31, 31, 31);
 }
+
+@media only screen and (max-width: 600px) {
+    #profilestats {
+        width: 100%;
+        margin: 0;
+        margin-top: 10px;
+
+        /* Center elements inside */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+}

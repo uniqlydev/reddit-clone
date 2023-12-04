@@ -5,8 +5,9 @@
         </div>
 
         <form id="search-bar">
-            <textarea name="search" id="search" placeholder="Search" class="search-bar" maxlength="100"></textarea>
+            <textarea name="search" id="search" cols="30" rows="1" placeholder="Search" class="search-bar"></textarea>
         </form>
+
 
         <div class="About-container">
             <button class="abbtn" onclick="window.location.href='/about'">About</button>
@@ -14,15 +15,21 @@
         
         <% if (authenticated) {%>
             <button class="logged-user" id="loggedin">
+
+        <% if (authenticated) { %>
+            <div class="logged-user" id="loggedin">
+
                 <img src="<%= avatar %>" alt="" class="profilepic" id="profile-pic" style="border-radius: 50%;">
                 <div class="right-nav">
-                    <p class="username" id="logged-user"><%= loggedUser %></p>
+                    <div class="username-container">
+                        <p class="username" id="logged-user"><%= loggedUser %></p>
+                    </div>
+                    <div class="login">
+                        <button class="logoutbtn" onclick="window.location.href='/logout'">Log out</button>
+                    </div>
                 </div>
-                <div class="logout">
-                    <button class="logoutbtn" onclick="window.location.href='/logout'">Log out</button>
-                </div>
-            </button>
-        <% }else { %>
+            </div>
+        <% } else { %>
             <div class="get-app-and-login">
                 <button class="get-app">Get App</button>
                 <button class="login" id="loginbtn" onclick="window.location.href='/login'">Log in</button>

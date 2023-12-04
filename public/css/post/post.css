@@ -154,7 +154,12 @@ h1 {
     background-position-x: -40px;
 }
 
-.upvote:hover {
+/* .upvote:hover {
+    background-position-x: -55px;
+} */
+
+.upvoteTrue {
+    width: 15px;
     background-position-x: -55px;
 }
 
@@ -163,7 +168,12 @@ h1 {
     background-position-x: -70px;
 }
 
-.downvote:hover {
+/* .downvote:hover {
+    background-position-x: -85px;
+} */
+
+.downvoteTrue {
+    width: 15px;
     background-position-x: -85px;
 }
 
@@ -200,18 +210,45 @@ h1 {
 
 .edit-form, #edit-modal {
     background-color:#223237;
+    resize: none;
 }
 
 .edit-form {
     display: flex;
     flex-direction: column;
+    resize: none;
 }
 
 .edit-form > textarea {
     width: 300px;
     height: 150px;
+    resize: none;
 }
 
 .edit-form > .functions {
     margin-left: auto;
+    resize: none;
+}
+
+
+@media only screen and (max-width: 600px) {
+    .main-content {
+        width: 100%;
+        margin: 0;
+        max-width: none;   
+        padding: 10px;
+    }
+
+    .main-content #comment-box {
+        width: -moz-available;
+    }
+
+    .main-content #post-title, .post-content {
+        width: 80%;
+    }
+
+    .main-content .user-actions {
+        gap: 0.25rem;
+
+    }
 }

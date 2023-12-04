@@ -330,6 +330,9 @@ app.get('/posts', async (req, res) => {
 
         const post = await posts.findOne({ id: parseInt(id) });
 
+        let upvoted = false;
+        let downvoted = false;
+
         if (!post) {
             res.status(404).json({ message: "Post not found" });
             return;
@@ -359,7 +362,19 @@ app.get('/posts', async (req, res) => {
 
         if (authenticated === true) {
             const loggedUseravatar = await users.findOne({ username: loggedUser });
+
+            const user = await users.findOne({ username: loggedUser });
+
             avatar = loggedUseravatar.avatar;
+
+            // Check is user has liked or disliked post based on postID
+            if (user.likedPosts.includes(id)) {
+                upvoted = true;
+            }
+
+            if (user.dislikedPosts.includes(id)) {
+                downvoted = true;
+            }
         }
 
 
@@ -370,7 +385,9 @@ app.get('/posts', async (req, res) => {
             authenticated,
             loggedUser,
             poster_avatar,
-            avatar
+            avatar,
+            upvoted,
+            downvoted
         });
     } catch (e) {
         res.status(500).json({ message: e.message });

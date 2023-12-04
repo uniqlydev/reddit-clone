@@ -123,3 +123,24 @@
 #save-button {
     background-color: rgb(124, 255, 124);
 }
+
+@media only screen and (max-width: 600px) {
+    .edit-container {
+        width: 100%;
+
+        /* Center and stack all elements */
+        display: flex;
+        flex-direction: column-reverse;
+        align-items: center;
+        gap: 20px;
+    }
+
+    .edit-form {
+        /* Make smaller */
+        width: 90%;   
+    }
+
+    #action-buttons {
+        width: 90%;
+    }
+}
