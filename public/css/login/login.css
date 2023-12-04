@@ -131,6 +131,10 @@ body {
     background-color: rgb(134, 255, 134);
 }
 
+#registerForm {
+
+}
+
 
 @media only screen and (max-width: 600px) {
     .form-container {
