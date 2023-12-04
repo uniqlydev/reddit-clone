@@ -8,8 +8,17 @@
             <textarea name="search" id="search" cols="30" rows="1" placeholder="Search" class="search-bar"></textarea>
         </form>
 
+
+        <div class="About-container">
+            <button class="abbtn" onclick="window.location.href='/about'">About</button>
+        </div>
+        
+        <% if (authenticated) {%>
+            <button class="logged-user" id="loggedin">
+
         <% if (authenticated) { %>
             <div class="logged-user" id="loggedin">
+
                 <img src="<%= avatar %>" alt="" class="profilepic" id="profile-pic" style="border-radius: 50%;">
                 <div class="right-nav">
                     <div class="username-container">
